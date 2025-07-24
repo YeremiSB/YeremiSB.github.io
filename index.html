@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YEREMI S. BΛSTIAN</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      cursor: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #0d0d0d;
+      color: #ffffff;
+      font-family: 'Space Grotesk', sans-serif;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    .cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.05s ease;
+    }
+
+    header {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 1.5rem;
+      font-size: 1rem;
+    }
+
+    header a {
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    header a:hover,
+    header a.active {
+      color: #ff2e2e;
+    }
+
+    header a.active::after,
+    header a:hover::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 2px;
+      background: #ff2e2e;
+    }
+
+    main {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      padding: 4rem 2rem;
+      border-radius: 12px;
+      max-width: 900px;
+      width: 100%;
+      background-attachment: fixed;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.5);
+      padding: 0.5rem;
+      border-radius: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      line-height: 1.6;
+      background: rgba(0,0,0,0.5);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .quote-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .quote-section img {
+      max-width: 150px;
+      border-radius: 50%;
+    }
+
+    .quote-section blockquote {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #ccc;
+      max-width: 600px;
+      padding: 1rem;
+      text-align: justify;
+    }
+
+    .links {
+      margin-top: 3rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      border-bottom: 2px solid #fff;
+      padding-bottom: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .links a:hover {
+      background: #ff2e2e;
+      color: #fff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 5px;
+    }
+
+    footer {
+      font-size: 0.8rem;
+      color: #aaa;
+      padding: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      header {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .quote-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .quote-section blockquote {
+        text-align: justify;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+
+  <header>
+    <a href="index.Html">Inicio</a>
+    <a href="portafolio.html">Portafolio</a>
+    <a href="contacto.html">Contacto</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>YEREMI S. BΛSTIΛN</h1>
+      <p>
+        Estudiante. Creador de cortos. Programador aficionado. Comunicador en construcción.<br/>
+        Desde Perú, tratando de no pasar desapercibido.
+      </p>
+    </div>
+
+    <div class="quote-section">
+      <img src="https://via.placeholder.com/150" alt="Foto de Yeremi">
+      <blockquote>
+        "Chico peruano de 15 años, aficionado a los audiovisuales, la programación y la Inteligencia Artificial.<br/>
+        Me gusta crear cortos, editar videos, aprender cómo funcionan las cosas y meterle mano a lo digital.<br/>
+        Uso herramientas modernas, exploro estilos, y no le tengo miedo a probar cosas nuevas."
+      </blockquote>
+    </div>
+
+    <div class="links">
+      <a href="https://www.instagram.com/yeremi.sbastian/" target="_blank">Instagram</a>
+      <a href="https://www.youtube.com/@YeremiS.bastian" target="_blank">YouTube</a>
+      <a href="https://github.com/YeremiSB">GitHub</a>
+    </div>
+  </main>
+
+  <footer>
+    © Yeremi 2025 - Si lees esto, ya me conoces más que muchos.
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.top = `${e.clientY}px`;
+      cursor.style.left = `${e.clientX}px`;
+    });
+  </script>
+</body>
+</html>

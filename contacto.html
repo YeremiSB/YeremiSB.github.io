@@ -4,90 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contacto – Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="Escríbeme para colaboraciones, proyectos o consultas." />
   <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      cursor: none;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: #0d0d0d;
-      color: #ffffff;
-      font-family: 'Space Grotesk', sans-serif;
-      text-align: center;
-      overflow-x: hidden;
-    }
-
-    .cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.05s ease;
-    }
-
-    header {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      padding: 1.5rem;
-      font-size: 1rem;
-    }
-
-    header a {
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    header a:hover,
-    header a.active {
-      color: #ff2e2e;
-    }
-
-    header a.active::after,
-    header a:hover::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 100%;
-      height: 2px;
-      background: #ff2e2e;
-    }
-
     main {
       min-height: calc(100vh - 120px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
+      text-align: center;
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 0.75rem;
     }
 
-    p {
-      font-size: 1.1rem;
+    .lead {
+      font-size: 1.05rem;
       margin-bottom: 2rem;
-      color: #ccc;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.6;
     }
 
     form {
@@ -96,56 +37,72 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      background: #1a1a1a;
+      background: var(--surface);
       padding: 2rem;
       border-radius: 16px;
-      box-shadow: 0 0 20px rgba(255, 46, 46, 0.2);
+      box-shadow: 0 0 20px rgba(67, 209, 122, 0.2);
+      text-align: left;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: -0.5rem;
     }
 
     input, textarea {
       padding: 0.8rem;
       border: none;
       border-radius: 8px;
-      background: #2a2a2a;
-      color: #fff;
+      background: #1b211b;
+      color: var(--text);
+      font-family: inherit;
       font-size: 1rem;
       resize: vertical;
+      width: 100%;
     }
 
     input:focus, textarea:focus {
-      outline: 2px solid #ff2e2e;
+      outline: 2px solid var(--accent);
     }
 
     button {
       padding: 0.8rem;
       border: none;
       border-radius: 8px;
-      background: #ff2e2e;
-      color: #fff;
+      background: var(--accent);
+      color: var(--text);
+      font-family: inherit;
       font-size: 1rem;
+      font-weight: 700;
       cursor: pointer;
       transition: background 0.3s ease;
     }
 
     button:hover {
-      background: #e02222;
+      background: var(--accent-dark);
     }
 
     #respuesta {
       margin-top: 1rem;
-      color: #00ff88;
+      color: #43d17a;
       display: none;
     }
 
-    footer {
-      font-size: 0.8rem;
-      color: #aaa;
-      padding: 1rem;
+    .directo {
+      margin-top: 2.5rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .directo a {
+      color: var(--accent);
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <header>
     <a href="index.html">Inicio</a>
@@ -155,48 +112,62 @@
 
   <main>
     <h1>Hablemos</h1>
-    <p>¿Tienes alguna idea, proyecto o solo quieres saludar? Estoy a un mensaje de distancia.</p>
+    <p class="lead">¿Tienes una idea, un proyecto o solo quieres saludar? Estoy a un mensaje de distancia.</p>
+
     <form id="formulario" action="https://formspree.io/f/manbergg" method="POST">
-      <input type="text" name="nombre" placeholder="Tu nombre" required>
-      <input type="email" name="correo" placeholder="Tu correo electrónico" required>
-      <textarea name="mensaje" rows="5" placeholder="Tu mensaje..." required></textarea>
+      <label for="nombre">Tu nombre</label>
+      <input id="nombre" type="text" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
+
+      <label for="correo">Tu correo</label>
+      <input id="correo" type="email" name="correo" placeholder="tu@correo.com" autocomplete="email" required>
+
+      <label for="mensaje">Tu mensaje</label>
+      <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntame qué tienes en mente..." required></textarea>
+
       <button type="submit">Enviar</button>
     </form>
-    <div id="respuesta">¡Mensaje enviado con éxito!</div>
+
+    <p id="respuesta" role="status" aria-live="polite">¡Mensaje enviado con éxito!</p>
+
+    <p class="directo">
+      También puedes escribirme directo por
+      <a href="https://www.instagram.com/yeremi.sbastian/" target="_blank" rel="noopener noreferrer">Instagram</a>.
+    </p>
   </main>
 
   <footer>
-    © Yeremi 2025 - Estoy leyendo tus mensajes... 👀
+    © Yeremi S. BΛSTIAN — 2026 · Estoy leyendo tus mensajes... 👀
   </footer>
 
+  <script src="cursor.js"></script>
   <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
-    });
-
     const form = document.getElementById('formulario');
     const respuesta = document.getElementById('respuesta');
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
       const data = new FormData(form);
       fetch(form.action, {
-        method: "POST",
+        method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
+      })
+        .then(function (response) {
+          if (response.ok) {
+            respuesta.style.display = 'block';
+            respuesta.style.color = '#43d17a';
+            form.reset();
+          } else {
+            respuesta.innerText = 'Ocurrió un error. Intenta de nuevo o escríbeme por Instagram.';
+            respuesta.style.color = '#43d17a';
+            respuesta.style.display = 'block';
+          }
+        })
+        .catch(function () {
+          respuesta.innerText = 'Sin conexión. Revisa tu internet e intenta otra vez.';
+          respuesta.style.color = '#43d17a';
           respuesta.style.display = 'block';
-          respuesta.style.color = '#00ff88';
-          form.reset();
-        } else {
-          respuesta.innerText = 'Ocurrió un error...';
-          respuesta.style.color = '#ff2e2e';
-          respuesta.style.display = 'block';
-        }
-      });
+        });
     });
   </script>
 </body>

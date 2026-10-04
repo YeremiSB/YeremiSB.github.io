@@ -3,231 +3,330 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>YEREMI S. BΛSTIAN</title>
+  <title>Yeremi S. BΛSTIAN — Desarrollador y creador audiovisual</title>
+  <meta name="description" content="Yeremi S. Bastian, desarrollador y creador audiovisual desde Quillabamba, Perú. Programación, fotografía y cortometrajes." />
   <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      cursor: none;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: #0d0d0d;
-      color: #ffffff;
-      font-family: 'Space Grotesk', sans-serif;
-      text-align: center;
-      overflow-x: hidden;
-    }
-
-    .cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.05s ease;
-    }
-
-    header {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      padding: 1.5rem;
-      font-size: 1rem;
-    }
-
-    header a {
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.3s ease;
+    /* ===================== PORTADA ===================== */
+    .portada {
       position: relative;
-    }
-
-    header a:hover,
-    header a.active {
-      color: #ff2e2e;
-    }
-
-    header a.active::after,
-    header a:hover::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 100%;
-      height: 2px;
-      background: #ff2e2e;
-    }
-
-    main {
-      min-height: calc(100vh - 120px);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      overflow: hidden;
+      background: url('Fotos/Atardecer_Valle.webp') center 42%/cover no-repeat;
     }
 
-    .hero {
-      background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
-      padding: 4rem 2rem;
-      border-radius: 12px;
-      max-width: 900px;
-      width: 100%;
-      background-attachment: fixed;
+    .portada::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 55%, rgba(10, 14, 10, 0.1) 0%, rgba(10, 14, 10, 0.72) 100%),
+        linear-gradient(180deg, rgba(10, 14, 10, 0.72) 0%, rgba(10, 14, 10, 0.15) 30%, rgba(10, 14, 10, 0.3) 60%, rgba(10, 14, 10, 0.9) 100%);
     }
 
-    .hero h1 {
-      font-size: 5rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      background: rgba(0,0,0,0.5);
-      padding: 0.5rem;
-      border-radius: 10px;
+    .portada > * {
+      position: relative;
+      z-index: 1;
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      margin-top: 2rem;
-      line-height: 1.6;
-      background: rgba(0,0,0,0.5);
-      padding: 1rem;
-      border-radius: 10px;
-    }
-
-    .quote-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 4rem;
-      flex-wrap: wrap;
-    }
-
-    .quote-section img {
-      max-width: 150px;
-      border-radius: 50%;
-    }
-
-    .quote-section blockquote {
-      font-size: 1.4rem;
-      font-style: italic;
-      color: #ccc;
-      max-width: 600px;
-      padding: 1rem;
-      text-align: justify;
-    }
-
-    .links {
-      margin-top: 3rem;
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 1.5rem 2rem;
       justify-content: center;
     }
 
-    .links a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: bold;
-      border-bottom: 2px solid #fff;
-      padding-bottom: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .links a:hover {
-      background: #ff2e2e;
-      color: #fff;
-      padding: 0.2rem 0.6rem;
-      border-radius: 5px;
-    }
-
-    footer {
+    .saludo {
       font-size: 0.8rem;
-      color: #aaa;
-      padding: 1rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
     }
 
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 3rem;
-      }
+    .portada h1 {
+      font-size: clamp(2.6rem, 11vw, 6.5rem);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
 
-      .hero p {
-        font-size: 1rem;
+    .portada h1 .acento {
+      color: var(--accent);
+      display: block;
+    }
+
+    .rol {
+      margin-top: 1.5rem;
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      max-width: 32ch;
+      line-height: 1.9;
+    }
+
+    .social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+      margin-top: 2.5rem;
+      justify-content: center;
+    }
+
+    .social a {
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 3px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .social a:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .vermas {
+      position: absolute;
+      bottom: 2.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      padding: 0.6rem 1.5rem;
+      transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      animation: flotar 2.6s ease-in-out infinite;
+    }
+
+    .vermas:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-suave);
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translate(-50%, 0); }
+      50%      { transform: translate(-50%, 6px); }
+    }
+
+    /* ===================== CONTENIDO ===================== */
+    .bloque {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+      text-align: center;
+    }
+
+    .bloque h2 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1.5rem;
+    }
+
+    .bloque h2 span {
+      color: var(--accent);
+    }
+
+    .presentacion {
+      font-size: clamp(1rem, 2.4vw, 1.15rem);
+      font-style: italic;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.75;
+      text-align: left;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--accent-borde);
+    }
+
+    .areas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+      text-align: left;
+    }
+
+    .area {
+      display: block;
+      background: var(--surface);
+      border: 1px solid #1f261f;
+      border-radius: 12px;
+      padding: 1.75rem;
+      color: inherit;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .area:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-borde);
+      box-shadow: 0 10px 30px rgba(67, 209, 122, 0.18);
+    }
+
+    .area .icono {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .area h3 {
+      color: var(--accent);
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .area p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .area .flecha {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .area:hover .flecha {
+      transform: translateX(5px);
+      color: var(--accent);
+    }
+
+    /* ===================== CELULAR ===================== */
+    @media (max-width: 600px) {
+      .portada {
+        padding: 5.5rem 1rem 4.5rem;
       }
 
       header {
-        gap: 1.5rem;
-        flex-wrap: wrap;
+        padding: 1.25rem 1rem;
+        gap: 1.25rem;
       }
 
-      .quote-section {
-        flex-direction: column;
-        text-align: center;
+      .saludo {
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
       }
 
-      .quote-section blockquote {
-        text-align: justify;
+      .rol {
+        letter-spacing: 0.14em;
+        max-width: 26ch;
+      }
+
+      .social {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.9rem 1.5rem;
+        margin-top: 2rem;
+        max-width: 280px;
+        width: 100%;
+      }
+
+      .social a {
+        font-size: 0.9rem;
+        justify-self: center;
+      }
+
+      .vermas {
+        bottom: 1.5rem;
+        font-size: 0.68rem;
+        padding: 0.55rem 1.2rem;
+      }
+
+      .bloque {
+        padding: 3.5rem 1.25rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-  <header>
-    <a href="index.Html">Inicio</a>
-    <a href="portafolio.html">Portafolio</a>
-    <a href="contacto.html">Contacto</a>
-  </header>
+  <!-- ===================== PORTADA ===================== -->
+  <section class="portada">
+    <header>
+      <a class="active" href="index.html">Inicio</a>
+      <a href="portafolio.html">Portafolio</a>
+      <a href="contacto.html">Contacto</a>
+    </header>
 
-  <main>
-    <div class="hero">
-      <h1>YEREMI S. BΛSTIΛN</h1>
-      <p>
-        Estudiante. Creador de cortos. Programador aficionado. Comunicador en construcción.<br/>
-        Desde Perú, tratando de no pasar desapercibido.
-      </p>
+    <p class="saludo">Quillabamba · Perú</p>
+    <h1>Yeremi S.<span class="acento">BΛSTIΛN</span></h1>
+    <p class="rol">Hago código, fotos y cortometrajes</p>
+
+    <nav class="social" aria-label="Redes sociales">
+      <a href="https://www.instagram.com/yeremi.sbastian/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://www.youtube.com/@YeremiS.bastian" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <a href="https://github.com/YeremiSB" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://yeremixsb.itch.io" target="_blank" rel="noopener noreferrer">itch.io</a>
+    </nav>
+
+    <a class="vermas" href="#mas">— Ver más —</a>
+  </section>
+
+  <!-- ===================== CONTENIDO ===================== -->
+  <section class="bloque" id="mas">
+    <h2>Sobre <span>mí</span></h2>
+    <p class="presentacion">
+      Peruano de 16 años. Me muevo entre los audiovisuales, la programación y la inteligencia artificial.
+      Creo cortometrajes, edito video y construyo cosas con código: juegos, sitios web y experimentos con IA.
+      Aprendo tocando, equivocándome y volviendo a intentarlo.
+    </p>
+  </section>
+
+  <section class="bloque" style="padding-top: 0;">
+    <h2>Qué <span>hago</span></h2>
+    <div class="areas">
+      <a class="area" href="programacion.html">
+        <span class="icono">💻</span>
+        <h3>Programación</h3>
+        <p>Cave 32, un shooter en Godot; Snake 95 en JavaScript; y sitios web para clientes reales.</p>
+        <span class="flecha">Ver proyectos →</span>
+      </a>
+
+      <a class="area" href="fotografia.html">
+        <span class="icono">📸</span>
+        <h3>Fotografía</h3>
+        <p>13 fotos de Quillabamba y el Cusco: atardeceres, gatos callejeros y miradas de mi tierra.</p>
+        <span class="flecha">Ver galería →</span>
+      </a>
+
+      <a class="area" href="cortometrajes.html">
+        <span class="icono">🎬</span>
+        <h3>Cortometrajes</h3>
+        <p>Cortos documentales sobre el café, la familia y la vida en Quillabamba.</p>
+        <span class="flecha">Ver cortos →</span>
+      </a>
     </div>
-
-    <div class="quote-section">
-      <img src="https://via.placeholder.com/150" alt="Foto de Yeremi">
-      <blockquote>
-        "Joven peruano de 15 años, aficionado a los audiovisuales, la programación y la Inteligencia Artificial.<br/>
-        Me gusta crear cortos, editar videos, aprender cómo funcionan las cosas y meterle mano a lo digital.<br/>
-        Uso herramientas modernas, exploro estilos, y no le tengo miedo a probar cosas nuevas."
-      </blockquote>
-    </div>
-
-    <div class="links">
-      <a href="https://www.instagram.com/yeremi.sbastian/" target="_blank">Instagram</a>
-      <a href="https://www.youtube.com/@YeremiS.bastian" target="_blank">YouTube</a>
-      <a href="https://github.com/YeremiSB" target="_blank">GitHub</a>
-    </div>
-  </main>
+  </section>
 
   <footer>
-    © Yeremi 2025 - Si lees esto, ya me conoces más que muchos.
+    © Yeremi S. BΛSTIAN — 2026 · Código, caos y creatividad.
   </footer>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
-    });
-  </script>
+  <script src="cursor.js"></script>
 </body>
 </html>

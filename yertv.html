@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YERTV — IPTV Player con Monetización | Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="YERTV: reproductor IPTV web con estética Frutiger Aero, hecho con HLS.js, desplegado en Cloudflare Workers y empaquetado para webOS TV. Proyecto de Yeremi S. Bastian." />
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    /* ============================================================
+       Página de proyecto: YERTV
+       Mantiene el negro/verde del sitio, con toques de cristal
+       (Frutiger Aero) como guiño al estilo del propio producto.
+       ============================================================ */
+    .contenedor {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ---------- Portada del proyecto ---------- */
+    .hero-proyecto {
+      position: relative;
+      padding: 4.5rem 1.5rem 3.5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-proyecto::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(67, 209, 122, 0.16), transparent 55%),
+        radial-gradient(circle at 82% 20%, rgba(110, 200, 255, 0.14), transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(67, 209, 122, 0.1), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-proyecto > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-proyecto {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 1.5rem;
+      border-radius: 20px;
+      display: block;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(130, 210, 255, 0.25);
+    }
+
+    .etiqueta-tipo {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-suave);
+      border: 1px solid var(--accent-borde);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-proyecto h1 {
+      font-size: clamp(2.2rem, 7vw, 4rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-proyecto .lema {
+      margin-top: 1rem;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      max-width: 56ch;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .acciones-proyecto {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2.25rem;
+    }
+
+    .acciones-proyecto .btn {
+      margin-top: 0;
+      padding: 0.7rem 1.5rem;
+    }
+
+    .btn-fantasma {
+      display: inline-block;
+      padding: 0.7rem 1.5rem;
+      border: 1px solid #2a332a;
+      border-radius: 5px;
+      color: var(--muted);
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .btn-fantasma:hover {
+      border-color: var(--accent-borde);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- Marco de captura ---------- */
+    .marco {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #232b23;
+      background: #0b0f0b;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+      margin-top: 2rem;
+    }
+
+    .marco::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      pointer-events: none;
+    }
+
+    .marco img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .marco figcaption {
+      padding: 0.85rem 1.1rem;
+      font-size: 0.82rem;
+      color: var(--faint);
+      text-align: left;
+      border-top: 1px solid #1c231c;
+    }
+
+    /* ---------- Secciones ---------- */
+    .seccion {
+      margin-top: 4rem;
+    }
+
+    .seccion h2 {
+      font-size: clamp(1.35rem, 3.5vw, 1.9rem);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+    }
+
+    .seccion h2 span {
+      color: var(--accent);
+    }
+
+    .seccion p {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      max-width: 78ch;
+    }
+
+    .seccion ul {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .seccion ul li {
+      color: var(--muted);
+      line-height: 1.7;
+      padding-left: 1.6rem;
+      position: relative;
+      margin-bottom: 0.7rem;
+    }
+
+    .seccion ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .seccion strong {
+      color: #fff;
+    }
+
+    /* Panel tipo cristal, guiño al Frutiger Aero del producto */
+    .panel-cristal {
+      background: rgba(20, 32, 26, 0.55);
+      border: 1px solid rgba(130, 210, 255, 0.16);
+      border-radius: 12px;
+      padding: 1.75rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .panel-cristal h3 {
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .panel-cristal p {
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    /* Rejilla de características */
+    .rejilla-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    /* Ficha técnica */
+    .ficha {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .ficha div {
+      border-left: 2px solid var(--accent-borde);
+      padding-left: 1rem;
+    }
+
+    .ficha dt {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.35rem;
+    }
+
+    .ficha dd {
+      color: #fff;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .aviso {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--faint);
+      line-height: 1.7;
+      border-left: 2px solid #2a332a;
+      padding-left: 1.1rem;
+    }
+
+    .volver {
+      display: inline-block;
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .volver:hover {
+      color: var(--accent);
+      transform: translateX(-4px);
+    }
+
+    @media (max-width: 600px) {
+      .contenedor {
+        padding: 0 1.15rem 3rem;
+      }
+      .hero-proyecto {
+        padding: 3.25rem 1.15rem 2.5rem;
+      }
+      .logo-proyecto {
+        width: 72px;
+        height: 72px;
+      }
+      .etiqueta-tipo {
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        padding: 0.3rem 0.75rem;
+        max-width: 100%;
+        white-space: normal;
+        line-height: 1.5;
+      }
+      .hero-proyecto .lema {
+        font-size: 0.98rem;
+      }
+      .acciones-proyecto .btn,
+      .btn-fantasma {
+        width: 100%;
+        text-align: center;
+      }
+      .panel-cristal {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header>
+    <a href="index.html">Inicio</a>
+    <a class="active" href="portafolio.html">Portafolio</a>
+    <a href="contacto.html">Contacto</a>
+  </header>
+
+  <main>
+    <!-- ===================== PORTADA DEL PROYECTO ===================== -->
+    <section class="hero-proyecto">
+      <img class="logo-proyecto" src="Fotos/YERTV_Logo.png" alt="Logo de YERTV" width="88" height="88">
+      <span class="etiqueta-tipo">Proyecto de Educación para el Trabajo</span>
+      <h1>YERTV</h1>
+      <p class="lema">
+        Reproductor IPTV en la nube: pegas un enlace <strong>.m3u / .m3u8</strong> y ves el canal
+        sin instalar nada, con una interfaz de cristal inspirada en el estilo Frutiger Aero.
+      </p>
+      <div class="acciones-proyecto">
+        <a class="btn" href="https://yertv.yeremisebastian15.workers.dev/" target="_blank" rel="noopener noreferrer">Ver en vivo</a>
+        <a class="btn-fantasma" href="programacion.html">← Volver a Programación</a>
+      </div>
+    </section>
+
+    <div class="contenedor">
+      <figure class="marco">
+        <img src="Fotos/YERTV_Player.webp" alt="Interfaz de YERTV mostrando el reproductor y la lista de 52 canales de demostración" loading="lazy" decoding="async">
+        <figcaption>YERTV en producción: reproductor, lista de canales por categorías, buscador y selector de proxy CORS.</figcaption>
+      </figure>
+
+      <!-- ===================== EL PROBLEMA ===================== -->
+      <section class="seccion">
+        <h2>El <span>problema</span></h2>
+        <p>
+          Ver una transmisión en vivo en el celular o la computadora suele implicar instalar una app,
+          aguantar publicidad invasiva o pelear con reproductores que no cargan. Entrevisté a compañeros
+          y usuarios de La Convención y encontré el mismo patrón: quieren inmediatez, no configuración.
+        </p>
+        <p>
+          <strong>Punto de vista:</strong> el usuario de streaming necesita un reproductor web directo,
+          sin instalaciones y agradable a la vista, porque las opciones actuales le exigen descargar
+          software o lidiar con interfaces confusas.
+        </p>
+      </section>
+
+      <!-- ===================== LA SOLUCIÓN ===================== -->
+      <section class="seccion">
+        <h2>La <span>solución</span></h2>
+        <p>
+          Una WebApp que decodifica el video con <strong>HLS.js</strong> y lo reproduce en el navegador.
+          Si el navegador no puede con el formato, el sistema ofrece abrir el canal en un reproductor
+          nativo como VLC o MX Player. Todo en una sola página, sin backend propio.
+        </p>
+
+        <div class="rejilla-2">
+          <div class="panel-cristal">
+            <h3>Proxy CORS con cadena de respaldo</h3>
+            <p>
+              Una misma lista puede fallar según el servidor. Implementé tres proxies intercambiables
+              —corsproxy.io, AllOrigins y CodeTabs— más un modo directo, para que el usuario tenga
+              siempre una alternativa cuando un canal no carga.
+            </p>
+          </div>
+          <div class="panel-cristal">
+            <h3>Navegación con control remoto</h3>
+            <p>
+              La interfaz atrapa el foco dentro de los modales y responde al D-pad, como una app nativa
+              de televisor. Es la misma base que usé para la versión de webOS.
+            </p>
+          </div>
+          <div class="panel-cristal">
+            <h3>Reproducción en vivo adaptativa</h3>
+            <p>
+              Manejo de estados de carga, errores y reconexión: el reproductor avisa qué está pasando
+              en lugar de quedarse en negro, y guarda los canales favoritos del usuario.
+            </p>
+          </div>
+          <div class="panel-cristal">
+            <h3>Interfaz Frutiger Aero</h3>
+            <p>
+              Glassmorphism con <code>-webkit-backdrop-filter</code> para que el efecto de vidrio
+              funcione también en Safari, botones con relieve y animaciones suaves.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DESARROLLO ===================== -->
+      <section class="seccion">
+        <h2>Cómo lo <span>construí</span></h2>
+        <p>
+          Es un proyecto individual: asumí los roles de líder de proyecto, desarrollador full-stack
+          y diseñador. Trabajé con Design Thinking (empatizar, definir, idear, prototipar, evaluar),
+          Lean Canvas y un diagrama de Gantt entre el 20 y el 25 de agosto.
+        </p>
+        <ul>
+          <li><strong>Decisión técnica:</strong> comparé una app Android contra una WebApp y elegí la WebApp por velocidad de uso y cero instalación.</li>
+          <li><strong>Reto resuelto:</strong> el efecto de vidrio esmerilado no se veía igual en todos los navegadores; lo resolví con el prefijo <code>-webkit-</code>.</li>
+          <li><strong>Ajustes tras las pruebas:</strong> cambié los colores de la barra de desplazamiento, que no se distinguían, e implementé una barra personalizada.</li>
+          <li><strong>Costo del MVP:</strong> cero. Herramientas open source, CDNs gratuitos y recursos propios.</li>
+        </ul>
+
+        <div class="ficha">
+          <div>
+            <dt>Proyecto</dt>
+            <dd>YERTV — IPTV Player con Monetización</dd>
+          </div>
+          <div>
+            <dt>Equipo</dt>
+            <dd>YERTV Innova · desarrollo individual</dd>
+          </div>
+          <div>
+            <dt>Docente asesor</dt>
+            <dd>Joel Orlellana — Educación para el Trabajo</dd>
+          </div>
+          <div>
+            <dt>Institución</dt>
+            <dd>La Salle Quillabamba</dd>
+          </div>
+          <div>
+            <dt>Periodo</dt>
+            <dd>20 al 25 de agosto</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>HTML5, CSS3, Tailwind, HLS.js, Font Awesome</dd>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== DESPLIEGUE ===================== -->
+      <section class="seccion">
+        <h2>Despliegue y <span>versión para TV</span></h2>
+        <p>
+          La versión web está publicada en <strong>Cloudflare Workers</strong>, con su propio dominio:
+          no hay servidor que mantener y carga desde el borde de la red, así que abre rápido incluso
+          con mala conexión.
+        </p>
+        <p>
+          Además empaqueté el reproductor como <strong>aplicación nativa para webOS TV</strong>,
+          el sistema de los televisores LG. La app se define con un <code>appinfo.json</code>
+          (identificador <code>com.yertv.myapp</code>), se empaqueta en un archivo <code>.ipk</code>
+          y se instala con las herramientas de desarrollo de webOS. Llegué a compilar dos versiones,
+          la 0.1.0 y la 0.1.1, esta última con mejoras de navegación y control remoto.
+        </p>
+
+        <div class="rejilla-2">
+          <div class="panel-cristal">
+            <h3>Compilar un .ipk no es trivial</h3>
+            <p>
+              Requiere adaptar la interfaz a pantalla grande, resolver el foco con control remoto y
+              respetar las convenciones de empaquetado de webOS. Aprendí que una app de TV se diseña
+              distinto a una web: aquí no hay mouse.
+            </p>
+          </div>
+          <div class="panel-cristal">
+            <h3>Modelo de negocio explorado</h3>
+            <p>
+              El informe plantea dos vías: espacios publicitarios dentro del reproductor y una
+              suscripción premium para quitar anuncios. Es la parte de emprendimiento del proyecto
+              escolar; el enlace de patrocinadores no lo incluyo en este portafolio.
+            </p>
+          </div>
+        </div>
+
+        <p class="aviso">
+          <strong>Nota honesta:</strong> YERTV es un reproductor, no un catálogo. No aloja ni distribuye
+          canales: reproduce las listas que el usuario aporta, igual que VLC o Kodi. Por eso prefiero
+          presentarlo como herramienta técnica y no como servicio de contenido.
+        </p>
+      </section>
+
+      <a class="volver" href="programacion.html">← Ver todos los proyectos</a>
+    </div>
+  </main>
+
+  <footer>
+    © Yeremi S. BΛSTIAN — 2026 · Código, caos y creatividad.
+  </footer>
+
+  <script src="cursor.js"></script>
+</body>
+</html>

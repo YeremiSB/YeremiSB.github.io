@@ -4,173 +4,109 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Programación – Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="Proyectos de programación de Yeremi S. Bastian: juegos, sitios web y experimentos con IA." />
   <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      cursor: none;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      color: #ffffff;
-      font-family: 'Space Grotesk', sans-serif;
-      text-align: center;
-      overflow-x: hidden;
-      background-color: #000;
-    }
-
-    .cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.05s ease;
-    }
-
-    header {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      padding: 1.5rem;
-      font-size: 1rem;
-      background: rgba(0, 0, 0, 0.7);
-    }
-
-    header a {
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    header a:hover,
-    header a.active {
-      color: #ff2e2e;
-    }
-
-    header a.active::after,
-    header a:hover::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 100%;
-      height: 2px;
-      background: #ff2e2e;
-    }
-
     main {
       min-height: calc(100vh - 120px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
+      text-align: center;
     }
 
     .hero {
-      background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80');
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
       padding: 4rem 2rem;
       border-radius: 12px;
       max-width: 900px;
       width: 100%;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.72));
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-size: clamp(2rem, 6vw, 4rem);
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      background: rgba(0,0,0,0.5);
-      padding: 0.5rem;
-      border-radius: 10px;
     }
 
     .hero p {
-      font-size: 1.2rem;
-      margin-top: 2rem;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      margin-top: 1.5rem;
       line-height: 1.6;
-      background: rgba(0,0,0,0.5);
-      padding: 1rem;
-      border-radius: 10px;
+      color: #eee;
     }
 
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      gap: 1.75rem;
       margin-top: 3rem;
       width: 100%;
       max-width: 1000px;
     }
 
-    .card {
-      background: #1a1a1a;
-      border-radius: 10px;
-      padding: 1rem;
-      text-align: left;
-      transition: transform 0.3s ease;
+    /* Proyecto destacado: ocupa toda la fila y lleva borde de acento */
+    .card.destacado {
+      grid-column: 1 / -1;
+      border: 1px solid var(--accent-borde);
+      background: linear-gradient(140deg, rgba(67, 209, 122, 0.08), var(--surface) 55%);
+      padding: 2rem;
     }
 
-    .card:hover {
-      transform: translateY(-5px);
+    .card.destacado h3 {
+      font-size: 1.45rem;
     }
 
-    .card h3 {
-      color: #ff2e2e;
-      margin-bottom: 0.5rem;
+    .card.destacado code {
+      color: #a7e8c2;
+      background: rgba(67, 209, 122, 0.1);
+      border-radius: 4px;
+      padding: 0.05rem 0.35rem;
+      font-size: 0.88em;
     }
 
-    .card p {
-      font-size: 0.95rem;
-      color: #ccc;
-      margin-bottom: 1rem;
-    }
-
-    .card a {
+    .btn-borde {
       display: inline-block;
       margin-top: 0.5rem;
       padding: 0.5rem 1rem;
-      background: #ff2e2e;
-      color: white;
-      text-decoration: none;
+      border: 1px solid #2a332a;
       border-radius: 5px;
-      font-weight: bold;
-      transition: background 0.3s ease;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s ease;
     }
 
-    .card a:hover {
-      background: #e60000;
-    }
-
-    footer {
-      font-size: 0.8rem;
-      color: #aaa;
-      padding: 1rem;
+    .btn-borde:hover {
+      border-color: var(--accent-borde);
+      color: var(--accent);
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <header>
     <a href="index.html">Inicio</a>
-    <a href="portafolio.html">Portafolio</a>
+    <a class="active" href="portafolio.html">Portafolio</a>
     <a href="contacto.html">Contacto</a>
   </header>
 
@@ -178,41 +114,83 @@
     <div class="hero">
       <h1>Programación</h1>
       <p>
-        Aquí comparto algunos de mis experimentos y proyectos en desarrollo web, código creativo, inteligencia artificial y cosas que aún no sé cómo funcionaron... pero funcionaron.
+        Juegos, sitios web y experimentos con inteligencia artificial.
+        Cosas que a veces no sé cómo funcionaron... pero funcionaron.
       </p>
     </div>
 
-    <section class="gallery">
-      <div class="card">
-        <h3>Portafolio Personal</h3>
-        <p>Sitio web hecho desde cero usando HTML, CSS y algo de magia para mostrar quién soy y qué hago.</p>
-        <a href="https://yeremisb.github.io" target="_blank">Visitar</a>
-      </div>
+    <section class="gallery" aria-label="Proyectos de programación">
+      <article class="card destacado">
+        <h3>YERTV — IPTV Player con Monetización</h3>
+        <p>
+          Reproductor IPTV en la nube con estética Frutiger Aero: pegas una lista
+          <code>.m3u / .m3u8</code> y ves el canal sin instalar nada. Lo construí como proyecto de
+          Educación para el Trabajo, lo desplegué en Cloudflare Workers y lo empaqueté también
+          como app para televisores webOS.
+        </p>
+        <div class="tags">
+          <span>HTML5</span><span>Tailwind</span><span>HLS.js</span><span>Cloudflare Workers</span><span>webOS TV</span>
+        </div>
+        <div class="actions">
+          <a class="btn" href="yertv.html">Ver caso de estudio</a>
+          <a class="btn-borde" href="https://yertv.yeremisebastian15.workers.dev/" target="_blank" rel="noopener noreferrer">Ver en vivo ↗</a>
+        </div>
+      </article>
 
-      <div class="card">
-        <h3>Pronto</h3>
-        <p>Proyecto en construccion</p>
-        <a href="">No disponible</a>
-      </div>
+      <article class="card">
+        <h3>Snake 95</h3>
+        <p>
+          El clásico Snake con estética completa de Windows 95: ventana con barra de título,
+          menús y botones. Construido con HTML, CSS y JavaScript puro sobre canvas,
+          con controles táctiles para celular.
+        </p>
+        <div class="tags">
+          <span>HTML</span><span>CSS</span><span>JS</span><span>Canvas</span>
+        </div>
+        <div class="actions">
+          <!-- PENDIENTE: subir el juego a GitHub Pages o a un repo público para enlazar la demo -->
+          <span class="btn disabled" aria-disabled="true">Demo próximamente</span>
+        </div>
+      </article>
 
-      <div class="card">
-        <h3>Pronto</h3>
-        <p>Proyecto en construccion</p>
-        <a href="">No disponible</a>
-      </div>
+      <article class="card">
+        <h3>Cave 32</h3>
+        <p>
+          Shooter en primera persona con la fórmula clásica de <em>Wolfenstein 3D</em> arrastrada
+          a una pesadilla psicodélica: 4 universos fracturados, un quinto nivel secreto,
+          sin regeneración de salud y sin mapa. Modelado 3D en Blender y programado en Godot.
+        </p>
+        <div class="tags">
+          <span>Godot</span><span>Blender</span><span>GDScript</span><span>Horror</span><span>Retro 3D</span>
+        </div>
+        <div class="actions">
+          <a class="btn" href="https://yeremixsb.itch.io/cave-32" target="_blank" rel="noopener noreferrer">Jugar en itch.io</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Soluciones Totales</h3>
+        <p>
+          Sitio web para un servicio local de papeletas y asesoría legal.
+          Diseño responsive con menú hamburguesa, sección de servicios,
+          preguntas frecuentes y formulario de contacto.
+        </p>
+        <div class="tags">
+          <span>HTML</span><span>CSS</span><span>Responsive</span><span>Cliente real</span>
+        </div>
+        <div class="actions">
+          <a class="btn" href="https://github.com/YeremiSB/soluciones-totales" target="_blank" rel="noopener noreferrer">Ver repositorio</a>
+        </div>
+      </article>
+
+      <!-- AÑADIR NUEVOS PROYECTOS AQUÍ con el mismo bloque <article class="card"> -->
     </section>
   </main>
 
   <footer>
-    © Yeremi 2025 - Código, caos y creatividad.
+    © Yeremi S. BΛSTIAN — 2026 · Código, caos y creatividad.
   </footer>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
-    });
-  </script>
+  <script src="cursor.js"></script>
 </body>
 </html>

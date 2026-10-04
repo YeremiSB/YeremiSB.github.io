@@ -3,75 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portafolio – Yeremi §. BΛSTIAN</title>
+  <title>Portafolio – Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="Proyectos de programación, cortometrajes y fotografía de Yeremi S. Bastian." />
   <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      cursor: none;
-    }
-
-    body {
-      background: #0f0f0f;
-      color: #fefefe;
-      font-family: 'Space Grotesk', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3rem 1rem;
-    }
-
-    .cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.05s ease;
-    }
-
-    header {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      padding: 1.5rem;
-      font-size: 1rem;
-      flex-wrap: wrap;
-    }
-
-    header a {
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    header a:hover,
-    header a.active {
-      color: #ff2e2e;
-    }
-
-    header a.active::after,
-    header a:hover::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 100%;
-      height: 2px;
-      background: #ff2e2e;
-    }
-
     main {
       min-height: calc(100vh - 120px);
       display: flex;
@@ -80,13 +16,20 @@
       align-items: center;
       padding: 2rem 1rem;
       width: 100%;
+      text-align: center;
     }
 
-    h2 {
-      font-size: 3rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      animation: fadeIn 1s ease-out;
+    h1 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 0.75rem;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .intro {
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
     }
 
     .portfolio-grid {
@@ -95,117 +38,106 @@
       gap: 1.5rem;
       width: 100%;
       max-width: 1000px;
-      padding: 0 1rem;
+      text-align: left;
     }
 
     .section-link {
-      text-decoration: none;
       color: inherit;
       display: block;
       width: 100%;
     }
 
     .section-card {
-      background: #1a1a1a;
+      background: var(--surface);
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(255, 51, 51, 0.1);
+      box-shadow: 0 5px 20px rgba(67, 209, 122, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
     }
 
     .section-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(255, 51, 51, 0.3);
+      box-shadow: 0 8px 25px rgba(67, 209, 122, 0.3);
     }
 
-    .section-card h3 {
-      font-size: 1.5rem;
-      color: #f33;
-      margin-bottom: 1rem;
+    .section-card h2 {
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-card p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
     }
 
     .section-card ul {
       list-style: none;
-      padding-left: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
 
     .section-card ul li {
-      margin-bottom: 0.7rem;
-      text-align: justify;
+      margin-bottom: 0.5rem;
     }
 
-    .section-card ul li strong {
-      color: #fff;
-    }
-
-    footer {
-      margin-top: 5rem;
-      font-size: 0.8rem;
-      color: #aaa;
-    }
-
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .section-card ul li::before {
+      content: "▸ ";
+      color: var(--accent);
     }
 
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
-    @media (max-width: 600px) {
-      h2 {
-        font-size: 2rem;
-      }
-
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <header>
     <a href="index.html">Inicio</a>
-    <a href="portafolio.html">Portafolio</a>
+    <a class="active" href="portafolio.html">Portafolio</a>
     <a href="contacto.html">Contacto</a>
   </header>
 
   <main>
-    <h2>PORTAFOLIO</h2>
+    <h1>PORTAFOLIO</h1>
+    <p class="intro">Tres frentes, un mismo impulso: contar cosas. Código, imagen y mirada.</p>
+
     <div class="portfolio-grid">
-      <a href="fotografia.html" class="section-link">
+      <a href="programacion.html" class="section-link">
         <div class="section-card">
-          <h3>📸 Fotografía</h3>
+          <h2>💻 Programación</h2>
           <ul>
-            <li>Proyectos de retratos, paisajes urbanos y naturales. Enfoque en capturar emociones y detalles cotidianos.</li>
+            <li>YERTV: reproductor IPTV en Cloudflare Workers.</li>
+            <li>Juegos: Cave 32 (Godot) y Snake 95 (web).</li>
+            <li>HTML, CSS, JavaScript y webOS TV.</li>
           </ul>
         </div>
       </a>
 
       <a href="cortometrajes.html" class="section-link">
         <div class="section-card">
-          <h3>🎬 Cortometrajes</h3>
+          <h2>🎬 Cortometrajes</h2>
           <ul>
-            <li>Cortos documentales, experimentales y narrativos, explorando desde temas sociales hasta ejercicios con efectos especiales y CGI.</li>
+            <li>Cortos documentales y narrativos.</li>
+            <li>Edición, guion y dirección propia.</li>
+            <li>Temas locales: café, familia, identidad.</li>
           </ul>
         </div>
       </a>
 
-      <a href="programacion.html" class="section-link">
+      <a href="fotografia.html" class="section-link">
         <div class="section-card">
-          <h3>💻 Programación</h3>
+          <h2>📸 Fotografía</h2>
           <ul>
-            <li>Desarrollo de sitios web, prototipos interactivos y pruebas de integración con I.A para proyectos escolares y personales.</li>
+            <li>Quillabamba y Cusco, de día y de noche.</li>
+            <li>Atardeceres, gatos callejeros y cultura local.</li>
+            <li>Captura y edición propias: 13 fotos.</li>
           </ul>
         </div>
       </a>
@@ -213,15 +145,9 @@
   </main>
 
   <footer>
-    © Yeremi §. BΛSTIAN — 2025
+    © Yeremi S. BΛSTIAN — 2026
   </footer>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
-    });
-  </script>
+  <script src="cursor.js"></script>
 </body>
 </html>

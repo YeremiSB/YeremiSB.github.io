@@ -1,0 +1,8 @@
+# Respaldos de fotos originales (no se publican, pesan ~15 MB)
+Fotos/_originales/
+Fotos/_jpg1600/
+
+# Archivos del sistema
+Thumbs.db
+desktop.ini
+.DS_Store

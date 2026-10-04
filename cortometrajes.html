@@ -4,106 +4,53 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cortometrajes – Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="Cortometrajes de Yeremi S. Bastian, creador audiovisual desde Quillabamba, Perú." />
   <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      cursor: none;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: #0d0d0d;
-      color: #ffffff;
-      font-family: 'Space Grotesk', sans-serif;
-      text-align: center;
-      overflow-x: hidden;
-    }
-
-    .cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.05s ease;
-    }
-
-    header {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      padding: 1.5rem;
-      font-size: 1rem;
-    }
-
-    header a {
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    header a:hover,
-    header a.active {
-      color: #ff2e2e;
-    }
-
-    header a.active::after,
-    header a:hover::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 100%;
-      height: 2px;
-      background: #ff2e2e;
-    }
-
     main {
       min-height: calc(100vh - 120px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
+      text-align: center;
     }
 
     .hero {
-      background: url('https://plus.unsplash.com/premium_photo-1682125771198-f7cbed7cb868?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
+      position: relative;
+      background: url('https://plus.unsplash.com/premium_photo-1682125771198-f7cbed7cb868?q=80&w=1160&auto=format&fit=crop') center/cover no-repeat;
       padding: 4rem 2rem;
       border-radius: 12px;
       max-width: 900px;
       width: 100%;
-      background-attachment: fixed;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-size: clamp(2rem, 6vw, 4rem);
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      background: rgba(0,0,0,0.5);
-      padding: 0.5rem;
-      border-radius: 10px;
     }
 
     .hero p {
-      font-size: 1.2rem;
-      margin-top: 2rem;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      margin-top: 1.5rem;
       line-height: 1.6;
-      background: rgba(0,0,0,0.5);
-      padding: 1rem;
-      border-radius: 10px;
+      color: #eee;
     }
 
     .gallery {
@@ -113,60 +60,25 @@
       margin-top: 3rem;
       width: 100%;
       max-width: 1000px;
-    }
-
-    .card {
-      background: #1a1a1a;
-      border-radius: 10px;
-      padding: 1rem;
       text-align: left;
-      transition: transform 0.3s ease;
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card h3 {
-      color: #ff2e2e;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-      color: #ccc;
+    .thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 8px;
       margin-bottom: 1rem;
-    }
-
-    .card a {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: #ff2e2e;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-
-    .card a:hover {
-      background: #e60000;
-    }
-
-    footer {
-      font-size: 0.8rem;
-      color: #aaa;
-      padding: 1rem;
+      background: #111;
     }
   </style>
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <header>
     <a href="index.html">Inicio</a>
-    <a href="portafolio.html">Portafolio</a>
+    <a class="active" href="portafolio.html">Portafolio</a>
     <a href="contacto.html">Contacto</a>
   </header>
 
@@ -174,33 +86,38 @@
     <div class="hero">
       <h1>Cortometrajes</h1>
       <p>
-        Aquí encontrarás mis trabajos audiovisuales más destacados. Cada corto es una mezcla de creatividad, narrativa y técnica que explora diferentes temáticas con mi estilo personal.
+        Mis trabajos audiovisuales: narrativa, documental y experimentos con edición y efectos.
+        Cada corto nace de una idea simple llevada hasta el final.
       </p>
     </div>
 
-    <section class="gallery">
-      <div class="card">
+    <section class="gallery" aria-label="Lista de cortometrajes">
+      <article class="card">
+        <img class="thumb" src="https://i.ytimg.com/vi/PiDcQDp7A00/hqdefault.jpg"
+             alt="Miniatura del cortometraje Entre el café y la esperanza" loading="lazy">
         <h3>Entre el café y la esperanza</h3>
         <p>Un cortometraje que retrata la vida en Quillabamba, el valor de la familia y el café como símbolo de lucha y esperanza.</p>
-        <a href="https://www.youtube.com/watch?v=PiDcQDp7A00&t" target="_blank">Ver video</a>
-      </div>
-      <div class="card">
-        <h3>Otro proyecto</h3>
-        <p>Espacio reservado para futuros cortometrajes llenos de emoción, reflexión y mucha edición creativa.</p>
-      </div>
+        <div class="actions">
+          <a class="btn" href="https://www.youtube.com/watch?v=PiDcQDp7A00&t" target="_blank" rel="noopener noreferrer">Ver en YouTube</a>
+        </div>
+      </article>
+
+      <!-- AÑADIR NUEVOS CORTOS AQUÍ con el mismo bloque <article class="card"> -->
+
+      <article class="card">
+        <h3>Próximo proyecto</h3>
+        <p>Espacio reservado para el siguiente corto. Estoy en preproducción: guion, locaciones y plan de rodaje.</p>
+        <div class="actions">
+          <span class="btn disabled" aria-disabled="true">En producción</span>
+        </div>
+      </article>
     </section>
   </main>
 
   <footer>
-    © Yeremi 2025 - Esto es solo el comienzo.
+    © Yeremi S. BΛSTIAN — 2026 · Esto es solo el comienzo.
   </footer>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
-    });
-  </script>
+  <script src="cursor.js"></script>
 </body>
 </html>

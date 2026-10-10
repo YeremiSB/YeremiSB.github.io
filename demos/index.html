@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demos — Maquetas y plantillas web | Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="Demos de Yeremi S. Bastian: maquetas web hechas a mano para negocios reales de Quillabamba y Cusco. Carta digital, hotel y servicios profesionales. HTML, CSS y JavaScript puro." />
+  <link rel="canonical" href="https://yeremisb.github.io/demos/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="Yeremi Shikene Sebastian Cusihuallpa" />
+  <meta name="theme-color" content="#0a0e0a" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Yeremi S. BΛSTIAN" />
+  <meta property="og:locale" content="es_PE" />
+  <meta property="og:title" content="Demos — Maquetas y plantillas web | Yeremi S. BΛSTIAN" />
+  <meta property="og:description" content="Maquetas web hechas a mano para negocios reales: carta digital, hotel y servicios. HTML, CSS y JavaScript puro, sin WordPress." />
+  <meta property="og:url" content="https://yeremisb.github.io/demos/" />
+  <meta property="og:image" content="https://yeremisb.github.io/og.jpg" />
+
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="stylesheet" href="../estilos.css" />
+  <style>
+    /* ===================== ENCABEZADO DE PAGINA ===================== */
+    .pagina {
+      position: relative;
+      padding: 8rem 1.5rem 3.5rem;
+      text-align: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(67, 209, 122, 0.13), transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(67, 209, 122, 0.08), transparent 45%);
+    }
+
+    .pagina h1 {
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+
+    .pagina h1 span {
+      color: var(--accent);
+    }
+
+    .pagina .intro {
+      color: var(--muted);
+      max-width: 62ch;
+      margin: 0 auto;
+      font-size: clamp(0.98rem, 2.2vw, 1.1rem);
+      line-height: 1.75;
+    }
+
+    .pagina .volver {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--accent-borde);
+      padding-bottom: 3px;
+      transition: color 0.3s ease;
+    }
+
+    .pagina .volver:hover {
+      color: var(--accent);
+    }
+
+    /* ===================== AVISO ===================== */
+    .aviso {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .aviso-caja {
+      background: var(--surface);
+      border: 1px solid #1f261f;
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      text-align: left;
+    }
+
+    .aviso-caja h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+
+    .aviso-caja p {
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+
+    .aviso-caja p + p {
+      margin-top: 0.6rem;
+    }
+
+    /* ===================== BLOQUES ===================== */
+    .bloque-demos {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      text-align: left;
+    }
+
+    .bloque-demos h2 {
+      font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .bloque-demos h2 span {
+      color: var(--accent);
+    }
+
+    .bloque-demos .subtitulo {
+      color: var(--faint);
+      text-align: center;
+      max-width: 60ch;
+      margin: 0 auto 2.5rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ===================== REJILLA DE DEMOS ===================== */
+    .demos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .demo {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid #1f261f;
+      border-radius: 14px;
+      overflow: hidden;
+      color: inherit;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .demo:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent-borde);
+      box-shadow: 0 14px 38px rgba(67, 209, 122, 0.16);
+    }
+
+    .demo-vista {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: linear-gradient(150deg, #1b211b, #10140f);
+      border-bottom: 1px solid #1f261f;
+    }
+
+    .demo-vista img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .demo:hover .demo-vista img {
+      transform: scale(1.045);
+    }
+
+    .demo-vista .marca-demo {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #04140a;
+      background: var(--accent);
+      border-radius: 999px;
+      padding: 4px 11px;
+    }
+
+    .demo-cuerpo {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .demo-cuerpo h3 {
+      color: var(--accent);
+      font-size: 1.15rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .demo-cuerpo p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 1.1rem;
+      flex: 1;
+    }
+
+    .demo-cuerpo .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .demo-cuerpo .tags span {
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #a7e8c2;
+      background: var(--accent-suave);
+      border: 1px solid var(--accent-borde);
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+    }
+
+    .demo-acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .demo-acciones a {
+      display: inline-block;
+      padding: 0.55rem 1.05rem;
+      border-radius: 6px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-align: center;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    }
+
+    .demo-acciones .principal {
+      background: var(--accent);
+      color: #04140a;
+    }
+
+    .demo-acciones .principal:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .demo-acciones .secundario {
+      border: 1px solid var(--accent-borde);
+      color: var(--accent);
+    }
+
+    .demo-acciones .secundario:hover {
+      background: var(--accent-suave);
+      transform: translateY(-2px);
+    }
+
+    .demo-acciones .apagado {
+      border: 1px solid #2a332a;
+      color: var(--faint);
+      pointer-events: none;
+    }
+
+    /* ===================== CINTA DE CUALIDADES ===================== */
+    .cualidades {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      text-align: center;
+    }
+
+    .cualidad {
+      background: var(--bg-2);
+      border: 1px solid #1f261f;
+      border-radius: 12px;
+      padding: 1.4rem 1rem;
+    }
+
+    .cualidad b {
+      display: block;
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+
+    .cualidad span {
+      font-size: 0.82rem;
+      color: var(--faint);
+      letter-spacing: 0.05em;
+    }
+
+    /* ===================== CELULAR ===================== */
+    @media (max-width: 600px) {
+      .pagina {
+        padding: 6.5rem 1.1rem 2.5rem;
+      }
+
+      .aviso {
+        padding: 0 1.1rem;
+      }
+
+      .bloque-demos {
+        padding: 2.75rem 1.1rem;
+      }
+
+      .cualidades {
+        padding: 0 1.1rem 2.75rem;
+      }
+
+      .demos {
+        grid-template-columns: 1fr;
+        gap: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <!-- ===================== ENCABEZADO ===================== -->
+  <section class="pagina">
+    <header>
+      <a href="../index.html">Inicio</a>
+      <a href="../portafolio.html">Portafolio</a>
+      <a class="active" href="index.html">Demos</a>
+      <a href="../sobre-mi.html">Sobre mí</a>
+      <a href="../contacto.html">Contacto</a>
+    </header>
+
+    <h1>Demos y <span>maquetas</span></h1>
+    <p class="intro">
+      Sitios web completos que hice a mano para negocios reales de Quillabamba y Cusco.
+      Todo en HTML, CSS y JavaScript puro: sin WordPress, sin plantillas compradas y sin plugins.
+      Cada uno se puede abrir en el celular y se adapta a cualquier pantalla.
+    </p>
+    <a class="volver" href="../portafolio.html">← Volver al portafolio</a>
+  </section>
+
+  <!-- ===================== AVISO ===================== -->
+  <div class="aviso">
+    <div class="aviso-caja">
+      <h2>Sobre estas maquetas</h2>
+      <p>
+        Las maquetas de negocios reales <strong>no son sus sitios oficiales</strong>. Son muestras
+        que preparé por iniciativa propia, usando únicamente información de directorios públicos y
+        material de sus propias fichas. Si al negocio no le interesa, la maqueta se retira.
+      </p>
+      <p>
+        Las plantillas de la sección <strong>Plantillas web</strong> sí son de uso libre: están hechas
+        desde cero con contenido de ejemplo, sin fotos ni textos de terceros.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===================== MAQUETAS DE CLIENTES ===================== -->
+  <section class="bloque-demos">
+    <h2>Maquetas para <span>negocios reales</span></h2>
+    <p class="subtitulo">Propuestas hechas para empresas de la zona, con sus propios datos y su propio rubro.</p>
+
+    <div class="demos">
+      <article class="demo">
+        <div class="demo-vista">
+          <span class="marca-demo">Muestra no solicitada</span>
+          <img src="../Fotos/Atardecer_Valle.webp"
+               alt="Vista del valle de Quillabamba al atardecer, zona donde opera Megantoni Travel"
+               decoding="async" />
+        </div>
+        <div class="demo-cuerpo">
+          <h3>Megantoni Travel</h3>
+          <p>
+            Agencia de tours y deportes de aventura en Quillabamba: Pongo de Mainique, Illapani,
+            Vilcabamba y Machu Picchu. Incluye paquetes, sección de aventura y reserva por WhatsApp.
+          </p>
+          <div class="tags">
+            <span>Tours</span><span>Quillabamba</span><span>WhatsApp</span>
+          </div>
+          <div class="demo-acciones">
+            <a class="principal" href="megantoni/index.html">Ver la maqueta</a>
+            <a class="secundario" href="../contacto.html">Pedir algo así</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== PLANTILLAS WEB ===================== -->
+  <section class="bloque-demos" style="padding-top: 0;">
+    <h2>Plantillas <span>web</span></h2>
+    <p class="subtitulo">
+      Tres sitios completos y funcionales, hechos desde cero. Se adaptan a cualquier negocio
+      cambiando colores, textos y fotos.
+    </p>
+
+    <div class="demos">
+      <article class="demo">
+        <div class="demo-vista">
+          <img src="web/vistas/restaurante.jpg"
+               alt="Plantilla de carta digital para restaurantes con carrito y pedidos por WhatsApp"
+               decoding="async" />
+        </div>
+        <div class="demo-cuerpo">
+          <h3>Carta digital con pedidos</h3>
+          <p>
+            Para restaurantes, cafés y pollerías. La carta se filtra por categorías, el cliente arma
+            su pedido con el botón «+» y lo envía por WhatsApp ya escrito, con el total calculado.
+          </p>
+          <div class="tags">
+            <span>Carrito</span><span>WhatsApp</span><span>Restaurantes</span>
+          </div>
+          <div class="demo-acciones">
+            <a class="principal" href="web/restaurante/index.html">Ver la plantilla</a>
+            <a class="secundario" href="https://github.com/YeremiSB" target="_blank" rel="noopener noreferrer">Código</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-vista">
+          <img src="web/vistas/hotel.jpg"
+               alt="Plantilla web para hoteles con portada a pantalla completa y reservas directas"
+               decoding="async" />
+        </div>
+        <div class="demo-cuerpo">
+          <h3>Hotel con reservas</h3>
+          <p>
+            Para hoteles, hostales y lodges. Portada a pantalla completa, habitaciones con tarifas,
+            galería, servicios y formulario de reserva que se envía directo al WhatsApp del hotel.
+          </p>
+          <div class="tags">
+            <span>Reservas</span><span>Habitaciones</span><span>Hoteles</span>
+          </div>
+          <div class="demo-acciones">
+            <a class="principal" href="web/hotel/index.html">Ver la plantilla</a>
+            <a class="secundario" href="https://github.com/YeremiSB" target="_blank" rel="noopener noreferrer">Código</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="demo">
+        <div class="demo-vista">
+          <img src="web/vistas/servicios.jpg"
+               alt="Plantilla web para servicios profesionales, consultoría y estudios contables"
+               decoding="async" />
+        </div>
+        <div class="demo-cuerpo">
+          <h3>Servicios profesionales</h3>
+          <p>
+            Para contadores, abogados, consultores y técnicos. Servicios con detalle, proceso de
+            trabajo, preguntas frecuentes y formulario de contacto que llega por WhatsApp.
+          </p>
+          <div class="tags">
+            <span>Servicios</span><span>FAQ</span><span>Formulario</span>
+          </div>
+          <div class="demo-acciones">
+            <a class="principal" href="web/servicios/index.html">Ver la plantilla</a>
+            <a class="secundario" href="https://github.com/YeremiSB" target="_blank" rel="noopener noreferrer">Código</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== CUALIDADES ===================== -->
+  <section class="cualidades">
+    <div class="cualidad"><b>0 KB</b><span>De plugins</span></div>
+    <div class="cualidad"><b>&lt; 1 s</b><span>De carga</span></div>
+    <div class="cualidad"><b>100%</b><span>Adaptado a celular</span></div>
+    <div class="cualidad"><b>Código</b><span>Propio, sin frameworks</span></div>
+  </section>
+
+  <footer>
+    © Yeremi S. BΛSTIAN — 2026
+  </footer>
+
+  <script src="../cursor.js"></script>
+</body>
+</html>

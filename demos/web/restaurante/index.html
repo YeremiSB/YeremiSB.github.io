@@ -1,0 +1,581 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta digital con pedidos — Plantilla web | Yeremi S. BΛSTIAN</title>
+<meta name="description" content="Plantilla de carta digital para restaurantes: cuadrícula de platos, carrito y pedido enviado por WhatsApp. Rápida, sin comisiones y sin WordPress.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../estilos.css">
+<style>
+  /* ============================================================
+     PALETA NEUTRA Y ADAPTABLE
+     Para cambiar la identidad del negocio, solo toca estas 6 lineas.
+     Ejemplo tipo "El Tablon": --marca:#1b3a9c; --acento:#f26a21;
+     ============================================================ */
+  :root{
+    --marca:#1e2532;          /* color principal de la marca */
+    --marca-oscura:#151a24;   /* variante oscura para pies y bordes */
+    --acento:#c8762b;         /* color de accion: botones y precios */
+    --acento-claro:#e2a05e;   /* variante clara del acento */
+    --fondo:#faf8f5;          /* fondo general de la pagina */
+    --tarjeta:#ffffff;        /* fondo de las tarjetas de producto */
+    --texto:#1a1d23;
+    --texto-tenue:#6b7280;
+    --borde:#e8e4de;
+    --radio:14px;
+    --max:1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--fondo);color:var(--texto);line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  .contenedor{max-width:var(--max);margin:0 auto;padding:0 20px}
+  .seccion{padding:70px 0}
+
+  /* Titulares gruesos tipo carta de restaurante */
+  .titular{
+    font-family:"Arial Black","Arial Bold",Impact,Haettenschweiler,sans-serif;
+    font-weight:900;letter-spacing:-.02em;line-height:1.02;
+  }
+
+  /* ---------------- BARRA SUPERIOR ---------------- */
+  .barra-superior{
+    background:var(--marca);color:#cfd6e2;font-size:.79rem;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:8px 0;gap:16px;flex-wrap:wrap;
+  }
+  .barra-superior .contenedor{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;width:100%}
+  .barra-superior a:hover{color:#fff}
+  .barra-superior .grupo{display:flex;gap:20px;align-items:center}
+
+  /* ---------------- CABECERA ---------------- */
+  header{position:sticky;top:0;z-index:60;background:var(--marca);box-shadow:0 4px 20px rgba(0,0,0,.14)}
+  .barra{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .marca{display:flex;align-items:center;gap:11px;color:#fff;font-weight:900;font-size:1.05rem;letter-spacing:-.01em}
+  .marca .escudo{
+    width:36px;height:36px;border-radius:9px;background:var(--acento);
+    display:grid;place-items:center;color:#fff;font-weight:900;font-size:.92rem;
+  }
+  .barra-acciones{display:flex;align-items:center;gap:12px}
+  .enlace-barra{color:#cfd6e2;font-size:.87rem;display:flex;align-items:center;gap:7px;white-space:nowrap}
+  .enlace-barra:hover{color:#fff}
+  .boton-carrito{
+    background:var(--acento);color:#fff;border:none;border-radius:999px;
+    padding:10px 18px;font-weight:800;font-size:.87rem;display:flex;align-items:center;gap:9px;
+    transition:filter .18s,transform .18s;
+  }
+  .boton-carrito:hover{filter:brightness(1.1);transform:translateY(-1px)}
+  .contador{
+    background:#fff;color:var(--acento);border-radius:999px;
+    min-width:22px;height:22px;display:grid;place-items:center;font-size:.75rem;font-weight:900;padding:0 6px;
+  }
+
+  /* ---------------- PORTADA ---------------- */
+  .portada{background:var(--marca);overflow:hidden}
+  .portada .contenedor{
+    display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:0;
+    padding-top:0;padding-bottom:0;max-width:var(--max);
+  }
+  .portada-foto{
+    aspect-ratio:16/11;position:relative;overflow:hidden;
+    background:linear-gradient(150deg,#2c3444,#1a202b);
+    display:grid;place-items:center;text-align:center;padding:24px;
+    color:rgba(255,255,255,.42);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .portada-foto::after{
+    content:"";position:absolute;inset:16px;border:1px dashed rgba(255,255,255,.22);border-radius:12px;
+  }
+  .portada-texto{padding:52px 20px 52px 46px;color:#fff}
+  .portada-texto h1{font-size:clamp(2rem,4.6vw,3.5rem);margin-bottom:10px}
+  .portada-texto .destacado{
+    display:inline-block;background:var(--acento);color:#fff;
+    padding:9px 20px;border-radius:10px;font-size:clamp(1.1rem,2.3vw,1.7rem);
+    font-family:"Arial Black","Arial Bold",Impact,sans-serif;font-weight:900;margin:4px 0 14px;
+  }
+  .portada-texto .remate{font-size:clamp(1.4rem,3.4vw,2.4rem);line-height:1.08}
+  .portada-texto .lema{margin-top:16px;color:#b9c2d1;font-size:.95rem;max-width:44ch;font-family:inherit;font-weight:400;letter-spacing:0}
+
+  /* ---------------- PEDIDO: DOMICILIO / RECOJO ---------------- */
+  .bloque-pedido{background:var(--tarjeta);border:1px solid var(--borde);border-radius:18px;padding:16px;margin-top:-34px;position:relative;z-index:5;box-shadow:0 14px 40px rgba(20,25,35,.10)}
+  .interruptor{display:grid;grid-template-columns:1fr 1fr;background:#f2efe9;border-radius:12px;padding:5px;gap:5px}
+  .interruptor button{
+    border:none;background:transparent;padding:13px;border-radius:9px;
+    font-weight:800;font-size:.9rem;color:var(--texto-tenue);transition:all .2s;
+  }
+  .interruptor button.activo{background:var(--marca);color:#fff}
+  .campo-direccion{display:flex;align-items:center;gap:12px;margin-top:14px;border:1px solid var(--borde);border-radius:12px;padding:14px 16px}
+  .campo-direccion span{color:var(--texto-tenue);font-size:.92rem}
+  .campo-direccion svg{margin-left:auto;color:var(--texto-tenue);flex:0 0 auto}
+
+  /* ---------------- CATEGORIAS ---------------- */
+  .categorias{
+    display:flex;gap:6px;overflow-x:auto;margin:34px 0 8px;padding-bottom:6px;
+    border-bottom:2px solid var(--borde);scrollbar-width:none;
+  }
+  .categorias::-webkit-scrollbar{display:none}
+  .categorias button{
+    border:none;background:transparent;padding:14px 18px;white-space:nowrap;
+    font-weight:800;font-size:.86rem;color:var(--texto-tenue);letter-spacing:.02em;
+    border-bottom:3px solid transparent;margin-bottom:-2px;text-transform:uppercase;transition:all .18s;
+  }
+  .categorias button:hover{color:var(--marca)}
+  .categorias button.activo{color:var(--marca);border-bottom-color:var(--acento)}
+
+  /* ---------------- TARJETAS DE PLATOS ---------------- */
+  .grupo-categoria{margin-bottom:46px;scroll-margin-top:110px}
+  .grupo-categoria h3{font-size:1rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--marca);margin-bottom:16px}
+  .rejilla{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .plato{
+    background:var(--tarjeta);border:1px solid var(--borde);border-radius:var(--radio);
+    padding:14px;display:flex;gap:14px;align-items:stretch;
+    transition:box-shadow .2s;position:relative;
+  }
+  .plato:hover{box-shadow:0 12px 30px rgba(20,25,35,.09)}
+  .plato-foto{
+    width:132px;flex:0 0 132px;border-radius:10px;overflow:hidden;position:relative;
+    background:linear-gradient(150deg,#efeae1,#e2dcd2);
+    display:flex;align-items:flex-end;justify-content:center;
+    color:#a89e90;font-size:.64rem;text-align:center;
+    letter-spacing:.08em;text-transform:uppercase;padding:0 8px 12px;
+  }
+  .plato-foto.alto{aspect-ratio:1}
+  .plato-info{flex:1;display:flex;flex-direction:column;padding-right:34px}
+  .plato-info h4{font-size:.99rem;font-weight:800;margin-bottom:5px;line-height:1.3}
+  .precio{color:var(--acento);font-weight:900;font-size:1.02rem;margin-bottom:6px}
+  .plato-info p{color:var(--texto-tenue);font-size:.84rem;line-height:1.5}
+  .insignia{
+    position:absolute;top:12px;left:12px;background:var(--acento);color:#fff;
+    font-size:.6rem;font-weight:900;letter-spacing:.08em;padding:4px 9px;border-radius:5px;text-transform:uppercase;z-index:2;
+  }
+  .agregar{
+    position:absolute;right:12px;bottom:12px;width:36px;height:36px;border-radius:50%;
+    background:var(--marca);color:#fff;border:none;font-size:1.3rem;font-weight:700;
+    display:grid;place-items:center;line-height:1;transition:background .18s,transform .18s;
+  }
+  .agregar:hover{background:var(--acento);transform:scale(1.09)}
+
+  /* ---------------- CARRITO LATERAL ---------------- */
+  .velo{position:fixed;inset:0;background:rgba(15,18,24,.55);opacity:0;pointer-events:none;transition:opacity .25s;z-index:90}
+  .velo.visible{opacity:1;pointer-events:auto}
+  .carrito{
+    position:fixed;top:0;right:0;bottom:0;width:min(400px,92vw);background:#fff;z-index:100;
+    transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+    display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(0,0,0,.16);
+  }
+  .carrito.abierto{transform:translateX(0)}
+  .carrito-cab{display:flex;justify-content:space-between;align-items:center;padding:22px;border-bottom:1px solid var(--borde)}
+  .carrito-cab h3{font-size:1.05rem;font-weight:900}
+  .cerrar{background:none;border:none;font-size:1.5rem;color:var(--texto-tenue);line-height:1}
+  .carrito-lista{flex:1;overflow-y:auto;padding:18px 22px}
+  .linea{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--borde)}
+  .linea h4{font-size:.93rem;font-weight:700;margin-bottom:3px}
+  .linea small{color:var(--texto-tenue);font-size:.82rem}
+  .linea-controles{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+  .linea-controles button{width:27px;height:27px;border-radius:7px;border:1px solid var(--borde);background:#fff;font-weight:800;color:var(--texto)}
+  .linea-controles button:hover{border-color:var(--acento);color:var(--acento)}
+  .carrito-pie{padding:20px 22px;border-top:1px solid var(--borde);background:#fbfaf8}
+  .total{display:flex;justify-content:space-between;font-weight:900;font-size:1.1rem;margin-bottom:16px}
+  .boton-wsp{
+    width:100%;background:#25D366;color:#fff;border:none;border-radius:12px;
+    padding:16px;font-weight:900;font-size:.97rem;display:flex;align-items:center;justify-content:center;gap:10px;
+    transition:filter .18s;
+  }
+  .boton-wsp:hover{filter:brightness(1.07)}
+  .carrito-vacio{text-align:center;color:var(--texto-tenue);padding:52px 22px;font-size:.93rem}
+  .nota-carrito{font-size:.78rem;color:var(--texto-tenue);text-align:center;margin-top:11px}
+
+  /* ---------------- CINTA DE DATOS ---------------- */
+  .cinta{background:var(--marca-oscura);color:#fff;padding:38px 0}
+  .cinta .contenedor{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:26px;text-align:center}
+  .cinta b{display:block;font-size:1.5rem;color:var(--acento-claro);font-weight:900}
+  .cinta span{font-size:.83rem;color:#9aa5b6}
+
+  /* ---------------- INFORMACION ---------------- */
+  .dos-columnas{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .lista-datos{list-style:none}
+  .lista-datos li{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--borde);font-size:.94rem}
+  .lista-datos li span:first-child{color:var(--texto-tenue)}
+  .mapa{margin-top:24px;border-radius:var(--radio);border:1px solid var(--borde);background:#f1ede7;height:230px;display:grid;place-items:center;color:var(--texto-tenue);font-size:.85rem;text-align:center;padding:20px}
+  .lineas-contacto{display:flex;flex-direction:column;gap:13px;margin-top:22px}
+  .lineas-contacto a,.lineas-contacto div{display:flex;align-items:center;gap:12px;font-size:.93rem;color:var(--texto-tenue)}
+  .icono{width:38px;height:38px;border-radius:10px;background:var(--tarjeta);border:1px solid var(--borde);display:grid;place-items:center;flex:0 0 38px}
+  .lineas-contacto a:hover{color:var(--acento)}
+  h2.titulo-seccion{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:900;letter-spacing:-.02em;color:var(--marca);margin-bottom:12px}
+  .etiqueta{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acento);font-weight:900;margin-bottom:12px}
+
+  footer{background:var(--marca);color:#9aa5b6;padding:34px 0;font-size:.85rem}
+  .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .pie a{color:var(--acento-claro)}
+
+  @media (max-width:940px){
+    .portada .contenedor{grid-template-columns:1fr}
+    .portada-foto{aspect-ratio:16/9;order:-1}
+    .portada-texto{padding:34px 20px 74px}
+    .rejilla{grid-template-columns:1fr}
+    .dos-columnas{grid-template-columns:1fr;gap:34px}
+    .bloque-pedido{margin-top:-26px}
+  }
+  @media (max-width:640px){
+    .enlace-barra.oculto-movil{display:none}
+    .plato-foto{width:104px;flex:0 0 104px}
+    .plato-info{padding-right:30px}
+    .seccion{padding:52px 0}
+    .barra-superior .grupo.oculto-movil{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="barra-superior">
+  <div class="contenedor">
+    <div class="grupo">
+      <a href="tel:+51999999999">📞 999 999 999</a>
+      <span class="oculto-movil">Abierto hoy hasta las 11:00 pm</span>
+    </div>
+    <div class="grupo">
+      <a href="#informacion" class="oculto-movil">📍 Ver ubicación</a>
+      <a href="#informacion">Historial de pedidos</a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="contenedor barra">
+    <a href="#" class="marca"><span class="escudo">SB</span> Sabor &amp; Brasa</a>
+    <div class="barra-acciones">
+      <a href="#informacion" class="enlace-barra oculto-movil">📍 Mi dirección</a>
+      <button class="boton-carrito" id="abrirCarrito">
+        🛒 Mi pedido <span class="contador" id="contador">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= PORTADA ================= -->
+<section class="portada">
+  <div class="contenedor">
+    <div class="portada-foto">
+      Aquí va la foto principal<br>del plato estrella
+    </div>
+    <div class="portada-texto">
+      <h1 class="titular">Pide tus platos</h1>
+      <div class="destacado">Para compartir</div>
+      <div class="remate titular">LOS MÁS<br>GRANDES</div>
+      <p class="lema">Cocina al momento, porciones generosas y entrega a domicilio todos los días.</p>
+    </div>
+  </div>
+</section>
+
+<div class="contenedor" style="padding-bottom:26px">
+  <div class="bloque-pedido">
+    <div class="interruptor">
+      <button class="activo" data-tipo="domicilio">A domicilio</button>
+      <button data-tipo="recojo">Recojo en tienda</button>
+    </div>
+    <div class="campo-direccion">
+      <span id="textoDireccion">Selecciona tu dirección</span>
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CARTA ================= -->
+<div class="contenedor">
+  <nav class="categorias" id="categorias"></nav>
+</div>
+
+<main class="contenedor" id="carta" style="padding-bottom:40px"></main>
+
+<!-- ================= CINTA ================= -->
+<section class="cinta">
+  <div class="contenedor">
+    <div><b>30 min</b><span>Entrega promedio</span></div>
+    <div><b>4.8★</b><span>Calificación de clientes</span></div>
+    <div><b>+40</b><span>Platos en la carta</span></div>
+    <div><b>S/ 0</b><span>Comisión por pedido</span></div>
+  </div>
+</section>
+
+<!-- ================= INFORMACION ================= -->
+<section class="seccion" id="informacion">
+  <div class="contenedor">
+    <span class="etiqueta">Visítanos</span>
+    <h2 class="titulo-seccion">Horarios y contacto</h2>
+    <div class="dos-columnas" style="margin-top:34px">
+      <div>
+        <ul class="lista-datos">
+          <li><span>Lunes a jueves</span><span>12:00 pm – 11:00 pm</span></li>
+          <li><span>Viernes y sábado</span><span>12:00 pm – 12:00 am</span></li>
+          <li><span>Domingo</span><span>12:00 pm – 10:00 pm</span></li>
+          <li><span>Delivery</span><span>Hasta 30 min antes del cierre</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="mapa">Aquí va el mapa de Google Maps<br><small>(iframe gratuito)</small></div>
+        <div class="lineas-contacto">
+          <a href="https://wa.me/51999999999"><span class="icono">💬</span> 999 999 999 (WhatsApp)</a>
+          <a href="tel:+51999999999"><span class="icono">📞</span> (084) 000 000</a>
+          <div><span class="icono">📍</span> Av. Ejemplo 123, Quillabamba, Cusco</div>
+          <a href="#"><span class="icono">📷</span> @saborybrasa</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="contenedor pie">
+    <span>© <span id="anio"></span> Sabor &amp; Brasa — Quillabamba, Cusco</span>
+    <span>Plantilla creada por <a href="https://yeremisb.github.io/">Yeremi S. Bastian</a></span>
+  </div>
+</footer>
+
+<!-- ================= CARRITO ================= -->
+<div class="velo" id="velo"></div>
+<aside class="carrito" id="carrito" aria-label="Mi pedido">
+  <div class="carrito-cab">
+    <h3>Mi pedido</h3>
+    <button class="cerrar" id="cerrarCarrito" aria-label="Cerrar">×</button>
+  </div>
+  <div class="carrito-lista" id="listaCarrito"></div>
+  <div class="carrito-pie">
+    <div class="total"><span>Total</span><span id="totalPedido">S/ 0.00</span></div>
+    <button class="boton-wsp" id="enviarPedido">💬 Enviar pedido por WhatsApp</button>
+    <p class="nota-carrito">El pedido se envía como mensaje. El pago se coordina con el restaurante.</p>
+  </div>
+</aside>
+
+<script>
+  /* =========================================================
+     CARTA DE EJEMPLO
+     Reemplaza este arreglo con los platos reales del cliente:
+     categoria, nombre, precio, descripcion y foto (opcional).
+     ========================================================= */
+  const CARTA = [
+    { categoria:"Promos", nombre:"Promo Familiar", precio:59.90, insignia:"Más pedido",
+      descripcion:"Pollo entero a la brasa con papas fritas, ensalada y salsas de la casa." },
+    { categoria:"Promos", nombre:"Promo Personal", precio:24.90,
+      descripcion:"1/4 de pollo con papas, ensalada y gaseosa personal." },
+    { categoria:"Promos", nombre:"Combo para 2", precio:44.90,
+      descripcion:"1/2 pollo a la brasa con papas, ensalada mixta y dos bebidas." },
+
+    { categoria:"Pollo a la brasa", nombre:"Pollo entero", precio:66.90,
+      descripcion:"Pollo entero a la brasa con papas fritas, ensalada y salsas." },
+    { categoria:"Pollo a la brasa", nombre:"Medio pollo", precio:36.90,
+      descripcion:"1/2 pollo a la brasa con papas fritas y ensalada fresca." },
+    { categoria:"Pollo a la brasa", nombre:"Cuarto de pollo", precio:21.90,
+      descripcion:"1/4 de pollo con papas fritas y ensalada." },
+    { categoria:"Pollo a la brasa", nombre:"Alitas broaster (8 u.)", precio:27.90,
+      descripcion:"8 alitas crocantes con papas fritas y salsa de la casa." },
+
+    { categoria:"Parrillas", nombre:"Churrasco a la parrilla", precio:42.90, insignia:"Recomendado",
+      descripcion:"Bife de res a la parrilla con papas doradas y ensalada." },
+    { categoria:"Parrillas", nombre:"Anticuchos de corazón", precio:26.90,
+      descripcion:"Brochetas de corazón marinado con papa dorada y choclo." },
+    { categoria:"Parrillas", nombre:"Parrilla mixta personal", precio:46.90,
+      descripcion:"Res, pollo y chorizo con guarnición a elección." },
+    { categoria:"Parrillas", nombre:"Chorizo artesanal", precio:23.90,
+      descripcion:"Chorizo de la casa a la parrilla con papas y salsa criolla." },
+
+    { categoria:"Platos de fondo", nombre:"Lomo saltado", precio:32.90,
+      descripcion:"Carne al wok con cebolla, tomate, papas fritas y arroz." },
+    { categoria:"Platos de fondo", nombre:"Trucha a la plancha", precio:29.90,
+      descripcion:"Trucha fresca de la zona con verduras salteadas y arroz." },
+    { categoria:"Platos de fondo", nombre:"Chaufa de la casa", precio:24.90,
+      descripcion:"Arroz al wok con cerdo, plátano frito y salsa de la casa." },
+    { categoria:"Platos de fondo", nombre:"Tallarín saltado", precio:27.90,
+      descripcion:"Fideos al wok con verduras y carne de res." },
+
+    { categoria:"Bebidas", nombre:"Gaseosa 1.5 L", precio:11.90,
+      descripcion:"Inca Kola, Coca-Cola o Sprite bien heladas." },
+    { categoria:"Bebidas", nombre:"Chicha morada jarra", precio:14.90,
+      descripcion:"Preparada en casa, jarra de 1 litro." },
+    { categoria:"Bebidas", nombre:"Limonada frozen", precio:12.90,
+      descripcion:"Limón fresco batido con hielo y un toque de hierbabuena." },
+    { categoria:"Bebidas", nombre:"Café pasado", precio:7.90,
+      descripcion:"Café de la zona, pasado al momento." }
+  ];
+
+  const NUMERO_WSP = "51999999999"; // Reemplazar por el WhatsApp real del negocio
+  const NOMBRE_NEGOCIO = "Sabor & Brasa";
+
+  /* ------------------ Estado ------------------ */
+  let carrito = {};          // { indice: cantidad }
+  let tipoPedido = "domicilio";
+  let categoriaActiva = "Todas";
+
+  const categorias = ["Todas", ...new Set(CARTA.map(p => p.categoria))];
+
+  /* ------------------ Utilidades ------------------ */
+  const soles = n => "S/ " + n.toFixed(2);
+
+  /* ------------------ Pestañas de categoria ------------------ */
+  function pintarCategorias(){
+    const nav = document.getElementById("categorias");
+    nav.innerHTML = categorias.map(c =>
+      `<button data-cat="${c}" class="${c === categoriaActiva ? "activo" : ""}">${c}</button>`
+    ).join("");
+  }
+
+  /* ------------------ Carta ------------------ */
+  function pintarCarta(){
+    const main = document.getElementById("carta");
+    const visibles = CARTA.map((p, i) => ({...p, indice: i}))
+      .filter(p => categoriaActiva === "Todas" || p.categoria === categoriaActiva);
+
+    const grupos = {};
+    visibles.forEach(p => { (grupos[p.categoria] = grupos[p.categoria] || []).push(p); });
+
+    main.innerHTML = Object.keys(grupos).map(cat => `
+      <section class="grupo-categoria">
+        <h3>${cat}</h3>
+        <div class="rejilla">
+          ${grupos[cat].map(p => `
+            <article class="plato">
+              ${p.insignia ? `<span class="insignia">${p.insignia}</span>` : ""}
+              <div class="plato-foto alto">Foto</div>
+              <div class="plato-info">
+                <h4>${p.nombre}</h4>
+                <div class="precio">${soles(p.precio)}</div>
+                <p>${p.descripcion}</p>
+              </div>
+              <button class="agregar" data-indice="${p.indice}"
+                      aria-label="Agregar ${p.nombre}">+</button>
+            </article>
+          `).join("")}
+        </div>
+      </section>
+    `).join("");
+  }
+
+  /* ------------------ Carrito ------------------ */
+  function totalLineas(){
+    return Object.entries(carrito).reduce((suma, [i, cant]) => suma + CARTA[i].precio * cant, 0);
+  }
+  function totalArticulos(){
+    return Object.values(carrito).reduce((a, b) => a + b, 0);
+  }
+
+  function pintarCarrito(){
+    const lista = document.getElementById("listaCarrito");
+    const claves = Object.keys(carrito);
+
+    if (!claves.length){
+      lista.innerHTML = `<div class="carrito-vacio">Tu pedido está vacío.<br>Agrega platos con el botón <b>+</b>.</div>`;
+    } else {
+      lista.innerHTML = claves.map(i => {
+        const p = CARTA[i];
+        return `
+          <div class="linea">
+            <div>
+              <h4>${p.nombre}</h4>
+              <small>${soles(p.precio)} c/u</small>
+            </div>
+            <div class="linea-controles">
+              <button data-menos="${i}" aria-label="Quitar uno">−</button>
+              <b>${carrito[i]}</b>
+              <button data-mas="${i}" aria-label="Agregar uno">+</button>
+            </div>
+          </div>`;
+      }).join("");
+    }
+
+    document.getElementById("totalPedido").textContent = soles(totalLineas());
+    document.getElementById("contador").textContent = totalArticulos();
+  }
+
+  function agregar(indice){
+    carrito[indice] = (carrito[indice] || 0) + 1;
+    pintarCarrito();
+  }
+  function quitar(indice){
+    if (!carrito[indice]) return;
+    carrito[indice] -= 1;
+    if (carrito[indice] <= 0) delete carrito[indice];
+    pintarCarrito();
+  }
+
+  /* ------------------ Abrir y cerrar ------------------ */
+  function abrirCarrito(){
+    document.getElementById("carrito").classList.add("abierto");
+    document.getElementById("velo").classList.add("visible");
+  }
+  function cerrarCarrito(){
+    document.getElementById("carrito").classList.remove("abierto");
+    document.getElementById("velo").classList.remove("visible");
+  }
+
+  /* ------------------ Enviar por WhatsApp ------------------ */
+  function enviarPedido(){
+    if (!Object.keys(carrito).length){
+      alert("Agrega al menos un plato antes de enviar el pedido.");
+      return;
+    }
+    let texto = "*Pedido — " + NOMBRE_NEGOCIO + "*\n";
+    texto += "Tipo: " + (tipoPedido === "domicilio" ? "A domicilio" : "Recojo en tienda") + "\n\n";
+
+    Object.entries(carrito).forEach(([i, cant]) => {
+      const p = CARTA[i];
+      texto += `${cant} x ${p.nombre} — ${soles(p.precio * cant)}\n`;
+    });
+
+    texto += "\n*Total: " + soles(totalLineas()) + "*";
+    if (tipoPedido === "domicilio") texto += "\nDirección: (escribir aquí)";
+    texto += "\nNombre: (escribir aquí)";
+
+    window.open("https://wa.me/" + NUMERO_WSP + "?text=" + encodeURIComponent(texto), "_blank");
+  }
+
+  /* ------------------ Eventos ------------------ */
+  document.addEventListener("click", function(e){
+    const objetivo = e.target.closest("button");
+    if (!objetivo) return;
+
+    if (objetivo.dataset.agregar !== undefined || objetivo.classList.contains("agregar")){
+      agregar(objetivo.dataset.indice);
+      return;
+    }
+    if (objetivo.dataset.mas !== undefined){ agregar(objetivo.dataset.mas); return; }
+    if (objetivo.dataset.menos !== undefined){ quitar(objetivo.dataset.menos); return; }
+
+    if (objetivo.dataset.cat){
+      categoriaActiva = objetivo.dataset.cat;
+      pintarCategorias();
+      pintarCarta();
+      return;
+    }
+    if (objetivo.dataset.tipo){
+      tipoPedido = objetivo.dataset.tipo;
+      document.querySelectorAll(".interruptor button").forEach(b =>
+        b.classList.toggle("activo", b.dataset.tipo === tipoPedido));
+      document.getElementById("textoDireccion").textContent =
+        tipoPedido === "domicilio" ? "Selecciona tu dirección" : "Recojo en: Av. Ejemplo 123";
+      return;
+    }
+  });
+
+  document.getElementById("abrirCarrito").addEventListener("click", abrirCarrito);
+  document.getElementById("cerrarCarrito").addEventListener("click", cerrarCarrito);
+  document.getElementById("velo").addEventListener("click", cerrarCarrito);
+  document.getElementById("enviarPedido").addEventListener("click", enviarPedido);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") cerrarCarrito(); });
+
+  /* ------------------ Arranque ------------------ */
+  document.getElementById("anio").textContent = new Date().getFullYear();
+  pintarCategorias();
+  pintarCarta();
+  pintarCarrito();
+</script>
+
+</body>
+</html>

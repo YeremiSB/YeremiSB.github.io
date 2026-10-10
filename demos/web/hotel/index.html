@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel con reservas — Plantilla web | Yeremi S. BΛSTIAN</title>
+<meta name="description" content="Plantilla web para hoteles: portada a pantalla completa, habitaciones con tarifas, galería y reservas directas por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../estilos.css">
+<style>
+  /* ============================================================
+     PALETA NEUTRA Y ADAPTABLE
+     Solo toca estas 5 lineas para cambiar la identidad del hotel.
+     Ejemplo tipo "Cusco Plaza": --acento:#c2a184; --acento-fuerte:#a8855f;
+     ============================================================ */
+  :root{
+    --acento:#bda98e;          /* color arena de barras y botones */
+    --acento-fuerte:#8f7a5e;   /* variante oscura del acento */
+    --crema:#f6f3ee;           /* fondo claro general */
+    --tinta:#20242b;           /* texto principal */
+    --tinta-tenue:#6f7683;     /* texto secundario */
+    --borde:#e5dfd6;
+    --radio:14px;
+    --max:1200px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--tinta);background:#fff;line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  .contenedor{max-width:var(--max);margin:0 auto;padding:0 22px}
+
+  /* Tipografia fina y espaciada, como en los hoteles clasicos */
+  .elegante{font-weight:300;letter-spacing:.005em}
+
+  /* ---------------- BARRA SUPERIOR ---------------- */
+  .barra-superior{background:var(--acento);color:#fff;font-size:.79rem}
+  .barra-superior .contenedor{display:flex;justify-content:space-between;align-items:center;gap:18px;padding-top:9px;padding-bottom:9px;flex-wrap:wrap}
+  .barra-superior .grupo{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .barra-superior a{display:inline-flex;align-items:center;gap:7px}
+  .barra-superior a:hover{opacity:.85}
+  .barra-superior select{
+    background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;
+    border-radius:6px;padding:2px 6px;font-size:.78rem;font-family:inherit;
+  }
+  .boton-reservar{
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.6);color:#fff;
+    border-radius:5px;padding:6px 14px;font-size:.78rem;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+  }
+  .boton-reservar:hover{background:#fff;color:var(--acento-fuerte)}
+
+  /* ---------------- CABECERA ---------------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:60;transition:background .3s,box-shadow .3s;
+  }
+  header.con-fondo{background:#fff;box-shadow:0 4px 22px rgba(30,25,18,.10)}
+  header.con-fondo .barra-superior{display:none}
+  .barra{display:flex;align-items:center;justify-content:space-between;height:76px;gap:18px}
+  .marca{color:#fff;font-weight:400;letter-spacing:.14em;font-size:.85rem;line-height:1.25;text-transform:uppercase}
+  header.con-fondo .marca{color:var(--tinta)}
+  .marca b{display:block;font-weight:700}
+  nav{display:flex;gap:30px;font-size:.78rem;letter-spacing:.13em;text-transform:uppercase}
+  nav a{color:rgba(255,255,255,.92);padding:6px 0;border-bottom:1px solid transparent;transition:.2s}
+  nav a:hover{border-bottom-color:#fff}
+  header.con-fondo nav a{color:var(--tinta-tenue)}
+  header.con-fondo nav a:hover{color:var(--tinta);border-bottom-color:var(--acento)}
+  .menu-movil{display:none;background:none;border:none;color:#fff;font-size:1.5rem}
+  header.con-fondo .menu-movil{color:var(--tinta)}
+
+  /* ---------------- PORTADA ---------------- */
+  .portada{
+    height:100vh;min-height:620px;position:relative;display:grid;place-items:center;
+    text-align:center;color:#fff;overflow:hidden;
+    background:linear-gradient(170deg,#3b424c,#22262d);
+  }
+  .portada::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(20,22,26,.42),rgba(20,22,26,.58));
+  }
+  .portada-foto{
+    position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;
+    color:rgba(255,255,255,.42);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;
+    text-align:center;padding:0 30px 34px;
+  }
+  .portada-contenido{position:relative;z-index:3;padding:0 22px;max-width:820px}
+  .portada h1{
+    font-size:clamp(2.1rem,5.6vw,4rem);font-weight:300;line-height:1.14;
+    letter-spacing:.01em;margin-bottom:12px;
+  }
+  .portada h1 b{font-weight:600}
+  .raya{width:96px;height:1px;background:rgba(255,255,255,.62);margin:20px auto}
+  .portada p{font-size:clamp(.98rem,2vw,1.14rem);font-weight:300;color:rgba(255,255,255,.92);max-width:46ch;margin:0 auto 30px}
+  .boton-arena{
+    display:inline-flex;align-items:center;gap:10px;background:var(--acento);color:#fff;
+    padding:15px 34px;border-radius:5px;font-size:.82rem;font-weight:600;letter-spacing:.13em;
+    text-transform:uppercase;border:none;transition:filter .2s,transform .2s;
+  }
+  .boton-arena:hover{filter:brightness(1.07);transform:translateY(-2px)}
+
+  /* ---------------- INTRO ---------------- */
+  .intro{background:var(--crema);padding:82px 0;text-align:center}
+  .intro .etiqueta{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acento-fuerte);font-weight:700;display:block;margin-bottom:16px}
+  .intro h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:300;line-height:1.3;max-width:26ch;margin:0 auto 18px}
+  .intro p{color:var(--tinta-tenue);max-width:60ch;margin:0 auto;font-size:1rem}
+  .intro-datos{display:flex;justify-content:center;gap:52px;flex-wrap:wrap;margin-top:44px;padding-top:38px;border-top:1px solid var(--borde)}
+  .intro-datos div{text-align:center}
+  .intro-datos b{display:block;font-size:1.6rem;font-weight:400;color:var(--acento-fuerte)}
+  .intro-datos span{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-tenue)}
+
+  /* ---------------- HOTELES / SEDES ---------------- */
+  .seccion{padding:84px 0}
+  .encabezado-seccion{text-align:center;margin-bottom:48px}
+  .encabezado-seccion .etiqueta{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acento-fuerte);font-weight:700;display:block;margin-bottom:14px}
+  .encabezado-seccion h2{font-size:clamp(1.6rem,3.8vw,2.5rem);font-weight:300;margin-bottom:14px}
+  .encabezado-seccion p{color:var(--tinta-tenue);max-width:58ch;margin:0 auto}
+
+  .rejilla-habitaciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px}
+  .habitacion{border:1px solid var(--borde);border-radius:var(--radio);overflow:hidden;background:#fff;transition:box-shadow .25s,transform .25s}
+  .habitacion:hover{box-shadow:0 20px 48px rgba(30,25,18,.12);transform:translateY(-4px)}
+  .habitacion-foto{
+    aspect-ratio:4/3;background:linear-gradient(150deg,#eae4da,#ddd6ca);
+    display:grid;place-items:center;color:#9b9387;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .habitacion-cuerpo{padding:28px}
+  .habitacion h3{font-size:1.2rem;font-weight:400;margin-bottom:10px}
+  .habitacion .descripcion{color:var(--tinta-tenue);font-size:.92rem;margin-bottom:18px}
+  .detalles{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .chip{font-size:.72rem;letter-spacing:.06em;border:1px solid var(--borde);border-radius:999px;padding:5px 12px;color:var(--tinta-tenue)}
+  .precio-fila{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--borde);padding-top:18px;gap:14px}
+  .precio{color:var(--acento-fuerte);font-size:1.25rem;font-weight:600}
+  .precio small{font-size:.76rem;color:var(--tinta-tenue);font-weight:400}
+  .boton-linea{
+    border:1px solid var(--acento-fuerte);color:var(--acento-fuerte);background:transparent;
+    padding:11px 22px;border-radius:5px;font-size:.75rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+    transition:.2s;
+  }
+  .boton-linea:hover{background:var(--acento-fuerte);color:#fff}
+
+  /* ---------------- GALERIA ---------------- */
+  .galeria{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:12px}
+  .galeria div{
+    background:linear-gradient(150deg,#eae4da,#dcd5c9);display:grid;place-items:center;
+    color:#9b9387;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;overflow:hidden;border-radius:4px;
+  }
+  .galeria div.grande{grid-column:span 2;grid-row:span 2}
+  .galeria img{width:100%;height:100%;object-fit:cover}
+
+  /* ---------------- SERVICIOS ---------------- */
+  .servicios{background:var(--crema);padding:84px 0}
+  .rejilla-servicios{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px;margin-top:48px}
+  .servicio{text-align:center;padding:0 12px}
+  .servicio .icono{font-size:1.7rem;margin-bottom:14px}
+  .servicio h3{font-size:.95rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+  .servicio p{color:var(--tinta-tenue);font-size:.9rem}
+
+  /* ---------------- RESERVA ---------------- */
+  .reserva{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  .formulario{background:#fff;border:1px solid var(--borde);border-radius:var(--radio);padding:34px}
+  .campo{margin-bottom:18px}
+  .campo label{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-tenue);margin-bottom:8px;font-weight:600}
+  .campo input,.campo select,.campo textarea{
+    width:100%;border:1px solid var(--borde);border-radius:8px;padding:13px 15px;
+    font-size:.94rem;font-family:inherit;color:var(--tinta);background:#fcfbf9;
+  }
+  .campo input:focus,.campo select:focus,.campo textarea:focus{outline:none;border-color:var(--acento);background:#fff}
+  .fila-campos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .nota{font-size:.79rem;color:var(--tinta-tenue);margin-top:14px;text-align:center}
+  .lista-datos{list-style:none}
+  .lista-datos li{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--borde);font-size:.93rem}
+  .lista-datos li span:first-child{color:var(--tinta-tenue)}
+  .mapa{margin-top:26px;border-radius:var(--radio);border:1px solid var(--borde);background:#f0ece5;height:220px;display:grid;place-items:center;color:var(--tinta-tenue);font-size:.85rem;text-align:center;padding:20px}
+  .lineas-contacto{display:flex;flex-direction:column;gap:13px;margin-top:24px}
+  .lineas-contacto a,.lineas-contacto div{display:flex;align-items:center;gap:12px;font-size:.92rem;color:var(--tinta-tenue)}
+  .lineas-contacto .icono{
+    width:38px;height:38px;border-radius:50%;background:var(--crema);border:1px solid var(--borde);
+    display:grid;place-items:center;flex:0 0 38px;
+  }
+  .lineas-contacto a:hover{color:var(--acento-fuerte)}
+
+  footer{background:#23272e;color:#9aa1ac;padding:44px 0;font-size:.85rem}
+  .pie{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap}
+  .pie a{color:var(--acento)}
+  .pie a:hover{text-decoration:underline}
+
+  /* ---------------- FLOTANTES ---------------- */
+  .idioma{
+    position:fixed;left:18px;bottom:18px;z-index:70;background:#fff;border:1px solid var(--borde);
+    border-radius:8px;padding:9px 14px;font-size:.79rem;display:flex;align-items:center;gap:9px;
+    box-shadow:0 8px 24px rgba(30,25,18,.14);font-weight:600;
+  }
+  .idioma:hover{border-color:var(--acento)}
+  .flotante-wsp{
+    position:fixed;right:20px;bottom:20px;z-index:70;width:56px;height:56px;border-radius:50%;
+    background:#25D366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.42);
+    transition:transform .2s;
+  }
+  .flotante-wsp:hover{transform:scale(1.07)}
+  .flotante-wsp svg{width:30px;height:30px;fill:#fff}
+
+  @media (max-width:960px){
+    .reserva{grid-template-columns:1fr;gap:38px}
+    .galeria{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
+  }
+  @media (max-width:880px){
+    nav{
+      position:fixed;top:76px;left:0;right:0;flex-direction:column;gap:0;
+      background:#fff;padding:0 22px;max-height:0;overflow:hidden;transition:max-height .3s;
+      box-shadow:0 12px 30px rgba(30,25,18,.12);
+    }
+    nav.abierto{max-height:360px;padding:10px 22px 22px}
+    nav a{color:var(--tinta-tenue);padding:15px 0;border-bottom:1px solid var(--borde)}
+    header.con-fondo nav a{color:var(--tinta-tenue)}
+    .menu-movil{display:block}
+    .barra{height:66px}
+    .fila-campos{grid-template-columns:1fr}
+    .seccion,.intro,.servicios{padding:60px 0}
+    .intro-datos{gap:30px}
+    .portada{height:88vh;min-height:520px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= CABECERA ================= -->
+<header id="cabecera">
+  <div class="barra-superior">
+    <div class="contenedor">
+      <div class="grupo">
+        <a href="tel:+51999999999">📞 +51 999 999 999</a>
+        <span>Recepción 24 horas</span>
+      </div>
+      <div class="grupo">
+        <select aria-label="Moneda">
+          <option>USD</option><option>PEN</option>
+        </select>
+        <a href="#reserva" class="boton-reservar">🗓 Reservar ahora</a>
+      </div>
+    </div>
+  </div>
+  <div class="barra contenedor">
+    <a href="#" class="marca">Hotel <b>Plaza Andina</b></a>
+    <nav id="menu">
+      <a href="#hoteles">El hotel</a>
+      <a href="#habitaciones">Habitaciones</a>
+      <a href="#galeria">Galería</a>
+      <a href="#reserva">Reservar</a>
+    </nav>
+    <button class="menu-movil" id="botonMenu" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<!-- ================= PORTADA ================= -->
+<section class="portada">
+  <div class="portada-foto">Aquí va la foto principal<br>(fachada o mejor habitación)</div>
+  <div class="portada-contenido">
+    <h1 class="elegante">Plaza Andina<br><b>desde S/ 140</b></h1>
+    <div class="raya"></div>
+    <p class="elegante">A dos cuadras de la Plaza de Armas. Restaurantes, mercados y transporte a un paso.</p>
+    <a href="#habitaciones" class="boton-arena">Ver habitaciones</a>
+  </div>
+</section>
+
+<!-- ================= INTRO ================= -->
+<section class="intro" id="hoteles">
+  <div class="contenedor">
+    <span class="etiqueta">Bienvenido</span>
+    <h2 class="elegante">Un lugar tranquilo para descansar después de recorrer la ciudad</h2>
+    <p>Habitaciones limpias, agua caliente todo el día y personal que le ayuda a organizar sus tours. Reservando directo con nosotros no paga la comisión de las plataformas.</p>
+    <div class="intro-datos">
+      <div><b>4.8★</b><span>Opiniones</span></div>
+      <div><b>24</b><span>Habitaciones</span></div>
+      <div><b>24 h</b><span>Recepción</span></div>
+      <div><b>2 min</b><span>De la plaza</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HABITACIONES ================= -->
+<section class="seccion" id="habitaciones">
+  <div class="contenedor">
+    <div class="encabezado-seccion">
+      <span class="etiqueta">Alojamiento</span>
+      <h2 class="elegante">Nuestras habitaciones</h2>
+      <p>Todas incluyen desayuno, wifi de alta velocidad, agua caliente y ropa de cama.</p>
+    </div>
+
+    <div class="rejilla-habitaciones">
+      <article class="habitacion">
+        <div class="habitacion-foto">Foto de habitación</div>
+        <div class="habitacion-cuerpo">
+          <h3>Habitación Simple</h3>
+          <p class="descripcion">Para viajeros solos. Cama de plaza y media, escritorio y ventana a la calle.</p>
+          <div class="detalles">
+            <span class="chip">1 persona</span><span class="chip">18 m²</span><span class="chip">Desayuno incluido</span>
+          </div>
+          <div class="precio-fila">
+            <span class="precio">S/ 140 <small>/ noche</small></span>
+            <a href="#reserva" class="boton-linea">Reservar</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="habitacion">
+        <div class="habitacion-foto">Foto de habitación</div>
+        <div class="habitacion-cuerpo">
+          <h3>Habitación Doble</h3>
+          <p class="descripcion">Dos camas de plaza y media. Ideal para amigos o compañeros de viaje.</p>
+          <div class="detalles">
+            <span class="chip">2 personas</span><span class="chip">24 m²</span><span class="chip">TV cable</span>
+          </div>
+          <div class="precio-fila">
+            <span class="precio">S/ 190 <small>/ noche</small></span>
+            <a href="#reserva" class="boton-linea">Reservar</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="habitacion">
+        <div class="habitacion-foto">Foto de habitación</div>
+        <div class="habitacion-cuerpo">
+          <h3>Matrimonial Superior</h3>
+          <p class="descripcion">Cama de dos plazas, balcón con vista y frigobar. La más pedida por parejas.</p>
+          <div class="detalles">
+            <span class="chip">2 personas</span><span class="chip">30 m²</span><span class="chip">Balcón</span>
+          </div>
+          <div class="precio-fila">
+            <span class="precio">S/ 240 <small>/ noche</small></span>
+            <a href="#reserva" class="boton-linea">Reservar</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALERIA ================= -->
+<section class="seccion" id="galeria" style="background:var(--crema)">
+  <div class="contenedor">
+    <div class="encabezado-seccion">
+      <span class="etiqueta">Galería</span>
+      <h2 class="elegante">Así se ve el hotel</h2>
+    </div>
+    <div class="galeria">
+      <div class="grande">Foto grande</div>
+      <div>Foto</div>
+      <div>Foto</div>
+      <div>Foto</div>
+      <div>Foto</div>
+      <div>Foto</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICIOS ================= -->
+<section class="servicios">
+  <div class="contenedor">
+    <div class="encabezado-seccion">
+      <span class="etiqueta">Servicios</span>
+      <h2 class="elegante">Todo lo que necesita</h2>
+    </div>
+    <div class="rejilla-servicios">
+      <div class="servicio"><div class="icono">📶</div><h3>Wifi de fibra</h3><p>En todas las habitaciones y áreas comunes.</p></div>
+      <div class="servicio"><div class="icono">🚿</div><h3>Agua caliente 24 h</h3><p>Terma propia, sin horarios.</p></div>
+      <div class="servicio"><div class="icono">☕</div><h3>Desayuno incluido</h3><p>De 6:30 a 9:30 am, servido en el comedor.</p></div>
+      <div class="servicio"><div class="icono">🧳</div><h3>Guardaequipaje</h3><p>Sin costo para huéspedes, antes y después del check-out.</p></div>
+      <div class="servicio"><div class="icono">🅿️</div><h3>Estacionamiento</h3><p>Espacio vigilado, sujeto a disponibilidad.</p></div>
+      <div class="servicio"><div class="icono">🚐</div><h3>Traslado del aeropuerto</h3><p>Servicio con costo adicional, coordinar con anticipación.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESERVA ================= -->
+<section class="seccion" id="reserva">
+  <div class="contenedor">
+    <div class="encabezado-seccion">
+      <span class="etiqueta">Reservas</span>
+      <h2 class="elegante">Consulte disponibilidad</h2>
+      <p>Complete el formulario o escríbanos por WhatsApp. Respondemos en minutos.</p>
+    </div>
+
+    <div class="reserva">
+      <form class="formulario" onsubmit="enviarReserva(event)">
+        <div class="campo">
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" type="text" placeholder="Su nombre" required>
+        </div>
+        <div class="fila-campos">
+          <div class="campo">
+            <label for="entrada">Llegada</label>
+            <input id="entrada" type="date" required>
+          </div>
+          <div class="campo">
+            <label for="salida">Salida</label>
+            <input id="salida" type="date" required>
+          </div>
+        </div>
+        <div class="fila-campos">
+          <div class="campo">
+            <label for="huespedes">Huéspedes</label>
+            <select id="huespedes">
+              <option>1 huésped</option><option>2 huéspedes</option>
+              <option>3 huéspedes</option><option>4 o más</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="tipo">Habitación</label>
+            <select id="tipo">
+              <option>Simple</option><option>Doble</option><option>Matrimonial Superior</option>
+            </select>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="mensaje">Consulta adicional (opcional)</label>
+          <textarea id="mensaje" rows="3" placeholder="¿Algo que debamos saber?"></textarea>
+        </div>
+        <button type="submit" class="boton-arena" style="width:100%;justify-content:center">Enviar por WhatsApp</button>
+        <p class="nota">Sin comisión de plataformas. Su consulta se abre directamente en WhatsApp.</p>
+      </form>
+
+      <div>
+        <ul class="lista-datos">
+          <li><span>Check-in</span><span>Desde 1:00 pm</span></li>
+          <li><span>Check-out</span><span>Hasta 11:00 am</span></li>
+          <li><span>Desayuno</span><span>6:30 – 9:30 am</span></li>
+          <li><span>Recepción</span><span>Abierta 24 horas</span></li>
+        </ul>
+        <div class="mapa">Aquí va el mapa de Google Maps<br><small>(iframe gratuito)</small></div>
+        <div class="lineas-contacto">
+          <a href="https://wa.me/51999999999"><span class="icono">💬</span> 999 999 999 (WhatsApp)</a>
+          <a href="tel:+51999999999"><span class="icono">📞</span> (084) 000 000</a>
+          <a href="mailto:reservas@ejemplo.pe"><span class="icono">✉️</span> reservas@ejemplo.pe</a>
+          <div><span class="icono">📍</span> Av. Ejemplo 456, Quillabamba, Cusco</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="contenedor pie">
+    <span>© <span id="anio"></span> Hotel Plaza Andina — Quillabamba, Cusco</span>
+    <span>Plantilla creada por <a href="https://yeremisb.github.io/">Yeremi S. Bastian</a></span>
+  </div>
+</footer>
+
+<button class="idioma" id="idioma">🇬🇧 EN <span style="color:var(--tinta-tenue)">▾</span></button>
+
+<a href="https://wa.me/51999999999" class="flotante-wsp" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+  document.getElementById("anio").textContent = new Date().getFullYear();
+
+  /* Menu movil */
+  var boton = document.getElementById("botonMenu");
+  var menu = document.getElementById("menu");
+  boton.addEventListener("click", function(){
+    menu.classList.toggle("abierto");
+    boton.textContent = menu.classList.contains("abierto") ? "✕" : "☰";
+  });
+  menu.addEventListener("click", function(e){
+    if (e.target.tagName === "A"){ menu.classList.remove("abierto"); boton.textContent = "☰"; }
+  });
+
+  /* Cabecera solida al hacer scroll (sobre la portada va transparente) */
+  var cabecera = document.getElementById("cabecera");
+  function revisarScroll(){
+    cabecera.classList.toggle("con-fondo", window.scrollY > 90);
+  }
+  window.addEventListener("scroll", revisarScroll);
+  revisarScroll();
+
+  /* Selector de idioma: indica donde se conectaria la version bilingue */
+  document.getElementById("idioma").addEventListener("click", function(){
+    alert("Aquí se conecta la versión en inglés del sitio (por ejemplo /en/index.html).");
+  });
+
+  /* El formulario arma el mensaje de WhatsApp */
+  function enviarReserva(e){
+    e.preventDefault();
+    var texto = "Hola, quiero consultar disponibilidad:\n" +
+      "Nombre: " + document.getElementById("nombre").value + "\n" +
+      "Llegada: " + document.getElementById("entrada").value + "\n" +
+      "Salida: " + document.getElementById("salida").value + "\n" +
+      "Huespedes: " + document.getElementById("huespedes").value + "\n" +
+      "Habitacion: " + document.getElementById("tipo").value;
+    var extra = document.getElementById("mensaje").value.trim();
+    if (extra) texto += "\nConsulta: " + extra;
+    window.open("https://wa.me/51999999999?text=" + encodeURIComponent(texto), "_blank");
+  }
+</script>
+
+</body>
+</html>

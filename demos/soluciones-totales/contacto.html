@@ -147,6 +147,13 @@ footer { background:var(--primary-color); color:white; text-align:center; paddin
   <p>Cuéntanos tu caso y lo resolvemos sin estrés, sin vueltas y sin tecnicismos raros.</p>
 </section>
 
+<div style="max-width:1000px;margin:30px auto 0;padding:0 20px;">
+  <div style="background:#fff8e1;border-left:5px solid var(--accent-color);border-radius:10px;padding:16px 20px;color:#5c4708;font-size:0.95rem;line-height:1.6;">
+    <strong>Versión de demostración.</strong> Los botones de WhatsApp y Messenger y el formulario
+    están desactivados en esta copia de muestra, para no enviar mensajes a nadie.
+  </div>
+</div>
+
 <section class="contacto-section">
 
   <div class="contact-card">
@@ -156,16 +163,16 @@ footer { background:var(--primary-color); color:white; text-align:center; paddin
     <p>✔ Asesoría legal rápida</p>
     <p>✔ Regularización de documentos</p>
     <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
-      <a href="https://wa.me/51933313206" target="_blank" style="background:#25D366; color:white;">
+      <a href="#" onclick="return avisoDemo()" style="background:#25D366; color:white;">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"> WhatsApp
       </a>
-      <a href="https://m.me/solucionestotalesoficial" target="_blank" style="background:#0084FF; color:white;">
+      <a href="#" onclick="return avisoDemo()" style="background:#0084FF; color:white;">
         <img src="https://cdn.simpleicons.org/messenger/FFFFFF" alt="Messenger"> Messenger
       </a>
     </div>
   </div>
 
-  <form class="form" action="https://formspree.io/f/xgvrkyyv" method="POST" onsubmit="return enviarFormulario(this)">
+  <form class="form" onsubmit="return avisoDemo()">
     <h3>Envíanos un mensaje</h3>
     <label>Nombre</label>
     <input type="text" name="name" placeholder="Tu nombre" required>
@@ -199,14 +206,8 @@ function toggleMenu() {
 }
 
 // Form
-function enviarFormulario(form) {
-  const datos = new FormData(form);
-  fetch(form.action, { method: form.method, body: datos, headers:{'Accept':'application/json'} })
-  .then(response => {
-    if(response.ok){ mostrarModal("✅ ¡Mensaje enviado correctamente! Nos pondremos en contacto pronto."); form.reset(); }
-    else mostrarModal("⚠️ Hubo un error al enviar tu mensaje. Intenta nuevamente.");
-  })
-  .catch(()=> mostrarModal("⚠️ Hubo un error al enviar tu mensaje. Intenta nuevamente."));
+function avisoDemo() {
+  mostrarModal("Esta es una copia de demostración: los datos de contacto y el formulario están desactivados para no enviar mensajes a nadie. Si quieres un sitio así para tu negocio, escríbeme desde mi portafolio.");
   return false;
 }
 function mostrarModal(mensaje){

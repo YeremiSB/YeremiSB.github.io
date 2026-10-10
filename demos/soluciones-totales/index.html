@@ -118,19 +118,9 @@
     .service-item:hover { transform: translateY(-6px); box-shadow: 0 12px 24px var(--card-shadow); }
     .service-item h4 { margin-bottom: 15px; color: var(--primary-color); font-size: 1.3rem; }
 
-    /* Testimonios */
+    /* Preguntas frecuentes */
     .testimonios { padding: 80px 40px; background: #eef2f7; }
     .testimonios h3 { text-align: center; margin-bottom: 50px; font-size: 2.2rem; color: var(--primary-color); opacity: 0; transform: translateY(50px); transition: 0.8s ease-out; }
-    .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .test-item {
-      background: white; padding: 30px 25px; border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      font-style: italic; position: relative;
-      transition: transform 0.3s;
-      opacity: 0; transform: translateY(50px);
-    }
-    .test-item::before { content: "“"; font-size: 3rem; color: var(--accent-color); position: absolute; top: 10px; left: 15px; }
-    .test-item:hover { transform: translateY(-3px); }
 
     /* Footer */
     footer { background: var(--primary-color); color: white; text-align: center; padding: 25px 15px; margin-top: 60px; font-size: 0.95rem; }
@@ -186,11 +176,13 @@
   </section>
 
   <section class="testimonios">
-    <h3>Testimonios</h3>
-    <div class="test-grid">
-      <div class="test-item">Tenía una papeleta de 1,200 y pensé que estaba frito. Ellos me la anularon. Héroes.</div>
-      <div class="test-item">Super rápidos y profesionales. Les mandé foto por WhatsApp y listo.</div>
-      <div class="test-item">Me explicaron todo clarito, sin palabras raras. Muy recomendados.</div>
+    <h3>¿Tienes dudas?</h3>
+    <p style="max-width:640px;margin:0 auto 30px;text-align:center;color:#4a5568;line-height:1.7;">
+      En las preguntas frecuentes están los plazos, lo que necesitamos de ti y cómo se lleva
+      cada trámite. Si tu caso no aparece ahí, escríbenos y lo revisamos.
+    </p>
+    <div style="text-align:center;">
+      <a class="cta-button" href="faq.html">Ver preguntas frecuentes</a>
     </div>
   </section>
 
@@ -225,7 +217,7 @@
       });
     }, { threshold: 0.2 });
 
-    document.querySelectorAll('.hero h2, .hero p, .cta-button, .services h3, .service-item, .testimonios h3, .test-item').forEach(el => {
+    document.querySelectorAll('.hero h2, .hero p, .cta-button, .services h3, .service-item, .testimonios h3').forEach(el => {
       observer.observe(el);
     });
   </script>

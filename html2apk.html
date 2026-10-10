@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>html2apk — De HTML a APK en un comando | Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="html2apk: herramienta propia que convierte cualquier archivo HTML en un APK de Android instalable. Sin Gradle, sin Android Studio y sin conexión a internet." />
+  <link rel="canonical" href="https://yeremisb.github.io/html2apk.html" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="author" content="Yeremi Shikene Sebastian Cusihuallpa" />
+  <meta name="theme-color" content="#0a0e0a" />
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Yeremi S. BΛSTIAN" />
+  <meta property="og:locale" content="es_PE" />
+  <meta property="og:title" content="html2apk — De HTML a APK en un comando" />
+  <meta property="og:description" content="Convierte cualquier HTML en un APK de Android instalable. Sin Gradle, sin Android Studio y sin conexión a internet: solo las herramientas del SDK." />
+  <meta property="og:url" content="https://yeremisb.github.io/html2apk.html" />
+  <meta property="og:image" content="https://yeremisb.github.io/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Yeremi S. Bastian — Quillabamba, Perú" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="html2apk — De HTML a APK en un comando" />
+  <meta name="twitter:description" content="Convierte cualquier HTML en un APK de Android instalable. Sin Gradle, sin Android Studio y sin conexión." />
+  <meta name="twitter:image" content="https://yeremisb.github.io/og.jpg" />
+
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    main {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .hero {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      padding: 4rem 2rem;
+      border-radius: 12px;
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.78));
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      margin-top: 1.5rem;
+      line-height: 1.6;
+      color: #eee;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      margin-top: 3rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* Bloque a todo el ancho, fuera de la rejilla (para la tabla) */
+    .ancha {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 1.75rem;
+    }
+
+    .card.destacado {
+      grid-column: 1 / -1;
+      border: 1px solid var(--accent-borde);
+      background: linear-gradient(140deg, rgba(67, 209, 122, 0.08), var(--surface) 55%);
+      padding: 2rem;
+    }
+
+    .card.destacado h3 {
+      font-size: 1.45rem;
+    }
+
+    .card code {
+      color: #a7e8c2;
+      background: rgba(67, 209, 122, 0.1);
+      border-radius: 4px;
+      padding: 0.05rem 0.35rem;
+      font-size: 0.88em;
+    }
+
+    .btn-borde {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #2a332a;
+      border-radius: 5px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-borde:hover {
+      border-color: var(--accent-borde);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- Bloques de código ---------- */
+    pre {
+      background: var(--bg-2);
+      border: 1px solid #222a22;
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin: 0.75rem 0 1.25rem;
+      overflow-x: auto;
+      text-align: left;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #d8e6d8;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    /* ---------- Lista de pasos ---------- */
+    .pasos {
+      list-style: none;
+      counter-reset: paso;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .pasos li {
+      counter-increment: paso;
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .pasos li::before {
+      content: counter(paso);
+      position: absolute;
+      left: 0;
+      top: 0.05rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-suave);
+      border: 1px solid var(--accent-borde);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* ---------- Tabla de parámetros ---------- */
+    .tabla-envoltura {
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid #222a22;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    td:first-child {
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ---------- Cifras ---------- */
+    .cifras {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .cifra {
+      flex: 1 1 120px;
+      background: var(--bg-2);
+      border: 1px solid #222a22;
+      border-radius: 8px;
+      padding: 0.85rem 0.75rem;
+      text-align: center;
+    }
+
+    .cifra b {
+      display: block;
+      font-size: 1.3rem;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .cifra span {
+      font-size: 0.72rem;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      .card.destacado { padding: 1.25rem; }
+      pre { font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header>
+    <a href="index.html">Inicio</a>
+    <a class="active" href="portafolio.html">Portafolio</a>
+    <a href="demos/index.html">Demos</a>
+    <a href="sobre-mi.html">Sobre mí</a>
+    <a href="contacto.html">Contacto</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>html2apk</h1>
+      <p>
+        Convierte cualquier archivo HTML en un APK de Android instalable.
+        Sin Gradle, sin Android Studio y sin conexión a internet.
+      </p>
+    </div>
+
+    <section class="gallery" aria-label="Proyecto html2apk">
+
+      <article class="card destacado">
+        <h3>De un .html a una app instalable en un comando</h3>
+        <p>
+          La herramienta envuelve tu HTML en un <strong>WebView nativo a pantalla completa</strong>
+          y compila el APK usando <em>solo</em> las herramientas que ya vienen con el SDK de Android:
+          <code>aapt2</code>, <code>javac</code>, <code>d8</code>, <code>zipalign</code> y
+          <code>apksigner</code>. No descarga dependencias ni necesita un proyecto de Gradle.
+        </p>
+        <p>
+          Escribí el script porque publicar un juego HTML en Android normalmente obliga a instalar
+          Android Studio, esperar minutos de compilación y cargar cientos de megas de herramientas
+          para terminar empaquetando un archivo de 20 KB. Esto hace lo mismo en segundos y sin nada instalado de más.
+        </p>
+        <div class="tags">
+          <span>PowerShell</span><span>Android SDK</span><span>aapt2</span><span>d8</span><span>apksigner</span><span>WebView</span>
+        </div>
+        <div class="actions">
+          <a class="btn" href="descargas/html2apk.ps1" download>Descargar el script</a>
+          <a class="btn-borde" href="descargas/html2apk-LEEME.md" download>Leer el manual</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Cómo se usa</h3>
+        <p>Con el nombre y el identificador deducidos del propio archivo:</p>
+        <pre><code>.\html2apk.ps1 -Html .\mi_juego.html</code></pre>
+        <p>Con nombre propio, identificador y la instalación directa en el celular por USB:</p>
+        <pre><code>.\html2apk.ps1 -Html .\mi_juego.html `
+  -Nombre "Mi Juego" `
+  -Package com.yo.mijuego `
+  -Instalar</code></pre>
+        <p>
+          Si el equipo tiene la política de ejecución restringida, se lanza así:
+        </p>
+        <pre><code>powershell -NoProfile -ExecutionPolicy Bypass `
+  -File .\html2apk.ps1 -Html .\juego.html</code></pre>
+      </article>
+
+      <article class="card">
+        <h3>Qué hace por dentro</h3>
+        <ol class="pasos">
+          <li>Comprueba el HTML y deduce el nombre, el identificador y el slug del paquete.</li>
+          <li>Busca solo el SDK, las build-tools, la plataforma y el JDK en las rutas habituales.</li>
+          <li>Genera el proyecto Android completo: manifest, <code>MainActivity.java</code>, recursos y los 5 iconos.</li>
+          <li>Compila en cadena: <code>aapt2 compile</code> → <code>aapt2 link</code> → <code>javac</code> → <code>d8</code>.</li>
+          <li>Empaqueta el <code>classes.dex</code> dentro del APK.</li>
+          <li>Alinea con <code>zipalign</code> y firma con el keystore de desarrollo.</li>
+          <li>Verifica la firma y muestra el resumen del APK terminado.</li>
+        </ol>
+        <p>
+          Los proyectos generados quedan en <code>_build\&lt;slug&gt;\</code>, así que se pueden
+          inspeccionar o abrir después con Android Studio.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Un caso real</h3>
+        <p>
+          Lo usé para llevar <strong>Snake 95</strong> del navegador al celular. El juego completo,
+          con sus menús y todo, pesa menos que una sola foto:
+        </p>
+        <div class="cifras">
+          <div class="cifra"><b>21 KB</b><span>El juego completo</span></div>
+          <div class="cifra"><b>17 KB</b><span>Un hola mundo</span></div>
+          <div class="cifra"><b>0</b><span>Dependencias</span></div>
+          <div class="cifra"><b>7</b><span>Pasos de compilación</span></div>
+        </div>
+        <p>
+          Firmado con un keystore de desarrollo, listo para instalar en cualquier Android 7 o superior.
+        </p>
+        <div class="actions">
+          <a class="btn-borde" href="https://yeremixsb.itch.io/snake-95" target="_blank" rel="noopener noreferrer">Jugar Snake 95 en itch.io ↗</a>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="ancha" aria-label="Parámetros de html2apk">
+      <article class="card">
+        <h3>Parámetros</h3>
+        <div class="tabla-envoltura">
+          <table>
+            <thead>
+              <tr><th>Parámetro</th><th>Por defecto</th><th>Para qué</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>-Html</td><td>—</td><td>El archivo .html que se va a convertir. Es el único obligatorio.</td></tr>
+              <tr><td>-Nombre</td><td>nombre del HTML</td><td>El nombre visible debajo del icono.</td></tr>
+              <tr><td>-Package</td><td>derivado del nombre</td><td>Identificador de la app, por ejemplo <code>com.yo.mijuego</code>.</td></tr>
+              <tr><td>-Icono</td><td>icono Win95 embebido</td><td>Un PNG propio para el icono de la app.</td></tr>
+              <tr><td>-Salida</td><td>.\dist</td><td>Carpeta donde dejar el APK terminado.</td></tr>
+              <tr><td>-Orientacion</td><td>portrait</td><td><code>portrait</code>, <code>landscape</code>, <code>sensor</code> o <code>unspecified</code>.</td></tr>
+              <tr><td>-MinSdk / -TargetSdk</td><td>24 / 34</td><td>Versiones de Android que soporta la app.</td></tr>
+              <tr><td>-Instalar</td><td>—</td><td>Instala el APK en el celular conectado por USB al terminar.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:1.5rem; margin-bottom:0;">
+          <strong>Aviso sobre la firma.</strong> El script firma con una clave de desarrollo
+          compartida, pensada para probar. Si vas a publicar en Google Play necesitas tu propio
+          keystore, y hay que conservarlo: Android identifica cada app por su firma, así que si lo
+          pierdes no podrás actualizar la app instalada, solo desinstalarla y volver a empezar.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    © Yeremi S. BΛSTIAN — 2026 · Código, caos y creatividad.
+  </footer>
+
+  <script src="cursor.js"></script>
+</body>
+</html>

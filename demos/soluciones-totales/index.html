@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="https://img.icons8.com/office/400/ticket.png"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soluciones Totales - Papeletas y Asesoría Legal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #0a1a3a;
+      --accent-color: #ffcc00;
+      --bg-color: #f5f7fa;
+      --text-color: #1a1a1a;
+      --card-shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var(--text-color); scroll-behavior: smooth; }
+    a { text-decoration: none; }
+
+    /* Header */
+    header {
+      background: var(--primary-color);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 a { color: white; font-size: 1.8rem; font-weight: 700; }
+    nav { display: flex; gap: 20px; }
+    nav a { color: white; font-weight: 500; position: relative; transition: 0.3s; }
+    nav a::after {
+      content: '';
+      display: block;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s;
+      width: 0;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+    }
+    nav a:hover::after { width: 100%; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 120px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary-color), #1f3c7a);
+      color: white;
+      overflow: hidden;
+    }
+    .hero h2 { font-size: 2.8rem; font-weight: 700; margin-bottom: 15px; opacity: 0; transform: translateY(50px); transition: 0.8s ease-out; }
+    .hero p { font-size: 1.2rem; margin-bottom: 25px; opacity: 0; transform: translateY(50px); transition: 0.8s ease-out 0.3s; }
+    .cta-button {
+      background: var(--accent-color);
+      color: #000;
+      padding: 16px 32px;
+      font-weight: 700;
+      border-radius: 10px;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: 0.8s ease-out 0.6s;
+    }
+    .cta-button:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+
+    /* Services */
+    .services {
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .services h3 {
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      color: var(--primary-color);
+      opacity: 0; transform: translateY(50px); transition: 0.8s ease-out;
+    }
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 35px;
+    }
+    .service-item {
+      background: white;
+      padding: 35px 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px var(--card-shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0; transform: translateY(50px);
+    }
+    .service-item:hover { transform: translateY(-6px); box-shadow: 0 12px 24px var(--card-shadow); }
+    .service-item h4 { margin-bottom: 15px; color: var(--primary-color); font-size: 1.3rem; }
+
+    /* Testimonios */
+    .testimonios { padding: 80px 40px; background: #eef2f7; }
+    .testimonios h3 { text-align: center; margin-bottom: 50px; font-size: 2.2rem; color: var(--primary-color); opacity: 0; transform: translateY(50px); transition: 0.8s ease-out; }
+    .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .test-item {
+      background: white; padding: 30px 25px; border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      font-style: italic; position: relative;
+      transition: transform 0.3s;
+      opacity: 0; transform: translateY(50px);
+    }
+    .test-item::before { content: "“"; font-size: 3rem; color: var(--accent-color); position: absolute; top: 10px; left: 15px; }
+    .test-item:hover { transform: translateY(-3px); }
+
+    /* Footer */
+    footer { background: var(--primary-color); color: white; text-align: center; padding: 25px 15px; margin-top: 60px; font-size: 0.95rem; }
+
+    /* Animations triggered */
+    .show { opacity: 1 !important; transform: translateY(0px) !important; }
+
+    /* Responsive */
+    @media(max-width:768px){
+      nav { display: none; flex-direction: column; gap: 15px; background: var(--primary-color); position: absolute; top: 60px; right: 0; padding: 15px 30px; border-radius: 0 0 0 10px; }
+      nav.active { display: flex; }
+      .hamburger { display: flex; }
+      .hero h2 { font-size: 2.2rem; }
+      .hero p { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="index.html">Soluciones Totales</a></h1>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div><div></div><div></div>
+    </div>
+    <nav id="navMenu">
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+  <div style="max-width:1200px; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:40px;">
+    <div style="flex:1; min-width:280px; text-align:center;">
+      <h2>¿Te cayó una papeleta? Nosotros la resolvemos.</h2>
+      <p>Evita multas injustas, pierde menos tiempo y deja que los expertos se encarguen. Rápido, legal y sin estrés.</p>
+      <a class="cta-button" href="contacto.html">Consultar mi caso</a>
+    </div>
+    <div style="flex:1; min-width:280px; text-align:center;">
+      <img src="https://img.icons8.com/office/400/ticket.png" alt="Papeleta" style="max-width:100%; height:auto; border-radius:15px; opacity:0; transform:translateY(50px); transition:0.8s ease-out;" id="heroImage">
+    </div>
+  </div>
+</section>
+
+  <section class="services">
+    <h3>Servicios Principales</h3>
+    <div class="service-grid">
+      <div class="service-item"> <h4>Anulación de Papeletas</h4> <p>Defensa y revisión legal para anular multas injustas o mal emitidas.</p> </div>
+      <div class="service-item"> <h4>Descuentos y Apelaciones</h4> <p>Tramitamos apelaciones y obtenemos rebajas según el caso.</p> </div>
+      <div class="service-item"> <h4>Asesoría Legal Rápida</h4> <p>Respuestas claras sin lenguaje legal complicado. Todo explicado fácil.</p> </div>
+      <div class="service-item"> <h4>Regularización de Documentos</h4> <p>Licencias, SOAT, papeletas antiguas y más.</p> </div>
+    </div>
+  </section>
+
+  <section class="testimonios">
+    <h3>Testimonios</h3>
+    <div class="test-grid">
+      <div class="test-item">Tenía una papeleta de 1,200 y pensé que estaba frito. Ellos me la anularon. Héroes.</div>
+      <div class="test-item">Super rápidos y profesionales. Les mandé foto por WhatsApp y listo.</div>
+      <div class="test-item">Me explicaron todo clarito, sin palabras raras. Muy recomendados.</div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Soluciones Totales — Asesoría Legal y Gestión de Papeletas
+  </footer>
+
+  <script>
+  // Animación para la imagen del hero
+  const heroImg = document.getElementById('heroImage');
+  const imgObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0px)";
+      }
+    });
+  }, {threshold:0.2});
+  imgObserver.observe(heroImg);
+
+    // Menu toggle
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('active');
+    }
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.hero h2, .hero p, .cta-button, .services h3, .service-item, .testimonios h3, .test-item').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

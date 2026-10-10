@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Servicios - Soluciones Totales</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary-color: #0a1a3a;
+  --accent-color: #ffcc00;
+  --bg-color: #f5f7fa;
+  --text-color: #1a1a1a;
+  --card-shadow: rgba(0, 0, 0, 0.08);
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var(--text-color); scroll-behavior: smooth; }
+a { text-decoration:none; }
+
+/* Header */
+header {
+  background: var(--primary-color);
+  padding: 15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position: sticky;
+  top:0;
+  z-index:1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+header h1 a { color:white; font-size:1.8rem; font-weight:700; }
+nav { display:flex; gap:20px; }
+nav a { color:white; font-weight:500; position:relative; transition:0.3s; }
+nav a::after {
+  content:'';
+  display:block;
+  height:2px;
+  background: var(--accent-color);
+  width:0;
+  position:absolute;
+  bottom:-4px;
+  left:0;
+  transition: width 0.3s;
+}
+nav a:hover::after { width:100%; }
+
+/* Hamburger */
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+.hamburger div { width:25px; height:3px; background:white; border-radius:2px; transition: all 0.3s; }
+
+/* Hero */
+.hero {
+  padding: 120px 40px;
+  text-align:center;
+  background: linear-gradient(135deg, var(--primary-color), #1f3c7a);
+  color:white;
+  overflow:hidden;
+}
+.hero h2 { font-size:2.5rem; font-weight:700; margin-bottom:15px; opacity:0; transform: translateY(50px); transition:0.8s ease-out; }
+.hero p { font-size:1.2rem; opacity:0; transform: translateY(50px); transition:0.8s ease-out 0.3s; }
+
+/* Services */
+.services { padding: 80px 40px; text-align:center; }
+.services h3 { font-size:2rem; margin-bottom:40px; color: var(--primary-color); opacity:0; transform: translateY(50px); transition:0.8s ease-out; }
+
+.service-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap:30px;
+}
+.service-item {
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 6px 18px var(--card-shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+  opacity:0;
+  transform: translateY(50px);
+}
+.service-item:hover {
+  transform: translateY(-10px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
+.service-item h4 { margin-bottom:10px; color: var(--primary-color); }
+
+/* Footer */
+footer { background:var(--primary-color); color:white; text-align:center; padding:25px 15px; margin-top:60px; font-size:0.95rem; }
+
+/* Animations */
+.show { opacity:1 !important; transform:translateY(0px) !important; }
+
+/* Responsive */
+@media(max-width:768px){
+  nav { display:none; flex-direction:column; gap:15px; background:var(--primary-color); position:absolute; top:60px; right:0; padding:15px 30px; border-radius:0 0 0 10px; }
+  nav.active { display:flex; }
+  .hamburger { display:flex; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1><a href="index.html">Soluciones Totales</a></h1>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div><div></div><div></div>
+  </div>
+  <nav id="navMenu">
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Servicios Profesionales y Rápidos</h2>
+  <p>Todo lo que necesitas para resolver tus papeletas y trámites sin dolor de cabeza.</p>
+</section>
+
+<section class="services">
+  <h3>Nuestros Servicios</h3>
+  <div class="service-grid">
+    <div class="service-item">
+      <h4>Anulación de Papeletas</h4>
+      <p>Revisión legal y defensa completa para eliminar multas injustas.</p>
+    </div>
+    <div class="service-item">
+      <h4>Descuentos y Apelaciones</h4>
+      <p>Gestionamos apelaciones y obtenemos rebajas según normativa vigente.</p>
+    </div>
+    <div class="service-item">
+      <h4>Asesoría Legal Express</h4>
+      <p>Te explicamos tu caso de forma simple y directa, sin tecnicismos.</p>
+    </div>
+    <div class="service-item">
+      <h4>Regularización de Documentos</h4>
+      <p>Solucionamos licencias vencidas, SOAT, papeletas acumuladas y más.</p>
+    </div>
+    <div class="service-item">
+      <h4>Representación en Procedimientos</h4>
+      <p>Te acompañamos legalmente ante la municipalidad o SAT cuando es necesario.</p>
+    </div>
+    <div class="service-item">
+      <h4>Consultas Personalizadas</h4>
+      <p>Atención por WhatsApp, llamada o presencial según tu preferencia.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Soluciones Totales — Asesoría Legal y Gestión de Papeletas
+</footer>
+
+<script>
+// Menu toggle
+function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
+
+// Scroll animations
+const observer = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('show'); } }); }, {threshold:0.2});
+document.querySelectorAll('.hero h2, .hero p, .services h3, .service-item').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>

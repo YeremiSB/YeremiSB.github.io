@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contacto - Soluciones Totales</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary-color: #0a1a3a;
+  --accent-color: #ffcc00;
+  --bg-color: #f5f7fa;
+  --text-color: #1a1a1a;
+  --card-shadow: rgba(0, 0, 0, 0.08);
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var(--text-color); scroll-behavior: smooth; }
+a { text-decoration: none; }
+
+/* Header */
+header {
+  background: var(--primary-color);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+header h1 a { color:white; font-size:1.8rem; font-weight:700; }
+nav { display:flex; gap:20px; }
+nav a { color:white; font-weight:500; position:relative; transition:0.3s; }
+nav a::after {
+  content:'';
+  display:block;
+  height:2px;
+  background: var(--accent-color);
+  width:0;
+  position:absolute;
+  bottom:-4px;
+  left:0;
+  transition: width 0.3s;
+}
+nav a:hover::after { width:100%; }
+
+/* Hamburger */
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+.hamburger div { width:25px; height:3px; background:white; border-radius:2px; transition: all 0.3s; }
+
+/* Hero */
+.hero {
+  padding: 120px 40px;
+  text-align:center;
+  background: linear-gradient(135deg, var(--primary-color), #1f3c7a);
+  color:white;
+  overflow:hidden;
+}
+.hero h2 { font-size:2.4rem; font-weight:700; margin-bottom:15px; opacity:0; transform: translateY(50px); transition:0.8s ease-out; }
+.hero p { font-size:1.2rem; margin-bottom:25px; opacity:0; transform: translateY(50px); transition:0.8s ease-out 0.3s; }
+
+/* Contact Section */
+.contacto-section {
+  padding: 70px 40px;
+  max-width: 1000px;
+  margin: auto;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+  gap:40px;
+}
+.contact-card, .form {
+  background:white;
+  padding:35px;
+  border-radius:15px;
+  box-shadow:0 6px 18px var(--card-shadow);
+  opacity:0; transform:translateY(50px);
+  transition:0.8s ease-out;
+}
+.contact-card h3, .form h3 { margin-bottom:15px; color:var(--primary-color); }
+.contact-card p { margin-bottom:10px; line-height:1.5; }
+.contact-card a { display:flex; align-items:center; gap:10px; font-weight:700; padding:12px 16px; border-radius:8px; transition: transform 0.2s; }
+.contact-card a:hover { transform: scale(1.05); }
+.contact-card a img { width:20px; height:20px; }
+
+.form label { display:block; font-weight:600; margin-bottom:5px; }
+.form input, .form textarea {
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:1rem;
+}
+.form button {
+  background: var(--accent-color);
+  padding:14px 28px;
+  border:none;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.form button:hover { transform: translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.2); }
+
+/* Footer */
+footer { background:var(--primary-color); color:white; text-align:center; padding:25px 15px; margin-top:60px; font-size:0.95rem; }
+
+/* Modal */
+.modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.5); }
+.modal-content {
+  background:white; margin:15% auto; padding:30px; border-radius:12px;
+  max-width:400px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); position:relative;
+}
+.modal-content h4 { margin-bottom:20px; color: var(--primary-color); }
+.modal-content button { background:var(--primary-color); color:white; padding:10px 20px; border:none; border-radius:8px; font-weight:600; cursor:pointer; }
+
+/* Animations */
+.show { opacity:1 !important; transform:translateY(0px) !important; }
+
+/* Responsive */
+@media(max-width:768px){
+  nav { display:none; flex-direction:column; gap:15px; background:var(--primary-color); position:absolute; top:60px; right:0; padding:15px 30px; border-radius:0 0 0 10px; }
+  nav.active { display:flex; }
+  .hamburger { display:flex; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1><a href="index.html">Soluciones Totales</a></h1>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div><div></div><div></div>
+  </div>
+  <nav id="navMenu">
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Estamos aquí para ayudarte</h2>
+  <p>Cuéntanos tu caso y lo resolvemos sin estrés, sin vueltas y sin tecnicismos raros.</p>
+</section>
+
+<section class="contacto-section">
+
+  <div class="contact-card">
+    <h3>Nuestros Servicios</h3>
+    <p>✔ Anulación de papeletas</p>
+    <p>✔ Descuentos y apelaciones</p>
+    <p>✔ Asesoría legal rápida</p>
+    <p>✔ Regularización de documentos</p>
+    <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
+      <a href="https://wa.me/51933313206" target="_blank" style="background:#25D366; color:white;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"> WhatsApp
+      </a>
+      <a href="https://m.me/solucionestotalesoficial" target="_blank" style="background:#0084FF; color:white;">
+        <img src="https://cdn.simpleicons.org/messenger/FFFFFF" alt="Messenger"> Messenger
+      </a>
+    </div>
+  </div>
+
+  <form class="form" action="https://formspree.io/f/xgvrkyyv" method="POST" onsubmit="return enviarFormulario(this)">
+    <h3>Envíanos un mensaje</h3>
+    <label>Nombre</label>
+    <input type="text" name="name" placeholder="Tu nombre" required>
+    <label>Correo</label>
+    <input type="email" name="email" placeholder="correo@ejemplo.com" required>
+    <label>Teléfono</label>
+    <input type="text" name="telefono" placeholder="Tu número" required>
+    <label>Mensaje</label>
+    <textarea name="message" rows="5" placeholder="Cuéntanos tu caso..." required></textarea>
+    <button type="submit">Enviar</button>
+  </form>
+
+</section>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h4 id="modal-text"></h4>
+    <button onclick="cerrarModal()">Cerrar</button>
+  </div>
+</div>
+
+<footer>
+  © 2025 Soluciones Totales — Asesoría Legal y Gestión de Papeletas
+</footer>
+
+<script>
+// Menu toggle
+function toggleMenu() {
+  document.getElementById('navMenu').classList.toggle('active');
+}
+
+// Form
+function enviarFormulario(form) {
+  const datos = new FormData(form);
+  fetch(form.action, { method: form.method, body: datos, headers:{'Accept':'application/json'} })
+  .then(response => {
+    if(response.ok){ mostrarModal("✅ ¡Mensaje enviado correctamente! Nos pondremos en contacto pronto."); form.reset(); }
+    else mostrarModal("⚠️ Hubo un error al enviar tu mensaje. Intenta nuevamente.");
+  })
+  .catch(()=> mostrarModal("⚠️ Hubo un error al enviar tu mensaje. Intenta nuevamente."));
+  return false;
+}
+function mostrarModal(mensaje){
+  document.getElementById("modal-text").innerText = mensaje;
+  document.getElementById("modal").style.display="block";
+}
+function cerrarModal(){ document.getElementById("modal").style.display="none"; }
+window.onclick=function(event){ if(event.target==document.getElementById("modal")) cerrarModal(); }
+
+// Scroll animations
+const observer = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('show'); } }); }, {threshold:0.2});
+document.querySelectorAll('.hero h2, .hero p, .contact-card, .form').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>

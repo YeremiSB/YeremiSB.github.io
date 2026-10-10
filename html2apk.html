@@ -300,8 +300,8 @@
           <span>PowerShell</span><span>Android SDK</span><span>aapt2</span><span>d8</span><span>apksigner</span><span>WebView</span>
         </div>
         <div class="actions">
-          <a class="btn" href="descargas/html2apk.ps1" download>Descargar el script</a>
-          <a class="btn-borde" href="descargas/html2apk-LEEME.md" download>Leer el manual</a>
+          <a class="btn" href="https://github.com/YeremiSB/html2apk/releases/latest/download/html2apk.ps1">Descargar desde GitHub</a>
+          <a class="btn-borde" href="https://github.com/YeremiSB/html2apk" target="_blank" rel="noopener noreferrer">Ver el código ↗</a>
         </div>
       </article>
 
@@ -386,6 +386,27 @@
           keystore, y hay que conservarlo: Android identifica cada app por su firma, así que si lo
           pierdes no podrás actualizar la app instalada, solo desinstalarla y volver a empezar.
         </p>
+      </article>
+
+      <article class="card" style="margin-top:1.75rem;">
+        <h3>Código abierto, y lo puedes comprobar</h3>
+        <p>
+          El script está en GitHub bajo licencia <strong>MIT</strong>. Eso significa que puedes
+          leerlo entero antes de ejecutarlo, ver cada cambio que ha tenido y modificarlo a tu gusto.
+          La descarga sale del apartado <em>Releases</em> del repositorio, no de un archivo suelto.
+        </p>
+        <p>
+          Y si quieres estar seguro de que el archivo que bajaste es exactamente el que publiqué,
+          compara su huella:
+        </p>
+        <pre><code>Get-FileHash .\html2apk.ps1 -Algorithm SHA256
+# f3b249d95296ff0917155a244b7d85e71cec388ed80f42ed01fc44fee85e5bcc</code></pre>
+        <div class="tags">
+          <span>GitHub</span><span>Licencia MIT</span><span>Verificable con SHA256</span>
+        </div>
+        <div class="actions">
+          <a class="btn-borde" href="https://github.com/YeremiSB/html2apk" target="_blank" rel="noopener noreferrer">github.com/YeremiSB/html2apk ↗</a>
+        </div>
       </article>
     </section>
   </main>

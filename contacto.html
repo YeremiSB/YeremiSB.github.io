@@ -207,6 +207,43 @@
       display: none;
     }
 
+    /* ---------- Consentimiento de privacidad ---------- */
+    .acepto {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .acepto input {
+      width: 1.05rem;
+      height: 1.05rem;
+      padding: 0;
+      margin-top: 0.2rem;
+      flex: 0 0 auto;
+      accent-color: var(--accent);
+    }
+
+    .acepto a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .nota {
+      font-size: 0.78rem;
+      color: var(--faint);
+      line-height: 1.5;
+    }
+
+    .nota a {
+      color: var(--accent);
+    }
+
     .directo {
       margin-top: 2.5rem;
       font-size: 0.95rem;
@@ -244,6 +281,17 @@
       <label for="mensaje">Tu mensaje</label>
       <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntame qué tienes en mente..." required></textarea>
 
+      <label class="acepto" for="acepto">
+        <input id="acepto" type="checkbox" name="acepto" value="Sí" required>
+        <span>Acepta la <a href="politica-de-privacidad.html">Política de privacidad</a> y el tratamiento de mis datos para recibir respuesta.</span>
+      </label>
+
+      <p class="nota">
+        Uso tu nombre, tu correo y tu mensaje solo para contestarte: nada de publicidad ni de
+        compartirlos con terceros. Puedes pedir su eliminación cuando quieras.
+        <a href="politica-de-privacidad.html">Leer la política completa</a>.
+      </p>
+
       <button type="submit">Enviar</button>
     </form>
 
@@ -256,7 +304,8 @@
   </main>
 
   <footer>
-    © Yeremi S. BΛSTIAN — 2026 · Estoy leyendo tus mensajes... 👀
+    © Yeremi S. BΛSTIAN — 2026 · Estoy leyendo tus mensajes... 👀 ·
+    <a href="politica-de-privacidad.html" style="color: var(--accent)">Política de privacidad</a>
   </footer>
 
   <script src="cursor.js"></script>

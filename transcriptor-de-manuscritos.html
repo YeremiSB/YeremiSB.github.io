@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transcriptor de Manuscritos — De fotos a Word con IA | Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="App de escritorio en Python que convierte fotos de manuscritos o un PDF escaneado en un documento Word, con la IA de Gemini. Código abierto, licencia MIT." />
+  <link rel="canonical" href="https://yeremisb.github.io/transcriptor-de-manuscritos.html" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="author" content="Yeremi Shikene Sebastian Cusihuallpa" />
+  <meta name="theme-color" content="#0a0e0a" />
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Yeremi S. BΛSTIAN" />
+  <meta property="og:locale" content="es_PE" />
+  <meta property="og:title" content="Transcriptor de Manuscritos — De fotos a Word con IA" />
+  <meta property="og:description" content="Convierte fotos de manuscritos o un PDF escaneado en un Word ordenado, página por página, con Gemini. App de escritorio en Python, código abierto." />
+  <meta property="og:url" content="https://yeremisb.github.io/transcriptor-de-manuscritos.html" />
+  <meta property="og:image" content="https://yeremisb.github.io/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Yeremi S. Bastian — Quillabamba, Perú" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Transcriptor de Manuscritos — De fotos a Word con IA" />
+  <meta name="twitter:description" content="Fotos de un manuscrito o un PDF escaneado → un Word ordenado, página por página, con la IA de Gemini." />
+  <meta name="twitter:image" content="https://yeremisb.github.io/og.jpg" />
+
+  <!-- Datos estructurados -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://yeremisb.github.io/#person",
+      "name": "Yeremi Shikene Sebastian Cusihuallpa",
+      "alternateName": ["Yeremi S. Bastian", "Yeremi S. BΛSTIAN", "YeremiSB"],
+      "url": "https://yeremisb.github.io/"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://yeremisb.github.io/transcriptor-de-manuscritos.html#software",
+      "name": "Transcriptor de Manuscritos",
+      "alternateName": "Transcriptor de Manuscritos — De fotos a Word con IA",
+      "description": "Aplicación de escritorio en Python que transcribe fotos de manuscritos (JPG/PNG) o un PDF escaneado a un documento Word usando la API de Google Gemini, con reanudación inteligente y auto-guardado por página.",
+      "url": "https://yeremisb.github.io/transcriptor-de-manuscritos.html",
+      "codeRepository": "https://github.com/YeremiSB/transcriptor-de-manuscritos",
+      "downloadUrl": "https://github.com/YeremiSB/transcriptor-de-manuscritos/archive/refs/heads/main.zip",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, Linux, macOS",
+      "softwareVersion": "1.0",
+      "license": "https://github.com/YeremiSB/transcriptor-de-manuscritos/blob/main/LICENSE",
+      "programmingLanguage": "Python",
+      "inLanguage": "es",
+      "author": { "@id": "https://yeremisb.github.io/#person" },
+      "creator": { "@id": "https://yeremisb.github.io/#person" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://yeremisb.github.io/transcriptor-de-manuscritos.html#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://yeremisb.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Programación", "item": "https://yeremisb.github.io/programacion.html" },
+        { "@type": "ListItem", "position": 3, "name": "Transcriptor de Manuscritos", "item": "https://yeremisb.github.io/transcriptor-de-manuscritos.html" }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    main {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    /* Portada: papel rayado dibujado con CSS, sin imágenes externas */
+    .hero {
+      position: relative;
+      padding: 4rem 2rem;
+      border-radius: 12px;
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+      background-color: #0b0f0b;
+      background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(67, 209, 122, 0.18), transparent 62%),
+        repeating-linear-gradient(180deg, rgba(67, 209, 122, 0.12) 0 1px, transparent 1px 34px),
+        linear-gradient(180deg, #101610, #070a07);
+      border: 1px solid #1d241d;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.55));
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 5.5vw, 3.6rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      margin-top: 1.5rem;
+      line-height: 1.7;
+      color: #dfe8df;
+      max-width: 60ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      margin-top: 3rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .ancha {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 1.75rem;
+    }
+
+    .card.destacado {
+      grid-column: 1 / -1;
+      border: 1px solid var(--accent-borde);
+      background: linear-gradient(140deg, rgba(67, 209, 122, 0.08), var(--surface) 55%);
+      padding: 2rem;
+    }
+
+    .card.destacado h3 {
+      font-size: 1.45rem;
+    }
+
+    .card code {
+      color: #a7e8c2;
+      background: rgba(67, 209, 122, 0.1);
+      border-radius: 4px;
+      padding: 0.05rem 0.35rem;
+      font-size: 0.88em;
+    }
+
+    .btn-borde {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #2a332a;
+      border-radius: 5px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-borde:hover {
+      border-color: var(--accent-borde);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- Captura de la app ---------- */
+    .captura {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 2.5rem;
+    }
+
+    .marco {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #232b23;
+      background: #0b0f0b;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+      width: 100%;
+    }
+
+    .marco img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      font-size: 0.8rem;
+      color: var(--faint);
+      margin-top: 0.85rem;
+      text-align: center;
+    }
+
+    /* ---------- Bloques de código ---------- */
+    pre {
+      background: var(--bg-2);
+      border: 1px solid #222a22;
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin: 0.75rem 0 1.25rem;
+      overflow-x: auto;
+      text-align: left;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #d8e6d8;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+
+    /* ---------- Lista de pasos ---------- */
+    .pasos {
+      list-style: none;
+      counter-reset: paso;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .pasos li {
+      counter-increment: paso;
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .pasos li::before {
+      content: counter(paso);
+      position: absolute;
+      left: 0;
+      top: 0.05rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-suave);
+      border: 1px solid var(--accent-borde);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* ---------- Tabla ---------- */
+    .tabla-envoltura {
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid #222a22;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    td:first-child {
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ---------- Cifras ---------- */
+    .cifras {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .cifra {
+      flex: 1 1 120px;
+      background: var(--bg-2);
+      border: 1px solid #222a22;
+      border-radius: 8px;
+      padding: 0.85rem 0.75rem;
+      text-align: center;
+    }
+
+    .cifra b {
+      display: block;
+      font-size: 1.3rem;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .cifra span {
+      font-size: 0.72rem;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nota {
+      font-size: 0.85rem;
+      color: var(--faint);
+      line-height: 1.6;
+      text-align: left;
+      margin-top: 0.75rem;
+    }
+
+    /* ---------- Lista simple con viñeta de acento ---------- */
+    .lista {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .lista li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.55rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .lista li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .card.destacado { padding: 1.25rem; }
+      pre { font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header>
+    <a href="index.html">Inicio</a>
+    <a class="active" href="portafolio.html">Portafolio</a>
+    <a href="demos/index.html">Demos</a>
+    <a href="sobre-mi.html">Sobre mí</a>
+    <a href="contacto.html">Contacto</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>Transcriptor<span>de Manuscritos</span></h1>
+      <p>
+        Le tomo fotos a un manuscrito o paso el PDF escaneado, y la app me devuelve
+        un Word ordenado, página por página, con la IA de Gemini.
+      </p>
+    </div>
+
+    <section class="gallery" aria-label="Proyecto Transcriptor de Manuscritos">
+
+      <article class="card destacado">
+        <h3>Escribir dos veces la misma página</h3>
+        <p>
+          Todo empezó con los cuadernos de obra: hojas escritas a mano, con sellos y firmas,
+          que después alguien tenía que volver a escribir en Word. Yo hacía justo eso, página
+          por página, y era el trabajo más aburrido del día.
+        </p>
+        <p>
+          Ahora le doy una carpeta de fotos <em>o</em> el PDF completo a la app: cada página pasa
+          por <strong>Gemini</strong>, que devuelve el texto con sus títulos, saltos de línea y una
+          nota al final si encuentra sellos o firmas. El resultado se arma solo en un
+          <code>.docx</code> con una página de Word por cada página original.
+        </p>
+        <div class="tags">
+          <span>Python</span><span>tkinter</span><span>Gemini API</span><span>python-docx</span><span>pdf2image</span><span>Poppler</span>
+        </div>
+        <div class="actions">
+          <a class="btn" href="https://github.com/YeremiSB/transcriptor-de-manuscritos" target="_blank" rel="noopener noreferrer">Ver el código en GitHub</a>
+          <a class="btn-borde" href="https://github.com/YeremiSB/transcriptor-de-manuscritos/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer">Descargar ZIP ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Cómo funciona</h3>
+        <ol class="pasos">
+          <li>Eliges el origen: una <strong>carpeta de imágenes</strong> o un <strong>archivo PDF</strong>.</li>
+          <li>La app ordena las páginas por el número del nombre del archivo.</li>
+          <li>Cada página se envía a Gemini como imagen y vuelve como texto plano.</li>
+          <li>El texto se inserta en el Word con su encabezado y un salto de página.</li>
+          <li>Después de cada página, el archivo se guarda a disco.</li>
+        </ol>
+        <p>
+          Si el Word ya existe, la app lee los encabezados <code>Página: …</code> y salta las hojas
+          que ya estaban hechas.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Reanudar sin repetir ni pagar dos veces</h3>
+        <p>
+          Transcribir cuarenta páginas tarda, y la conexión no siempre aguanta. Por eso el archivo
+          se guarda <strong>después de cada página</strong>, no al final: si se corta la luz o se cierra
+          la ventana, lo avanzado sigue en el <code>.docx</code>.
+        </p>
+        <p>
+          Al volver a darle a <em>Generar</em>, la app detecta el progreso y continúa donde quedó.
+          Las páginas ya hechas no se vuelven a enviar a la API, así que tampoco gastan cuota.
+        </p>
+        <div class="cifras">
+          <div class="cifra"><b>1</b><span>Archivo Python</span></div>
+          <div class="cifra"><b>4</b><span>Dependencias</span></div>
+          <div class="cifra"><b>0</b><span>Claves en el código</span></div>
+          <div class="cifra"><b>5</b><span>Reintentos por página</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Tu API Key, tu cuenta</h3>
+        <p>
+          El programa <strong>no trae ninguna clave</strong>. Cada persona pone la suya, que es gratis
+          en Google AI Studio, y puede elegir entre tres formas:
+        </p>
+        <ul class="lista">
+          <li>Escribirla en la ventana y no guardarla.</li>
+          <li>Marcar <em>Recordar en este equipo</em>: se guarda fuera del proyecto, en la carpeta de configuración del usuario.</li>
+          <li>Definirla con la variable de entorno <code>GEMINI_API_KEY</code>.</li>
+        </ul>
+        <p class="nota" style="margin-top:0;">
+          Si la clave es inválida o no tiene permisos, la app lo dice con un mensaje claro en vez
+          de soltar el error crudo de la API.
+        </p>
+      </article>
+
+    </section>
+
+    <figure class="captura">
+      <div class="marco">
+        <img src="Fotos/transcriptor-de-manuscritos.webp"
+             alt="Interfaz del Transcriptor de Manuscritos: campo de API Key, selección de carpeta de imágenes o PDF, barra de progreso y consola con el avance página por página"
+             loading="lazy" decoding="async" width="702" height="679">
+      </div>
+      <figcaption>
+        La ventana del programa: tema oscuro, barra de progreso y consola con lo que va pasando.
+      </figcaption>
+    </figure>
+
+    <section class="ancha" aria-label="Instalación y modos de uso">
+      <article class="card">
+        <h3>Instalación en Windows</h3>
+        <p>Bajas el ZIP, lo descomprimes y haces doble clic en <code>instalar.bat</code>. Ese script
+          crea el entorno virtual, instala las dependencias y verifica que todo importe.</p>
+        <pre><code>git clone https://github.com/YeremiSB/transcriptor-de-manuscritos.git
+cd transcriptor-de-manuscritos
+
+instalar.bat     :: crea .venv e instala los requerimientos
+iniciar.bat      :: abre el programa (sin ventana de consola)</code></pre>
+        <p>En Linux o macOS es el camino manual:</p>
+        <pre><code>python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python transcriptor_manuscritos.py</code></pre>
+      </article>
+
+      <article class="card" style="margin-top:1.75rem;">
+        <h3>Qué entra y qué sale</h3>
+        <div class="tabla-envoltura">
+          <table>
+            <thead>
+              <tr><th>Origen</th><th>Qué hace</th><th>Archivo que genera</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Carpeta de imágenes</td>
+                <td>Toma los JPG y PNG de la carpeta y los ordena por el número del nombre.</td>
+                <td><code>Transcripcion_Completa.docx</code></td>
+              </tr>
+              <tr>
+                <td>Archivo PDF</td>
+                <td>Convierte cada hoja a imagen con Poppler y la procesa igual que una foto.</td>
+                <td><code>Transcripcion_&lt;nombre&gt;.docx</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="nota">
+          Para el modo PDF hace falta Poppler instalado. La app lo busca en la variable
+          <code>POPPLER_PATH</code>, en el <code>PATH</code> del sistema y en las rutas habituales de
+          Windows, macOS y Linux; si no lo encuentra, avisa y sugiere usar el modo de imágenes.
+        </p>
+      </article>
+
+      <article class="card" style="margin-top:1.75rem;">
+        <h3>Lo que aprendí haciéndolo</h3>
+        <p>
+          <strong>Guardar seguido vale más que guardar bonito.</strong> El primer día perdí una
+          transcripción entera por guardar solo al final. Desde entonces cada página se escribe a
+          disco apenas termina.
+        </p>
+        <p>
+          <strong>Un error de API mal contado es peor que el error.</strong> Un 429 o un 503 sin
+          explicación solo asusta; con un reintento y un mensaje claro, se entiende.
+        </p>
+        <p>
+          <strong>La interfaz también es parte del trabajo.</strong> Rehíce la ventana con la misma
+          paleta y tipografía de esta página web, en vez de dejar el formulario gris de siempre.
+        </p>
+        <div class="tags">
+          <span>GitHub</span><span>Licencia MIT</span><span>Código abierto</span>
+        </div>
+        <div class="actions">
+          <a class="btn-borde" href="https://github.com/YeremiSB/transcriptor-de-manuscritos" target="_blank" rel="noopener noreferrer">github.com/YeremiSB/transcriptor-de-manuscritos ↗</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    © Yeremi S. BΛSTIAN — 2026 · Código, caos y creatividad. · <a href="politica-de-privacidad.html" style="color: var(--accent)">Política de privacidad</a>
+  </footer>
+
+  <script src="cursor.js"></script>
+</body>
+</html>

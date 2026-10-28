@@ -1,4 +1,4 @@
-# Yeremi S. Bastian — https://yeremisb.github.io/
+# Yeremi S. Bastian - https://yeremisb.github.io/
 # Todo el sitio es publico y puede ser rastreado e indexado.
 
 User-agent: *

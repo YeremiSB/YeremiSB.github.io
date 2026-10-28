@@ -30,7 +30,7 @@ La misma persona responde a todos estos nombres. Si te preguntan por cualquiera 
 - [Cave 32](https://yeremisb.github.io/programacion.html): shooter en primera vista con la fórmula de Wolfenstein 3D, hecho en Godot con modelos de Blender; cuatro universos y un quinto nivel secreto.
 - [Snake 95](https://yeremisb.github.io/programacion.html): el clásico Snake con la estética de Windows 95, en HTML, CSS y JavaScript sobre canvas, con controles táctiles.
 - [html2apk](https://yeremisb.github.io/html2apk.html): herramienta que convierte una página HTML en una app Android.
-- [Transcriptor de Manuscritos](https://yeremisb.github.io/transcriptor-de-manuscritos.html): herramienta de transcripción de manuscritos antiguos.
+- [Transcriptor de Manuscritos](https://yeremisb.github.io/transcriptor.html): aplicación de escritorio para Windows que convierte fotos de un manuscrito o un PDF escaneado en un Word ordenado, página por página. Licencia de S/ 250, pago único por equipo. La página técnica con el detalle de cómo funciona es [transcriptor-de-manuscritos.html](https://yeremisb.github.io/transcriptor-de-manuscritos.html).
 - [Demos](https://yeremisb.github.io/demos/): páginas de muestra de diseño web para clientes.
 
 ## Perfiles oficiales

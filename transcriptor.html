@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transcriptor de Manuscritos — de fotos o PDF a Word | S/ 250</title>
+  <meta name="description" content="Convierte fotos de un manuscrito o un PDF escaneado en un Word ordenado, página por página. Un solo archivo para Windows, sin instalar nada. Licencia S/ 250, pago único." />
+  <link rel="canonical" href="https://yeremisb.github.io/transcriptor.html" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="author" content="Yeremi Shikene Sebastian Cusihuallpa" />
+  <meta name="theme-color" content="#0a0e0a" />
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="product" />
+  <meta property="og:site_name" content="Yeremi S. BΛSTIAN" />
+  <meta property="og:locale" content="es_PE" />
+  <meta property="og:title" content="Transcriptor de Manuscritos — de fotos o PDF a Word" />
+  <meta property="og:description" content="Tu archivo en Word sin volver a escribirlo. Un solo archivo para Windows. Licencia S/ 250, pago único." />
+  <meta property="og:url" content="https://yeremisb.github.io/transcriptor.html" />
+  <meta property="og:image" content="https://yeremisb.github.io/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Transcriptor de Manuscritos — Yeremi S. Bastian" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Transcriptor de Manuscritos — de fotos o PDF a Word" />
+  <meta name="twitter:description" content="Tu archivo en Word sin volver a escribirlo. Licencia S/ 250, pago único, para Windows." />
+  <meta name="twitter:image" content="https://yeremisb.github.io/og.jpg" />
+
+  <!-- Datos estructurados: producto y precio -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://yeremisb.github.io/#person",
+      "name": "Yeremi Shikene Sebastian Cusihuallpa",
+      "alternateName": "Yeremi S. Bastian",
+      "url": "https://yeremisb.github.io/"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://yeremisb.github.io/transcriptor.html#software",
+      "name": "Transcriptor de Manuscritos",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Windows 10, Windows 11",
+      "inLanguage": "es-PE",
+      "description": "Convierte fotos de un manuscrito o un PDF escaneado en un documento Word ordenado, página por página, usando la API de Google Gemini. Guarda el avance tras cada página y retoma donde se quedó.",
+      "url": "https://yeremisb.github.io/transcriptor.html",
+      "author": { "@id": "https://yeremisb.github.io/#person" },
+      "creator": { "@id": "https://yeremisb.github.io/#person" },
+      "offers": {
+        "@type": "Offer",
+        "price": "250",
+        "priceCurrency": "PEN",
+        "availability": "https://schema.org/InStock",
+        "url": "https://yeremisb.github.io/transcriptor.html",
+        "description": "Licencia para un equipo, pago único, sin vencimiento."
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://yeremisb.github.io/transcriptor.html#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://yeremisb.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Programación", "item": "https://yeremisb.github.io/programacion.html" },
+        { "@type": "ListItem", "position": 3, "name": "Transcriptor de Manuscritos", "item": "https://yeremisb.github.io/transcriptor.html" }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    /* ---------- Portada ---------- */
+    .hero {
+      position: relative;
+      background:
+        radial-gradient(120% 130% at 50% 0%, rgba(67, 209, 122, 0.16), rgba(10, 14, 10, 0) 60%),
+        linear-gradient(180deg, #101810, #0b0f0b);
+      border: 1px solid #1e2a1e;
+      padding: 4.5rem 2rem;
+      border-radius: 12px;
+      max-width: 1000px;
+      width: 100%;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero h1 {
+      font-size: clamp(1.85rem, 5vw, 3.2rem);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .hero h1 span { display: block; color: var(--accent); }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.12rem);
+      margin: 1.25rem auto 0;
+      line-height: 1.7;
+      color: #dfe8df;
+      max-width: 58ch;
+    }
+
+    /* ---------- Bloque de precio ---------- */
+    .oferta {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 2rem;
+      border: 1px solid var(--accent-borde);
+      border-radius: 12px;
+      background: linear-gradient(140deg, rgba(67, 209, 122, 0.10), var(--surface) 60%);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .etiqueta-oferta {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #0a0e0a;
+      background: var(--accent);
+      border-radius: 999px;
+      padding: 0.28rem 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .precio {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.35rem;
+    }
+
+    .precio-antes {
+      font-size: 1.5rem;
+      color: var(--faint);
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+    }
+
+    .precio-ahora {
+      font-size: clamp(2.6rem, 8vw, 3.8rem);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .precio-moneda { font-size: 1.05rem; color: var(--muted); font-weight: 500; }
+
+    .precio-detalle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 52ch;
+      margin: 0 auto 1.4rem;
+    }
+
+    .oferta .btn { font-size: 1.05rem; padding: 0.8rem 1.9rem; }
+
+    .pago-nota {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--faint);
+    }
+
+    /* ---------- Secciones ---------- */
+    .bloque {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 2.75rem;
+    }
+
+    .bloque > h2 {
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .rejilla {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .btn-borde {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #2a332a;
+      border-radius: 5px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .btn-borde:hover {
+      border-color: var(--accent-borde);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .card h3 { font-size: 1.05rem; }
+
+    .card .precio-mini {
+      display: inline-block;
+      font-size: 0.78rem;
+      color: #a7e8c2;
+      background: var(--accent-suave);
+      border: 1px solid var(--accent-borde);
+      border-radius: 999px;
+      padding: 0.1rem 0.55rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .lista { list-style: none; text-align: left; margin-bottom: 0; }
+    .lista li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.55rem;
+      font-size: 0.94rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .lista li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .lista li strong { color: #fff; }
+
+    .pasos { list-style: none; counter-reset: paso; text-align: left; margin-bottom: 0; }
+    .pasos li {
+      counter-increment: paso;
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.94rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .pasos li::before {
+      content: counter(paso);
+      position: absolute;
+      left: 0;
+      top: 0.05rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-suave);
+      border: 1px solid var(--accent-borde);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .cifras {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .cifra {
+      background: var(--bg-2);
+      border: 1px solid #222a22;
+      border-radius: 8px;
+      padding: 0.85rem 0.7rem;
+      text-align: center;
+    }
+    .cifra b { display: block; font-size: 1.25rem; color: var(--accent); line-height: 1.2; }
+    .cifra span {
+      font-size: 0.7rem;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nota {
+      font-size: 0.85rem;
+      color: var(--faint);
+      line-height: 1.65;
+      text-align: left;
+      margin-top: 0.75rem;
+    }
+
+    /* ---------- Preguntas frecuentes ---------- */
+    .faq details {
+      border-bottom: 1px solid #222a22;
+      padding: 0.9rem 0;
+    }
+    .faq details:first-of-type { border-top: 1px solid #222a22; }
+    .faq summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.96rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      color: var(--accent);
+      font-size: 1.3rem;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+    .faq details[open] summary::after { content: "−"; }
+    .faq p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin-top: 0.6rem;
+    }
+
+    /* ---------- Cierre ---------- */
+    .cierre {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 3rem;
+      text-align: center;
+      border-top: 1px solid #222a22;
+      padding-top: 2.5rem;
+    }
+    .cierre h2 { font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .cierre p { color: var(--muted); max-width: 52ch; margin: 0 auto 1.4rem; line-height: 1.65; }
+
+    @media (max-width: 760px) {
+      .rejilla { grid-template-columns: 1fr; }
+      .cifras { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero { padding: 3rem 1.25rem; }
+      .oferta { padding: 1.5rem 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header>
+    <a href="index.html">Inicio</a>
+    <a class="active" href="portafolio.html">Portafolio</a>
+    <a href="demos/index.html">Demos</a>
+    <a href="sobre-mi.html">Sobre mí</a>
+    <a href="contacto.html">Contacto</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>Tu archivo en Word,<span>sin volver a escribirlo</span></h1>
+      <p>
+        Le das las fotos de un manuscrito o un PDF escaneado y devuelve un Word ordenado,
+        página por página, con los sellos y firmas anotados. Un solo archivo para Windows.
+      </p>
+    </div>
+
+    <!-- ---------- Precio ---------- -->
+    <section class="oferta" aria-label="Precio y compra">
+      <div class="etiqueta-oferta">Precio de lanzamiento</div>
+      <div class="precio">
+        <span class="precio-antes">S/ 300</span>
+        <span class="precio-ahora">S/ 250</span>
+        <span class="precio-moneda">pago único</span>
+      </div>
+      <p class="precio-detalle">
+        Licencia para <strong>1 equipo</strong>, sin vencimiento y sin mensualidades.
+        Incluye actualizaciones durante 12 meses y la instalación guiada.
+      </p>
+      <a class="btn" href="contacto.html">Pedir la licencia</a>
+      <p class="pago-nota">
+        El precio de lanzamiento se mantiene hasta el 31 de diciembre de 2026.
+        Pago por transferencia, Yape o Plin.
+      </p>
+    </section>
+
+    <!-- ---------- Qué incluye ---------- -->
+    <section class="bloque" aria-label="Qué incluye">
+      <h2>Qué incluye</h2>
+      <div class="rejilla">
+        <article class="card">
+          <h3>Un solo archivo</h3>
+          <p>
+            No hay instalador ni permisos de administrador: copias el <code>.exe</code>,
+            doble clic y funciona. El lector de PDF va dentro del propio programa.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Reanudación real</h3>
+          <p>
+            Cada página se guarda apenas termina. Si se corta la luz o cierras la ventana,
+            al volver detecta lo hecho y continúa sin repetirlo.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Word con formato</h3>
+          <p>
+            Un encabezado por página original, saltos de página y una nota al final
+            cuando encuentra sellos o firmas.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Tu cuenta de Google</h3>
+          <p>
+            La app no revende inteligencia artificial: usas tu propia clave de Gemini,
+            que es gratuita, y pagas a Google lo que consumas. Sin intermediarios.
+          </p>
+        </article>
+      </div>
+
+      <div class="cifras" style="margin-top:1.5rem;">
+        <div class="cifra"><b>36 MB</b><span>El programa completo</span></div>
+        <div class="cifra"><b>0</b><span>Dependencias que instalar</span></div>
+        <div class="cifra"><b>10</b><span>Páginas de prueba</span></div>
+        <div class="cifra"><b>7 días</b><span>De garantía</span></div>
+      </div>
+    </section>
+
+    <!-- ---------- Cómo funciona ---------- -->
+    <section class="bloque" aria-label="Cómo funciona">
+      <h2>Cómo funciona</h2>
+      <div class="rejilla">
+        <article class="card">
+          <ol class="pasos">
+            <li>Pegas tu clave de Google una sola vez.</li>
+            <li>Eliges la carpeta con las fotos o el PDF completo.</li>
+            <li>Pulsas «Generar documento Word».</li>
+            <li>Recoges el <code>.docx</code> junto a tus archivos.</li>
+          </ol>
+        </article>
+        <article class="card">
+          <h3>Pruébalo antes de pagar</h3>
+          <p>
+            La versión de prueba transcribe <strong>10 páginas</strong> sin costo. Si te sirve,
+            pides la licencia y sigues trabajando sin límite.
+          </p>
+          <p class="nota" style="margin-top:0.6rem;">
+            Para archivos grandes ofrezco un piloto de 100 páginas con tus propios documentos,
+            sin compromiso.
+          </p>
+          <div class="actions" style="margin-top:0.9rem;">
+            <a class="btn-borde" href="contacto.html">Pedir el piloto</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ---------- Preguntas frecuentes ---------- -->
+    <section class="bloque faq" aria-label="Preguntas frecuentes">
+      <h2>Preguntas frecuentes</h2>
+
+      <details>
+        <summary>¿Es una suscripción?</summary>
+        <p>No. Pagas una vez S/ 250 y la licencia no vence. Las actualizaciones están incluidas durante 12 meses; después puedes seguir usando la versión que tienes.</p>
+      </details>
+
+      <details>
+        <summary>¿Cuánto cuesta usarlo cada mes?</summary>
+        <p>Solo lo que consumas en tu cuenta de Google. La clave de Gemini tiene un plan gratuito y, para volúmenes grandes, el costo por página es de centavos. No hay comisión mía.</p>
+      </details>
+
+      <details>
+        <summary>¿Dónde viajan mis documentos?</summary>
+        <p>Cada página se envía directo a la API de Google Gemini con tu propia clave. No pasa por ningún servidor mío y no guardo copia. Si el material es reservado, conviene usar una cuenta de pago con la retención de datos desactivada.</p>
+      </details>
+
+      <details>
+        <summary>¿Se equivoca al leer?</summary>
+        <p>A veces, sobre todo con letra difícil, sellos borrosos o tinta corrida. Por eso el texto queda como borrador para revisar, no como documento certificado. Aun así, corregir un Word es mucho más rápido que escribirlo desde cero.</p>
+      </details>
+
+      <details>
+        <summary>¿Funciona en Mac o en el celular?</summary>
+        <p>La versión que vendo es para Windows 10 y 11. Si necesitas otro sistema, escríbeme y vemos el caso.</p>
+      </details>
+
+      <details>
+        <summary>Si cambio de computadora, ¿pierdo la licencia?</summary>
+        <p>No. La clave se vuelve a activar en el equipo nuevo; solo pídemela si no la encuentras y te la reenvío.</p>
+      </details>
+
+      <details>
+        <summary>¿Necesito internet?</summary>
+        <p>Sí, para transcribir: la lectura la hace Gemini en la nube. Lo que no necesita internet es la app en sí, ni instalar nada adicional.</p>
+      </details>
+
+      <details>
+        <summary>¿Y si no me sirve?</summary>
+        <p>Tienes 7 días desde la entrega para pedir la devolución completa. Sin preguntas incómodas.</p>
+      </details>
+
+      <details>
+        <summary>¿Emiten comprobante?</summary>
+        <p>Sí, boleta o factura según lo que necesites. Indícalo en el mensaje con tu RUC si es factura.</p>
+      </details>
+    </section>
+
+    <!-- ---------- Términos ---------- -->
+    <section class="bloque" aria-label="Términos de la licencia">
+      <h2>Términos de la licencia</h2>
+      <article class="card">
+        <ul class="lista">
+          <li><strong>Qué compras:</strong> una licencia de uso para un equipo, por tiempo indefinido, del programa Transcriptor de Manuscritos.</li>
+          <li><strong>Qué no puedes hacer:</strong> revenderlo, redistribuirlo ni instalar la misma clave en varios equipos. Para varias computadoras hay precio por volumen.</li>
+          <li><strong>Garantía:</strong> 7 días desde la entrega para solicitar la devolución del importe.</li>
+          <li><strong>Datos:</strong> el programa no envía información a servidores del autor. Tus documentos van únicamente a la API de Google que tú configuras.</li>
+          <li><strong>Soporte:</strong> dudas de instalación y uso por el mismo canal de contacto de esta página.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- ---------- Cierre ---------- -->
+    <section class="cierre">
+      <h2>¿Lo probamos con tu archivo?</h2>
+      <p>
+        Escríbeme contando qué tipo de documentos tienes y cuántas páginas. Te respondo con
+        una prueba de 100 páginas de tu propio material, sin costo y sin compromiso.
+      </p>
+      <a class="btn" href="contacto.html">Escribir para pedir la licencia</a>
+      <p class="nota" style="text-align:center; margin-top:1rem;">
+        En el mensaje pon «Transcriptor» para ubicarte más rápido.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © Yeremi S. BΛSTIAN — 2026 · Código, caos y creatividad. · <a href="politica-de-privacidad.html" style="color: var(--accent)">Política de privacidad</a>
+  </footer>
+
+  <script src="cursor.js"></script>
+</body>
+</html>

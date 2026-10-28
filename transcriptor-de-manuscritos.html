@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Transcriptor de Manuscritos | Yeremi S. Bastian</title>
-  <meta name="description" content="App de escritorio en Python que convierte fotos de manuscritos o un PDF escaneado en un documento Word, con la IA de Gemini. Código abierto, licencia MIT." />
+  <meta name="description" content="App de escritorio que convierte fotos de manuscritos o un PDF escaneado en un documento Word, con la IA de Gemini. Cómo funciona por dentro y cómo se instala." />
   <link rel="canonical" href="https://yeremisb.github.io/transcriptor-de-manuscritos.html" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="author" content="Yeremi Shikene Sebastian Cusihuallpa" />
@@ -47,12 +47,10 @@
       "alternateName": "Transcriptor de Manuscritos — De fotos a Word con IA",
       "description": "Aplicación de escritorio en Python que transcribe fotos de manuscritos (JPG/PNG) o un PDF escaneado a un documento Word usando la API de Google Gemini, con reanudación inteligente y auto-guardado por página.",
       "url": "https://yeremisb.github.io/transcriptor-de-manuscritos.html",
-      "codeRepository": "https://github.com/YeremiSB/transcriptor-de-manuscritos",
-      "downloadUrl": "https://github.com/YeremiSB/transcriptor-de-manuscritos/archive/refs/heads/main.zip",
+      "softwareRequirements": "Windows 10 u 11",
       "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Windows, Linux, macOS",
+      "operatingSystem": "Windows 10, Windows 11",
       "softwareVersion": "1.0",
-      "license": "https://github.com/YeremiSB/transcriptor-de-manuscritos/blob/main/LICENSE",
       "programmingLanguage": "Python",
       "inLanguage": "es",
       "author": { "@id": "https://yeremisb.github.io/#person" },
@@ -419,11 +417,11 @@
           <code>.docx</code> con una página de Word por cada página original.
         </p>
         <div class="tags">
-          <span>Python</span><span>tkinter</span><span>Gemini API</span><span>python-docx</span><span>pdf2image</span><span>Poppler</span>
+          <span>Python</span><span>tkinter</span><span>Gemini API</span><span>python-docx</span><span>pypdfium2</span>
         </div>
         <div class="actions">
-          <a class="btn" href="https://github.com/YeremiSB/transcriptor-de-manuscritos" target="_blank" rel="noopener noreferrer">Ver el código en GitHub</a>
-          <a class="btn-borde" href="https://github.com/YeremiSB/transcriptor-de-manuscritos/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer">Descargar ZIP ↗</a>
+          <a class="btn" href="transcriptor.html">Ver precio y licencia</a>
+          <a class="btn-borde" href="contacto.html">Hacer una consulta</a>
         </div>
       </article>
 
@@ -484,7 +482,7 @@
       <div class="marco">
         <img src="Fotos/transcriptor-de-manuscritos.webp"
              alt="Interfaz del Transcriptor de Manuscritos: campo de API Key, selección de carpeta de imágenes o PDF, barra de progreso y consola con el avance página por página"
-             loading="lazy" decoding="async" width="702" height="679">
+             decoding="async" width="702" height="679">
       </div>
       <figcaption>
         La ventana del programa: tema oscuro, barra de progreso y consola con lo que va pasando.
@@ -493,19 +491,18 @@
 
     <section class="ancha" aria-label="Instalación y modos de uso">
       <article class="card">
-        <h3>Instalación en Windows</h3>
-        <p>Bajas el ZIP, lo descomprimes y haces doble clic en <code>instalar.bat</code>. Ese script
-          crea el entorno virtual, instala las dependencias y verifica que todo importe.</p>
-        <pre><code>git clone https://github.com/YeremiSB/transcriptor-de-manuscritos.git
-cd transcriptor-de-manuscritos
-
-instalar.bat     :: crea .venv e instala los requerimientos
-iniciar.bat      :: abre el programa (sin ventana de consola)</code></pre>
-        <p>En Linux o macOS es el camino manual:</p>
-        <pre><code>python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python transcriptor_manuscritos.py</code></pre>
+        <h3>Cómo se instala</h3>
+        <p>Se entrega como un único ejecutable. No hay que instalar Python, ni dependencias,
+          ni permisos de administrador: se copia, se abre con doble clic y funciona.</p>
+        <ol class="pasos" style="margin-top:1rem;">
+          <li>Copias <code>TranscriptorDeManuscritos.exe</code> a la carpeta que quieras.</li>
+          <li>Pegas tu clave de Google una sola vez (se puede recordar en el equipo).</li>
+          <li>Eliges la carpeta de fotos o el PDF y pulsas «Generar documento Word».</li>
+        </ol>
+        <p class="nota">
+          El lector de PDF va dentro del propio programa, así que no hay que instalar nada
+          aparte. La versión que se vende es para Windows 10 y 11.
+        </p>
       </article>
 
       <article class="card" style="margin-top:1.75rem;">
@@ -523,16 +520,15 @@ python transcriptor_manuscritos.py</code></pre>
               </tr>
               <tr>
                 <td>Archivo PDF</td>
-                <td>Convierte cada hoja a imagen con Poppler y la procesa igual que una foto.</td>
+                <td>Convierte cada hoja a imagen con pdfium y la procesa igual que una foto.</td>
                 <td><code>Transcripcion_&lt;nombre&gt;.docx</code></td>
               </tr>
             </tbody>
           </table>
         </div>
         <p class="nota">
-          Para el modo PDF hace falta Poppler instalado. La app lo busca en la variable
-          <code>POPPLER_PATH</code>, en el <code>PATH</code> del sistema y en las rutas habituales de
-          Windows, macOS y Linux; si no lo encuentra, avisa y sugiere usar el modo de imágenes.
+          El motor PDF (pdfium) viaja dentro del ejecutable, así que el modo PDF funciona sin
+          instalar Poppler ni ningún programa adicional.
         </p>
       </article>
 
@@ -552,10 +548,10 @@ python transcriptor_manuscritos.py</code></pre>
           paleta y tipografía de esta página web, en vez de dejar el formulario gris de siempre.
         </p>
         <div class="tags">
-          <span>GitHub</span><span>Licencia MIT</span><span>Código abierto</span>
+          <span>Windows 10 / 11</span><span>Licencia por equipo</span><span>Pago único</span>
         </div>
         <div class="actions">
-          <a class="btn-borde" href="https://github.com/YeremiSB/transcriptor-de-manuscritos" target="_blank" rel="noopener noreferrer">github.com/YeremiSB/transcriptor-de-manuscritos ↗</a>
+          <a class="btn" href="transcriptor.html">Ver precio y licencia</a>
         </div>
       </article>
     </section>

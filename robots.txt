@@ -1,4 +1,41 @@
+# Yeremi S. Bastian — https://yeremisb.github.io/
+# Todo el sitio es publico y puede ser rastreado e indexado.
+
 User-agent: *
 Allow: /
 
+# Rastreadores de IA y asistentes (permitidos de forma explicita)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://yeremisb.github.io/sitemap.xml
+
+# Resumen del sitio para asistentes de IA
+# https://yeremisb.github.io/llms.txt

@@ -1,4 +1,4 @@
-# Yeremi S. Bastian - https://yeremisb.github.io/
+# Yeremi S. Bastian - https://yeremisb.com/
 # Todo el sitio es publico y puede ser rastreado e indexado.
 
 User-agent: *
@@ -35,7 +35,7 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://yeremisb.github.io/sitemap.xml
+Sitemap: https://yeremisb.com/sitemap.xml
 
 # Resumen del sitio para asistentes de IA
-# https://yeremisb.github.io/llms.txt
+# https://yeremisb.com/llms.txt

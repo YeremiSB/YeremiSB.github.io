@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  MAQUETA DE DEMOSTRACIÓN — portal de noticias "El Mirador"
+  Hecha por Yeremi S. BΛSTIAN · https://yeremisb.com
+
+  EL MEDIO ES FICTICIO. "El Mirador" no existe: el nombre, el
+  logo y todas las noticias son inventados para mostrar cómo se
+  vería un portal de noticias local funcionando.
+
+  No hay relación con ningún diario, medio o marca real, ni
+  enlaces a redes sociales de terceros.
+
+  QUÉ MUESTRA LA MAQUETA:
+  - Buscador que filtra por título, resumen o autor
+  - Filtro por sección (La Convención, Provincia, Cusco, ...)
+  - Botón "Ver más noticias"
+  - Modo oscuro con memoria
+  - Nota de portada con historia principal
+  - Lectura de la nota completa en una ventana dentro de la misma página
+  - Espacios de publicidad (de donde el medio saca plata)
+  - Diseño pensado para que la nota se vea bien al compartir
+  ============================================================
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Mirador — Maqueta de portal de noticias | Yeremi S. BΛSTIAN</title>
+<meta name="description" content="Maqueta de demostración de un portal de noticias local. Medio ficticio, contenido de ejemplo: buscador, secciones, modo oscuro y lectura de notas. Hecha a mano en HTML, CSS y JavaScript.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://yeremisb.com/demos/el-mirador/index.html">
+<meta property="og:title" content="El Mirador — Maqueta de portal de noticias">
+<meta property="og:description" content="Maqueta de demostración de un portal de noticias local. Medio ficticio, contenido de ejemplo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yeremisb.com/demos/el-mirador/index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg2:#f5f6f5;
+    --superficie:#ffffff;
+    --tinta:#14181b;
+    --cuerpo:#3c454c;
+    --gris:#6d7880;
+    --linea:#e2e6e8;
+    --marca:#0b3d2e;
+    --marca2:#126b4f;
+    --acento:#fc6034;
+    --sombra:0 6px 22px rgba(11,61,46,.09);
+    --radio:14px;
+  }
+  html[data-tema="oscuro"]{
+    --bg:#0e1211;
+    --bg2:#141a18;
+    --superficie:#171e1c;
+    --tinta:#f2f5f3;
+    --cuerpo:#c5cec9;
+    --gris:#8d9a94;
+    --linea:#28312e;
+    --marca:#126b4f;
+    --marca2:#1b8a68;
+    --sombra:0 6px 22px rgba(0,0,0,.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--cuerpo);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .25s ease,color .25s ease}
+  img{max-width:100%;display:block}
+  a{text-decoration:none;color:inherit}
+  h1,h2,h3,h4{font-family:"Playfair Display",Georgia,serif;color:var(--tinta);line-height:1.22;font-weight:700}
+  .envuelve{max-width:1240px;margin:0 auto;padding:0 20px}
+
+  .aviso{background:var(--marca);color:#fff;font-size:.8rem;text-align:center;padding:8px 16px;font-weight:400}
+  .aviso b{font-weight:700}
+
+  /* ---------- Barra superior ---------- */
+  .superior{background:var(--bg2);border-bottom:1px solid var(--linea);font-size:.78rem;color:var(--gris)}
+  .superior .envuelve{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:9px;padding-bottom:9px}
+  .superior .datos{display:flex;gap:18px;align-items:center}
+  @media(max-width:760px){.superior .datos span:not(.fecha){display:none}}
+
+  /* ---------- Cabecera ---------- */
+  .cabecera{background:var(--bg);border-bottom:1px solid var(--linea);position:sticky;top:0;z-index:60}
+  .cabecera .envuelve{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:16px;padding-bottom:16px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:11px}
+  .logo .insignia{
+    width:42px;height:42px;border-radius:11px;background:var(--marca);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Playfair Display",serif;font-weight:800;font-size:1.25rem;flex:none;
+  }
+  .logo .texto{font-family:"Playfair Display",serif;font-weight:800;font-size:1.5rem;color:var(--tinta);letter-spacing:-.02em;line-height:1.1}
+  .logo .texto small{display:block;font-family:Roboto,sans-serif;font-size:.63rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:2px}
+  .buscador{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--linea);border-radius:50px;padding:9px 18px;min-width:280px;flex:1;max-width:400px}
+  .buscador input{border:none;background:transparent;outline:none;font-family:inherit;font-size:.9rem;color:var(--tinta);width:100%}
+  .buscador input::placeholder{color:var(--gris)}
+  .buscador svg{flex:none;opacity:.5}
+  .boton-tema{width:40px;height:40px;border-radius:50%;border:1px solid var(--linea);background:var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem}
+  .boton-tema:hover{border-color:var(--marca2)}
+  @media(max-width:760px){.buscador{min-width:0;order:3;max-width:none;width:100%}}
+
+  /* ---------- Secciones ---------- */
+  .secciones{background:var(--marca);position:sticky;top:0;z-index:55}
+  .secciones .envuelve{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .secciones .envuelve::-webkit-scrollbar{display:none}
+  .secciones button{
+    background:transparent;border:none;color:rgba(255,255,255,.82);font-family:inherit;
+    font-size:.86rem;font-weight:700;letter-spacing:.03em;padding:14px 16px;cursor:pointer;
+    white-space:nowrap;border-bottom:3px solid transparent;transition:color .2s,border-color .2s;
+  }
+  .secciones button:hover{color:#fff}
+  .secciones button.on{color:#fff;border-bottom-color:var(--acento)}
+
+  /* ---------- Titular de ultima hora ---------- */
+  .ultima{background:var(--bg2);border-bottom:1px solid var(--linea)}
+  .ultima .envuelve{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px;overflow:hidden}
+  .pastilla{background:var(--acento);color:#fff;font-size:.7rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:4px;flex:none}
+  .marquesina{overflow:hidden;flex:1}
+  .marquesina div{display:inline-block;white-space:nowrap;font-size:.9rem;font-weight:500;color:var(--tinta);animation:deslizar 26s linear infinite}
+  @keyframes deslizar{from{transform:translateX(6%)}to{transform:translateX(-100%)}}
+  @media(prefers-reduced-motion:reduce){.marquesina div{animation:none}}
+
+  /* ---------- Grilla principal ---------- */
+  .principal{padding:34px 0 60px}
+  .columnas{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}
+  @media(max-width:1000px){.columnas{grid-template-columns:1fr;gap:34px}}
+
+  /* ---------- Nota de portada ---------- */
+  .portada-nota{border-radius:var(--radio);overflow:hidden;background:var(--superficie);border:1px solid var(--linea);box-shadow:var(--sombra);margin-bottom:34px;transition:transform .22s ease,box-shadow .22s ease}
+  .portada-nota:hover{transform:translateY(-3px);box-shadow:0 14px 38px rgba(11,61,46,.16)}
+  .portada-nota .foto{position:relative;height:400px;background:var(--marca)}
+  .portada-nota .foto img{width:100%;height:100%;object-fit:cover}
+  .portada-nota .foto .etiqueta{position:absolute;top:18px;left:18px;background:var(--acento);color:#fff;font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;border-radius:4px}
+  .portada-nota .cuerpo{padding:30px 32px 34px}
+  .portada-nota h2{font-size:clamp(1.5rem,3.2vw,2.3rem);font-weight:800;margin-bottom:14px}
+  .portada-nota p{font-size:1.03rem;color:var(--cuerpo);margin-bottom:18px}
+  @media(max-width:700px){.portada-nota .foto{height:230px}.portada-nota .cuerpo{padding:22px 20px 26px}}
+
+  /* ---------- Firma ---------- */
+  .firma{display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--gris);flex-wrap:wrap}
+  .firma .punto{width:4px;height:4px;border-radius:50%;background:var(--gris)}
+  .firma b{color:var(--marca2);font-weight:700}
+
+  /* ---------- Rejilla de notas ---------- */
+  .rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px}
+  .nota{background:var(--superficie);border:1px solid var(--linea);border-radius:var(--radio);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease}
+  .nota:hover{transform:translateY(-4px);box-shadow:var(--sombra)}
+  .nota .foto{height:180px;background:var(--marca);overflow:hidden}
+  .nota .foto img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+  .nota:hover .foto img{transform:scale(1.05)}
+  .nota .cuerpo{padding:20px 20px 22px;display:flex;flex-direction:column;flex:1}
+  .nota .seccion-tag{font-size:.68rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--marca2);margin-bottom:9px}
+  .nota h3{font-size:1.08rem;margin-bottom:10px;font-weight:700}
+  .nota .resumen{font-size:.9rem;color:var(--gris);flex:1;margin-bottom:14px}
+
+  /* ---------- Cargar mas ---------- */
+  .mas{text-align:center;margin-top:38px}
+  .boton{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:Roboto,sans-serif;font-weight:800;font-size:.95rem;padding:14px 34px;border-radius:50px;background:var(--marca);color:#fff;border:none;cursor:pointer;transition:background .2s,transform .2s}
+  .boton:hover{background:var(--marca2);transform:translateY(-2px)}
+  .boton.gris{background:transparent;color:var(--marca2);border:1.5px solid var(--marca2)}
+  .boton.gris:hover{background:var(--marca2);color:#fff}
+  .sin-resultados{text-align:center;padding:60px 20px;color:var(--gris);grid-column:1/-1}
+  .sin-resultados b{display:block;font-size:1.1rem;color:var(--tinta);margin-bottom:6px;font-family:"Playfair Display",serif}
+
+  /* ---------- Barra lateral ---------- */
+  .lateral{display:flex;flex-direction:column;gap:26px}
+  .caja{background:var(--superficie);border:1px solid var(--linea);border-radius:var(--radio);padding:24px 22px}
+  .caja h4{font-size:1rem;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--marca);font-weight:800}
+  .mas-leidas{list-style:none;counter-reset:n}
+  .mas-leidas li{counter-increment:n;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--linea);align-items:flex-start}
+  .mas-leidas li:last-child{border-bottom:none;padding-bottom:0}
+  .mas-leidas li::before{
+    content:counter(n);font-family:"Playfair Display",serif;font-size:1.5rem;font-weight:800;
+    color:var(--linea);line-height:1;flex:none;width:26px;
+  }
+  html[data-tema="oscuro"] .mas-leidas li::before{color:#2f3a36}
+  .mas-leidas a{font-size:.9rem;font-weight:500;color:var(--tinta);line-height:1.4}
+  .mas-leidas a:hover{color:var(--marca2)}
+  .publicidad{border:2px dashed var(--linea);border-radius:var(--radio);padding:34px 20px;text-align:center;color:var(--gris);font-size:.82rem;background:var(--bg2)}
+  .publicidad b{display:block;font-family:"Playfair Display",serif;font-size:1.05rem;color:var(--tinta);margin-bottom:6px}
+  .boletin input{width:100%;padding:12px 16px;border:1px solid var(--linea);border-radius:10px;background:var(--bg2);font-family:inherit;font-size:.9rem;color:var(--tinta);outline:none;margin-bottom:10px}
+  .boletin input:focus{border-color:var(--marca2)}
+  .boletin .boton{width:100%;padding:12px}
+  .nota-legal{font-size:.82rem;color:var(--gris);line-height:1.6}
+
+  /* ---------- Pie ---------- */
+  footer{background:var(--marca);color:rgba(255,255,255,.72);padding:52px 0 34px;font-size:.87rem}
+  footer .rejilla-pie{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;margin-bottom:34px}
+  @media(max-width:760px){footer .rejilla-pie{grid-template-columns:1fr;gap:26px}}
+  footer h4{color:#fff;font-size:.95rem;margin-bottom:14px}
+  footer a:hover{color:#fff}
+  footer ul{list-style:none}
+  footer li{margin-bottom:8px}
+  footer .logo .texto{color:#fff}
+  footer .logo .texto small{color:rgba(255,255,255,.55)}
+  footer .logo .insignia{background:rgba(255,255,255,.14)}
+  footer .credito{border-top:1px solid rgba(255,255,255,.16);padding-top:22px;text-align:center;font-size:.8rem;font-weight:300}
+  footer .credito a{color:#ffb69b;text-decoration:underline}
+
+  /* ---------- Ventana de la nota ---------- */
+  .velo{
+    position:fixed;inset:0;z-index:200;background:rgba(8,14,11,.72);
+    display:none;align-items:flex-start;justify-content:center;padding:24px 16px;
+    overflow-y:auto;backdrop-filter:blur(3px);
+  }
+  .velo.abierto{display:flex}
+  .ventana{
+    background:var(--superficie);border-radius:var(--radio);max-width:760px;width:100%;
+    margin:auto;position:relative;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4);
+    border:1px solid var(--linea);
+  }
+  .ventana .cerrar{
+    position:absolute;top:14px;right:14px;z-index:2;width:38px;height:38px;border-radius:50%;
+    border:none;background:rgba(255,255,255,.92);color:#14181b;font-size:1.1rem;font-weight:700;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .ventana .cerrar:hover{background:#fff}
+  .ventana .foto{height:280px;background:var(--marca)}
+  .ventana .foto img{width:100%;height:100%;object-fit:cover}
+  .ventana .cuerpo{padding:28px 32px 34px}
+  .ventana .seccion-tag{font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--marca2);margin-bottom:10px}
+  .ventana h2{font-size:clamp(1.35rem,3vw,1.9rem);margin-bottom:14px}
+  .ventana p{font-size:.98rem;margin-top:14px}
+  .ventana .demo-nota{
+    margin-top:20px;padding:14px 16px;border-left:3px solid var(--acento);
+    background:var(--bg2);border-radius:0 8px 8px 0;font-size:.85rem;color:var(--gris);
+  }
+  @media(max-width:640px){
+    .ventana .foto{height:190px}
+    .ventana .cuerpo{padding:22px 20px 26px}
+  }
+  body.con-velo{overflow:hidden}
+</style>
+</head>
+<body>
+
+<div class="aviso">
+  <b>MAQUETA DE DEMOSTRACIÓN</b> · «El Mirador» es un medio ficticio: el nombre y todas las noticias son inventados
+</div>
+
+<!-- ============ BARRA SUPERIOR ============ -->
+<div class="superior">
+  <div class="envuelve">
+    <div class="datos">
+      <span class="fecha" id="fecha"></span>
+      <span>Quillabamba · La Convención · Cusco</span>
+    </div>
+    <div class="datos">
+      <span>Contacto</span>
+      <span>Publicidad</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CABECERA ============ -->
+<header class="cabecera">
+  <div class="envuelve">
+    <a class="logo" href="#">
+      <span class="insignia">M</span>
+      <span class="texto">El Mirador<small>Noticias de Quillabamba</small></span>
+    </a>
+    <div class="buscador">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Buscar una noticia, un tema o un autor…" autocomplete="off">
+    </div>
+    <button class="boton-tema" id="tema" title="Cambiar a modo oscuro" aria-label="Cambiar tema">🌙</button>
+  </div>
+</header>
+
+<!-- ============ SECCIONES ============ -->
+<nav class="secciones">
+  <div class="envuelve" id="secciones"></div>
+</nav>
+
+<!-- ============ ULTIMA HORA ============ -->
+<div class="ultima">
+  <div class="envuelve">
+    <span class="pastilla">Última hora</span>
+    <div class="marquesina"><div id="marquesina"></div></div>
+  </div>
+</div>
+
+<!-- ============ CONTENIDO ============ -->
+<main class="principal">
+  <div class="envuelve">
+    <div class="columnas">
+
+      <div>
+        <div id="destacada"></div>
+        <div class="rejilla" id="rejilla"></div>
+        <div class="mas" id="mas"></div>
+      </div>
+
+      <aside class="lateral">
+        <div class="caja">
+          <h4>Lo más leído</h4>
+          <ol class="mas-leidas" id="masLeidas"></ol>
+        </div>
+
+        <div class="publicidad">
+          <b>Espacio publicitario</b>
+          Aquí va el anuncio de un negocio local.<br>Este es el ingreso del medio.
+        </div>
+
+        <div class="caja boletin">
+          <h4>Recibe las noticias</h4>
+          <p style="font-size:.88rem;color:var(--gris);margin-bottom:14px">Un resumen cada mañana en tu correo o WhatsApp.</p>
+          <input type="email" placeholder="tucorreo@ejemplo.com">
+          <button class="boton" id="suscribir">Suscribirme</button>
+        </div>
+
+        <div class="caja">
+          <h4>Sobre esta maqueta</h4>
+          <p class="nota-legal">
+            «El Mirador» es un medio <strong>ficticio</strong>. Las noticias, los autores y los datos
+            son de ejemplo. No representa a ningún diario real, ni usa su nombre, su logo o sus redes.
+          </p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<!-- ============ PIE ============ -->
+<footer>
+  <div class="envuelve">
+    <div class="rejilla-pie">
+      <div>
+        <div class="logo" style="margin-bottom:14px">
+          <span class="insignia">M</span>
+          <span class="texto">El Mirador<small>Noticias de Quillabamba</small></span>
+        </div>
+        <p>Portal de noticias de ejemplo: información local, regional y del Cusco. Medio ficticio, hecho como muestra de diseño y programación.</p>
+      </div>
+      <div>
+        <h4>Secciones</h4>
+        <ul id="pie-secciones"></ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li>Redacción y avisos publicitarios</li>
+          <li>Quillabamba, La Convención, Cusco</li>
+          <li>Medio ficticio de demostración</li>
+        </ul>
+      </div>
+    </div>
+    <div class="credito">
+      Maqueta hecha por <a href="https://yeremisb.com/">Yeremi S. BΛSTIAN</a> · Medio ficticio, sin relación con ningún diario real
+    </div>
+  </div>
+</footer>
+
+<!-- ============ VENTANA DE LA NOTA ============ -->
+<div class="velo" id="velo" role="dialog" aria-modal="true" aria-labelledby="veloTitulo" aria-hidden="true">
+  <div class="ventana">
+    <button class="cerrar" id="cerrar" aria-label="Cerrar la nota">✕</button>
+    <div class="foto"><img id="veloImg" src="" alt=""></div>
+    <div class="cuerpo">
+      <div class="seccion-tag" id="veloSeccion"></div>
+      <h2 id="veloTitulo"></h2>
+      <div class="firma" id="veloFirma"></div>
+      <p id="veloResumen"></p>
+      <p id="veloTexto1"></p>
+      <p id="veloTexto2"></p>
+      <div class="demo-nota">
+        Nota de ejemplo: el texto completo lo redactaría el periodista del medio.
+        Esta maqueta solo muestra cómo se vería publicada.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   NOTICIAS DE EJEMPLO (inventadas, solo para la maqueta)
+   ============================================================ */
+const NOTICIAS = [
+  { sec:"La Convención", tit:"Quillabamba se prepara para su aniversario con feria regional y desfile",
+    res:"Comerciantes, cafetaleros y delegaciones de los distritos confirmaron su participación en la expoferia de este año.",
+    img:"img/mirador.webp",
+    autor:"Redacción", hace:"hace 2 horas", peso:98, destacada:true },
+
+  { sec:"La Convención", tit:"Productores de café de La Convención cierran acuerdos con compradores de tres países",
+    res:"La delegación local participó en una rueda de negocios con importadores de Estados Unidos, Alemania y Japón.",
+    img:"img/valle.webp",
+    autor:"Redacción", hace:"hace 4 horas", peso:94 },
+
+  { sec:"Provincia", tit:"Rehabilitan la vía a Kiteni tras las lluvias de la última semana",
+    res:"Maquinaria pesada trabajó durante tres días para restablecer el tránsito en los tramos más afectados.",
+    img:"img/parque.webp",
+    autor:"Redacción", hace:"hace 6 horas", peso:90 },
+
+  { sec:"Turismo", tit:"El Pongo de Mainique recibe más visitantes que el año pasado",
+    res:"Las agencias locales reportan un aumento de reservas para la temporada, con turistas de Europa y Asia.",
+    img:"img/vacaciones.webp",
+    autor:"Redacción", hace:"hace 8 horas", peso:88 },
+
+  { sec:"Cultura", tit:"Artistas de la provincia presentan sus trabajos en la Casa de la Cultura",
+    res:"La muestra reúne pintura, fotografía y textilería de creadores de Quillabamba y distritos cercanos.",
+    img:"img/gato-cactus.webp",
+    autor:"Cultura", hace:"hace 11 horas", peso:82 },
+
+  { sec:"Deportes", tit:"Selección de Quillabamba gana el triangular regional y pasa a la siguiente fase",
+    res:"El equipo local se impuso en los dos partidos y clasificó invicto para la etapa departamental.",
+    img:"img/club-tenis.webp",
+    autor:"Deportes", hace:"hace 14 horas", peso:78 },
+
+  { sec:"Educación", tit:"Colegios de La Convención participan en la feria de emprendimiento escolar",
+    res:"Estudiantes presentaron proyectos de agroindustria, tecnología y turismo ante un jurado regional.",
+    img:"img/colegio.webp",
+    autor:"Redacción", hace:"hace 1 día", peso:74 },
+
+  { sec:"Salud", tit:"Campaña médica gratuita llegará a cinco distritos de la provincia",
+    res:"Incluye atención general, odontología y despistaje de anemia para niños y adultos mayores.",
+    img:"img/piscina-municipal.webp",
+    autor:"Redacción", hace:"hace 1 día", peso:70 },
+
+  { sec:"Provincia", tit:"Culminan los trabajos de mejoramiento del mercado central",
+    res:"Los comerciantes regresaron a sus puestos tras semanas de obra en la infraestructura y el sistema eléctrico.",
+    img:"img/calle.webp",
+    autor:"Redacción", hace:"hace 2 días", peso:66 },
+
+  { sec:"Turismo", tit:"Quillabamba busca atraer más visitantes en la temporada de carnavales",
+    res:"Hoteles y restaurantes coordinan promociones conjuntas para recibir a los visitantes de fin de mes.",
+    img:"img/piscina.webp",
+    autor:"Turismo", hace:"hace 2 días", peso:62 },
+
+  { sec:"Cultura", tit:"Fiesta patronal reúne a comunidades del valle en torno a la música y la danza",
+    res:"Comparsas de distintos distritos participaron en el recorrido por las calles del centro.",
+    img:"img/gato-calle.webp",
+    autor:"Cultura", hace:"hace 3 días", peso:58 },
+
+  { sec:"Provincia", tit:"Piden mejorar el servicio de transporte hacia los distritos de la selva",
+    res:"Usuarios y transportistas coinciden en que las unidades y los horarios no cubren la demanda actual.",
+    img:"img/valle.webp",
+    autor:"Redacción", hace:"hace 3 días", peso:54 },
+
+  { sec:"Cusco", tit:"Cusco refuerza la promoción turística en ferias internacionales",
+    res:"La región participa en encuentros de promoción con operadores de Europa y Norteamérica.",
+    img:"img/cusco-plaza.webp",
+    autor:"Cusco", hace:"hace 4 días", peso:50 },
+
+  { sec:"La Convención", tit:"Instalan nuevas cámaras de seguridad en el centro de la ciudad",
+    res:"El sistema buscará mejorar la vigilancia en las calles de mayor tránsito comercial.",
+    img:"img/cusco-plaza.webp",
+    autor:"Redacción", hace:"hace 4 días", peso:46 },
+
+  { sec:"Deportes", tit:"Jóvenes de la provincia destacan en campeonato de atletismo",
+    res:"Los deportistas locales obtuvieron medallas en varias categorías de la competencia departamental.",
+    img:"img/gimnasio.webp",
+    autor:"Deportes", hace:"hace 5 días", peso:42 },
+
+  { sec:"Educación", tit:"Universidad local abre nuevas carreras para el próximo proceso de admisión",
+    res:"La casa de estudios amplía su oferta con programas orientados a la agroindustria y el turismo.",
+    img:"img/colegio.webp",
+    autor:"Redacción", hace:"hace 5 días", peso:38 },
+
+  { sec:"Salud", tit:"Recomiendan vacunación ante el cambio de clima en la selva alta",
+    res:"Los centros de salud atienden en horario extendido para facilitar el acceso de la población.",
+    img:"img/piscina-municipal.webp",
+    autor:"Redacción", hace:"hace 6 días", peso:34 },
+
+  { sec:"Cusco", tit:"Artistas cusqueños exponen en una muestra colectiva en la ciudad",
+    res:"La exposición reúne obras de creadores de distintas provincias de la región.",
+    img:"img/gato-cactus.webp",
+    autor:"Cultura", hace:"hace 6 días", peso:30 }
+];
+
+NOTICIAS.forEach((n, i) => { n.id = i; });
+
+/* ============================================================
+   PORTAL
+   ============================================================ */
+const SECCIONES = ["Todas","La Convención","Provincia","Cusco","Turismo","Cultura","Deportes","Educación","Salud"];
+const POR_PAGINA = 6;
+
+let seccion = "Todas";
+let texto = "";
+let visibles = POR_PAGINA;
+
+const $ = (s) => document.querySelector(s);
+const limpiar = (s) => (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+
+function filtradas(){
+  const t = limpiar(texto);
+  return NOTICIAS.filter(n => {
+    const okSec = seccion === "Todas" || n.sec === seccion;
+    const okTxt = !t || limpiar(n.tit + " " + n.res + " " + n.autor + " " + n.sec).includes(t);
+    return okSec && okTxt;
+  });
+}
+
+function pintarSecciones(){
+  $("#secciones").innerHTML = SECCIONES.map(s =>
+    `<button class="${s===seccion?'on':''}" data-sec="${s}">${s}</button>`).join("");
+  $("#pie-secciones").innerHTML = SECCIONES.slice(1).map(s =>
+    `<li><a href="#" data-sec="${s}">${s}</a></li>`).join("");
+}
+
+function pintaDestacada(lista){
+  const n = lista.find(x => x.destacada);
+  if (!n || seccion !== "Todas" || texto){ $("#destacada").innerHTML = ""; return; }
+  $("#destacada").innerHTML = `
+    <article class="portada-nota">
+      <div class="foto">
+        <span class="etiqueta">${n.sec}</span>
+        <img src="${n.img}" alt="${n.tit}" loading="lazy">
+      </div>
+      <div class="cuerpo">
+        <div class="firma" style="margin-bottom:12px"><b>${n.autor}</b><span class="punto"></span><span>${n.hace}</span></div>
+        <h2>${n.tit}</h2>
+        <p>${n.res}</p>
+        <a class="boton gris" href="#" data-nota="${n.id}">Leer la nota completa</a>
+      </div>
+    </article>`;
+}
+
+function pintaRejilla(lista){
+  const enPantalla = lista.slice(0, visibles);
+  const cont = $("#rejilla");
+
+  if (!lista.length){
+    cont.innerHTML = `<div class="sin-resultados"><b>No encontramos noticias</b>Prueba con otra palabra o cambia de sección.</div>`;
+    $("#mas").innerHTML = "";
+    return;
+  }
+
+  cont.innerHTML = enPantalla.map(n => `
+    <article class="nota">
+      <div class="foto"><img src="${n.img}" alt="${n.tit}" loading="lazy"></div>
+      <div class="cuerpo">
+        <div class="seccion-tag">${n.sec}</div>
+        <h3>${n.tit}</h3>
+        <p class="resumen">${n.res}</p>
+        <div class="firma"><b>${n.autor}</b><span class="punto"></span><span>${n.hace}</span></div>
+      </div>
+    </article>`).join("");
+
+  const quedan = lista.length - enPantalla.length;
+  $("#mas").innerHTML = quedan > 0
+    ? `<button class="boton" id="vermas">Ver ${quedan} noticia${quedan===1?'':'s'} más</button>`
+    : `<p style="color:var(--gris);font-size:.88rem">No hay más noticias en esta sección.</p>`;
+
+  const b = $("#vermas");
+  if (b) b.onclick = () => { visibles += POR_PAGINA; pintaRejilla(lista); };
+}
+
+function pintaMasLeidas(){
+  const top = [...NOTICIAS].sort((a,b) => b.peso - a.peso).slice(0,5);
+  $("#masLeidas").innerHTML = top.map(n => `<li><a href="#" data-nota="${n.id}">${n.tit}</a></li>`).join("");
+}
+
+function pintaMarquesina(){
+  const recientes = [...NOTICIAS].slice(0,5).map(n => n.tit).join("   ·   ");
+  $("#marquesina").textContent = recientes;
+}
+
+function render(){
+  const lista = filtradas();
+  pintaDestacada(lista);
+  pintaRejilla(lista);
+}
+
+function fechaHoy(){
+  try {
+    return new Date().toLocaleDateString("es-PE", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
+  } catch(e){ return ""; }
+}
+
+/* ---------- Leer una nota ---------- */
+const velo = $("#velo");
+let ultimoFoco = null;
+
+function abrirNota(id){
+  const n = NOTICIAS[id];
+  if (!n) return;
+  ultimoFoco = document.activeElement;
+
+  $("#veloImg").src = n.img;
+  $("#veloImg").alt = n.tit;
+  $("#veloSeccion").textContent = n.sec;
+  $("#veloTitulo").textContent = n.tit;
+  $("#veloFirma").innerHTML = `<b>${n.autor}</b><span class="punto"></span><span>${n.hace}</span>`;
+  $("#veloResumen").textContent = n.res;
+  $("#veloTexto1").textContent =
+    `Según la información recogida por la redacción, el hecho se registró durante esta semana ` +
+    `y fue confirmado por las personas involucradas. En un portal real, este párrafo ampliaría ` +
+    `los datos de la noticia con nombres, cifras y fechas verificadas.`;
+  $("#veloTexto2").textContent =
+    `El caso sigue en desarrollo. Aquí irían las declaraciones de las autoridades, el contexto ` +
+    `necesario para entender el tema y los enlaces a notas anteriores relacionadas.`;
+
+  velo.classList.add("abierto");
+  velo.setAttribute("aria-hidden", "false");
+  document.body.classList.add("con-velo");
+  $("#cerrar").focus();
+  velo.scrollTop = 0;
+}
+
+function cerrarNota(){
+  velo.classList.remove("abierto");
+  velo.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("con-velo");
+  if (ultimoFoco) ultimoFoco.focus();
+}
+
+$("#cerrar").onclick = cerrarNota;
+velo.addEventListener("click", (e) => { if (e.target === velo) cerrarNota(); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && velo.classList.contains("abierto")) cerrarNota();
+});
+
+/* ---------- Eventos ---------- */
+$("#secciones").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-sec]");
+  if (!b) return;
+  seccion = b.dataset.sec;
+  visibles = POR_PAGINA;
+  pintarSecciones();
+  render();
+});
+
+document.addEventListener("click", (e) => {
+  const nota = e.target.closest("[data-nota]");
+  if (nota){
+    e.preventDefault();
+    abrirNota(Number(nota.dataset.nota));
+    return;
+  }
+
+  const a = e.target.closest("a[data-sec]");
+  if (!a) return;
+  e.preventDefault();
+  seccion = a.dataset.sec;
+  visibles = POR_PAGINA;
+  pintarSecciones();
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+let temporizador;
+$("#q").addEventListener("input", (e) => {
+  clearTimeout(temporizador);
+  temporizador = setTimeout(() => {
+    texto = e.target.value.trim();
+    visibles = POR_PAGINA;
+    render();
+  }, 220);
+});
+
+$("#suscribir").addEventListener("click", function(){
+  this.textContent = "¡Listo! (demo)";
+  this.style.background = "#25D366";
+  setTimeout(() => { this.textContent = "Suscribirme"; this.style.background = ""; }, 2200);
+});
+
+/* ---------- Modo oscuro ---------- */
+const raiz = document.documentElement;
+const botonTema = $("#tema");
+function aplicarTema(t){
+  raiz.setAttribute("data-tema", t);
+  botonTema.textContent = t === "oscuro" ? "☀️" : "🌙";
+  botonTema.title = t === "oscuro" ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
+}
+let guardado = "claro";
+try { guardado = localStorage.getItem("em-tema") || "claro"; } catch(e){}
+aplicarTema(guardado);
+botonTema.onclick = () => {
+  const nuevo = raiz.getAttribute("data-tema") === "oscuro" ? "claro" : "oscuro";
+  aplicarTema(nuevo);
+  try { localStorage.setItem("em-tema", nuevo); } catch(e){}
+};
+
+/* ---------- Arranque ---------- */
+$("#fecha").textContent = fechaHoy();
+pintarSecciones();
+pintaMasLeidas();
+pintaMarquesina();
+render();
+</script>
+</body>
+</html>

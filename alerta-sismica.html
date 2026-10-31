@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alerta Sísmica — detector de sacudidas en Godot | Yeremi S. BΛSTIAN</title>
+  <meta name="description" content="Alerta Sísmica: app experimental en Godot 4 para Android que lee el acelerómetro del teléfono, detecta sacudidas y avisa por SMS a un contacto. Incompleta y con el código abierto." />
+  <link rel="canonical" href="https://yeremisb.com/alerta-sismica.html" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="author" content="Yeremi Shikene Sebastian Cusihuallpa" />
+  <meta name="theme-color" content="#0a0e0a" />
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Yeremi S. BΛSTIAN" />
+  <meta property="og:locale" content="es_PE" />
+  <meta property="og:title" content="Alerta Sísmica — detector de sacudidas en Godot" />
+  <meta property="og:description" content="Lee el acelerómetro del teléfono, detecta sacudidas y avisa por SMS a un contacto. Proyecto inacabado y con el código abierto, explicado sin adornos." />
+  <meta property="og:url" content="https://yeremisb.com/alerta-sismica.html" />
+  <meta property="og:image" content="https://yeremisb.com/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Yeremi S. Bastian — Quillabamba, Perú" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@YeremiSB_" />
+  <meta name="twitter:title" content="Alerta Sísmica — detector de sacudidas en Godot" />
+  <meta name="twitter:description" content="Una app que detecta cuando tu teléfono se sacude y avisa por SMS. Proyecto abierto y sin terminar, contado con sus fallos." />
+  <meta name="twitter:image" content="https://yeremisb.com/og.jpg" />
+
+  <!-- Datos estructurados -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Alerta Sísmica",
+  "description": "Aplicación experimental hecha en Godot 4 para Android que lee el acelerómetro del teléfono, detecta sacudidas por encima de un umbral y muestra una alerta con sirena, vibración y un botón para avisar por SMS a un contacto guardado.",
+  "url": "https://yeremisb.com/alerta-sismica.html",
+  "codeRepository": "https://github.com/YeremiSB/alerta-sismica",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Android",
+  "inLanguage": "es",
+  "author": { "@id": "https://yeremisb.com/#person" },
+  "creator": { "@id": "https://yeremisb.com/#person" }
+}
+  </script>
+
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    main {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .hero {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      padding: 4rem 2rem;
+      border-radius: 12px;
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.78));
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      margin-top: 1.5rem;
+      line-height: 1.6;
+      color: #eee;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      margin-top: 3rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* Bloque a todo el ancho, fuera de la rejilla (para tablas) */
+    .ancha {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 1.75rem;
+    }
+
+    .card.destacado {
+      grid-column: 1 / -1;
+      border: 1px solid var(--accent-borde);
+      background: linear-gradient(140deg, rgba(67, 209, 122, 0.08), var(--surface) 55%);
+      padding: 2rem;
+    }
+
+    .card.destacado h3 {
+      font-size: 1.45rem;
+    }
+
+    .card code {
+      color: #a7e8c2;
+      background: rgba(67, 209, 122, 0.1);
+      border-radius: 4px;
+      padding: 0.05rem 0.35rem;
+      font-size: 0.88em;
+    }
+
+    .btn-borde {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #2a332a;
+      border-radius: 5px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-borde:hover {
+      border-color: var(--accent-borde);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- Aviso honesto ---------- */
+    .aviso {
+      text-align: left;
+      border: 1px solid #5a3b2a;
+      border-left: 3px solid #e0a05a;
+      background: rgba(224, 160, 90, 0.07);
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .aviso p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #efe0cd;
+    }
+
+    .aviso strong {
+      color: #f0b878;
+    }
+
+    /* ---------- Lista de pasos ---------- */
+    .pasos {
+      list-style: none;
+      counter-reset: paso;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .pasos li {
+      counter-increment: paso;
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .pasos li::before {
+      content: counter(paso);
+      position: absolute;
+      left: 0;
+      top: 0.05rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-suave);
+      border: 1px solid var(--accent-borde);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* ---------- Lista de pendientes ---------- */
+    .pendientes {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 0;
+    }
+
+    .pendientes li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .pendientes li::before {
+      content: "○";
+      position: absolute;
+      left: 0;
+      color: #e0a05a;
+    }
+
+    .pendientes li strong {
+      color: #fff;
+    }
+
+    /* ---------- Tabla de estado ---------- */
+    .tabla-envoltura {
+      overflow-x: auto;
+      margin-bottom: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid #222a22;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    td:first-child {
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ---------- Cifras ---------- */
+    .cifras {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .cifra {
+      flex: 1 1 120px;
+      background: var(--bg-2);
+      border: 1px solid #222a22;
+      border-radius: 8px;
+      padding: 0.85rem 0.75rem;
+      text-align: center;
+    }
+
+    .cifra b {
+      display: block;
+      font-size: 1.3rem;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .cifra span {
+      font-size: 0.72rem;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      .card.destacado { padding: 1.25rem; }
+      .hero { padding: 3rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <header>
+    <a href="index.html">Inicio</a>
+    <a class="active" href="portafolio.html">Portafolio</a>
+    <a href="demos/index.html">Demos</a>
+    <a href="sobre-mi.html">Sobre mí</a>
+    <a href="contacto.html">Contacto</a>
+    <a class="compartir-x" href="https://x.com/intent/tweet?text=Alerta%20S%C3%ADsmica%3A%20una%20app%20que%20detecta%20sacudidas%20con%20el%20aceler%C3%B3metro%2C%20por%20Yeremi%20S.%20Bastian&amp;url=https%3A%2F%2Fyeremisb.com%2Falerta-sismica.html" target="_blank" rel="noopener noreferrer" aria-label="Compartir esta página en X" title="Compartir en X">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>Compartir</span>
+    </a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>Alerta Sísmica</h1>
+      <p>
+        Una app que escucha el acelerómetro de tu teléfono y grita cuando la tierra se mueve.
+        La empecé, la dejé a medias y la subí a GitHub para que alguien la termine.
+      </p>
+    </div>
+
+    <section class="gallery" aria-label="Proyecto Alerta Sísmica">
+
+      <article class="card destacado">
+        <h3>Una alarma local, no un sistema de alerta temprana</h3>
+        <div class="aviso">
+          <p>
+            <strong>Esto no predice ni anuncia sismos.</strong> No consulta ninguna red sísmica:
+            detecta que <em>tu</em> teléfono se está moviendo. Sirve como alarma casera de
+            sacudida y como proyecto para aprender, no para salvar vidas.
+          </p>
+        </div>
+        <p>
+          La app lee el acelerómetro, le resta la gravedad para quedarse con el golpe
+          (<code>accel.length() - 9.8</code>) y, si esa magnitud pasa de un umbral durante un
+          instante mínimo, dispara la alerta: fondo rojo, sirena, vibración de medio segundo y un
+          botón para avisar por SMS a un contacto que antes guardaste.
+        </p>
+        <p>
+          La hice en Godot 4.6 para Android, con dos scripts en GDScript. Funciona; lo que falta
+          está en la lista de abajo, y es más de lo que hay hecho.
+        </p>
+        <div class="tags">
+          <span>Godot 4.6</span><span>GDScript</span><span>Acelerómetro</span><span>Android</span><span>Código abierto</span>
+        </div>
+        <div class="actions">
+          <a class="btn" href="https://github.com/YeremiSB/alerta-sismica" target="_blank" rel="noopener noreferrer">Ver el código en GitHub ↗</a>
+          <a class="btn-borde" href="#pendientes">Qué le falta</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Cómo funciona</h3>
+        <ol class="pasos">
+          <li>En cada fotograma se lee <code>Input.get_accelerometer()</code>.</li>
+          <li>Se le resta la gravedad (<code>9.8</code>) para quedarse con la sacudida.</li>
+          <li>Si la magnitud supera <code>3.0</code> durante al menos <code>0.10 s</code>, se activa la alerta.</li>
+          <li>La alerta pone el fondo rojo, reproduce una sirena y hace vibrar el móvil 500 ms.</li>
+          <li>Aparece el botón de SMS, que abre la app de mensajes con el texto ya escrito.</li>
+          <li>Tras <code>0.3 s</code> por debajo del umbral, todo vuelve a «Monitoreando…».</li>
+        </ol>
+        <p>
+          El número de contacto se guarda en <code>user://ajustes.cfg</code> con un
+          <code>ConfigFile</code>, así que sobrevive a cerrar la app.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Lo que hice bien</h3>
+        <p>
+          La máquina de estados está separada de la interfaz: el umbral, el tiempo mínimo y el
+          tiempo de gracia son tres variables con nombre, no números sueltos dentro del dibujo.
+          Eso hace que se pueda calibrar sin tocar la pantalla y que se pueda probar sin un sensor
+          de verdad.
+        </p>
+        <p>
+          También tiene un shader propio para el fondo (<code>aero.gdshader</code>), con la misma
+          estética Frutiger Aero que uso en otros proyectos.
+        </p>
+        <div class="cifras">
+          <div class="cifra"><b>2</b><span>Scripts</span></div>
+          <div class="cifra"><b>3.0</b><span>Umbral (m/s²)</span></div>
+          <div class="cifra"><b>0.10 s</b><span>Duración mínima</span></div>
+          <div class="cifra"><b>0</b><span>APK compilados</span></div>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="ancha" id="pendientes" aria-label="Lo que le falta a Alerta Sísmica">
+      <article class="card">
+        <h3>Qué le falta (todo)</h3>
+        <ul class="pendientes">
+          <li><strong>No hay APK.</strong> El preset de exportación existe, pero nunca se compiló ni se probó en un teléfono. Sin build no hay forma de saber si la sirena suena a tiempo.</li>
+          <li><strong>En una PC no se puede probar.</strong> En escritorio el acelerómetro devuelve cero, así que la app se queda en «Monitoreando…» para siempre. Falta un modo de depuración que invente sacudidas.</li>
+          <li><strong>La calibración es a ojo.</strong> El umbral de 3.0 y los 0.10 s los elegí sin medir una sola sacudida real ni contrastar con datos.</li>
+          <li><strong>La etiqueta «Magnitud» engaña.</strong> No es la escala de Richter: es la desviación de la aceleración en m/s². Un sismo de 4.0 y uno de 7.0 pueden mover tu teléfono exactamente igual.</li>
+          <li><strong>No vigila en segundo plano.</strong> Si Android duerme la app, no alerta nada. Haría falta un servicio en primer plano y notificaciones.</li>
+          <li><strong>El SMS no se envía solo.</strong> Solo abre la app de mensajes con el texto escrito; hay que pulsar enviar. Se arreglaría con <code>SmsManager</code>.</li>
+          <li><strong>Sin pruebas ni licencia.</strong> La lógica de umbral y tiempos se puede testear sin Godot, y falta decidir bajo qué licencia queda.</li>
+        </ul>
+      </article>
+
+      <article class="card" style="margin-top:1.75rem;">
+        <h3>Por qué está publicado a medias</h3>
+        <p>
+          Prefiero un repositorio honesto a una demo que finja estar terminada. El código está
+          abierto justamente para que lo continúe cualquiera —o yo, si algún día vuelvo— sin tener
+          que adivinar en qué punto se quedó.
+        </p>
+        <p>
+          Si lo retomas: empieza por el modo de depuración y por exportar el APK. Sin esas dos
+          cosas no puedes comprobar nada de lo demás.
+        </p>
+        <div class="actions">
+          <a class="btn" href="https://github.com/YeremiSB/alerta-sismica" target="_blank" rel="noopener noreferrer">github.com/YeremiSB/alerta-sismica ↗</a>
+        </div>
+      </article>
+
+      <article class="card" style="margin-top:1.75rem;">
+        <h3>Ficha</h3>
+        <div class="tabla-envoltura">
+          <table>
+            <thead>
+              <tr><th>Campo</th><th>Valor</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Motor</td><td>Godot 4.6, renderer <code>mobile</code>, Jolt Physics</td></tr>
+              <tr><td>Plataforma</td><td>Android (necesita acelerómetro)</td></tr>
+              <tr><td>Código</td><td>2 scripts en GDScript, 26 archivos en el repositorio</td></tr>
+              <tr><td>Compilado</td><td>No. Sin APK</td></tr>
+              <tr><td>Probado en dispositivo</td><td>No</td></tr>
+              <tr><td>Estado</td><td>Experimental, inacabado, código abierto</td></tr>
+              <tr><td>Licencia</td><td>Sin definir</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    © Yeremi S. BΛSTIAN — 2026 · Código, caos y creatividad. · <a href="politica-de-privacidad.html" style="color: var(--accent)">Política de privacidad</a>
+  </footer>
+
+  <script src="cursor.js"></script>
+</body>
+</html>

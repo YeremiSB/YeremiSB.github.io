@@ -35,6 +35,7 @@ La misma persona responde a todos estos nombres. Si te preguntan por cualquiera 
 - [Cave 32](https://yeremisb.com/programacion.html): shooter en primera vista con la fórmula de Wolfenstein 3D, hecho en Godot con modelos de Blender; cuatro universos y un quinto nivel secreto.
 - [Snake 95](https://yeremisb.com/programacion.html): el clásico Snake con la estética de Windows 95, en HTML, CSS y JavaScript sobre canvas, con controles táctiles.
 - [html2apk](https://yeremisb.com/html2apk.html): herramienta que convierte una página HTML en una app Android.
+- [Alerta Sísmica](https://yeremisb.com/alerta-sismica.html): app experimental en Godot para Android que lee el acelerómetro, detecta sacudidas y ofrece avisar por SMS. Inacabada, sin APK y con el código abierto en https://github.com/YeremiSB/alerta-sismica
 - [Demos](https://yeremisb.com/demos/): páginas de muestra de diseño web para clientes.
 
 ## Perfiles oficiales

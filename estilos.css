@@ -339,6 +339,52 @@ footer {
   text-align: center;
 }
 
+/* ---------- Botón de compartir en X ---------- */
+.compartir-x {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid #2a332a;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+
+.compartir-x:hover {
+  color: var(--accent);
+  border-color: var(--accent-borde);
+  background: var(--accent-suave);
+}
+
+/* Anula el subrayado que el header aplica a sus enlaces */
+header a.compartir-x:hover::after {
+  content: none;
+}
+
+.compartir-x svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+  flex: none;
+}
+
+@media (max-width: 600px) {
+  .compartir-x {
+    padding: 0.4rem;
+    border-radius: 50%;
+  }
+  .compartir-x span {
+    display: none;
+  }
+  .compartir-x svg {
+    width: 15px;
+    height: 15px;
+  }
+}
 /* ---------- Utilidades ---------- */
 .sr-only {
   position: absolute;

@@ -139,6 +139,28 @@ header a:hover::after {
   transform: translateY(-2px);
 }
 
+/* Botón secundario: misma altura que .btn, solo con borde.
+   Vive aquí porque lo usan inicio, portafolio y las páginas de proyecto. */
+.btn-borde {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #2a332a;
+  border-radius: 5px;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  transition: border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-borde:hover {
+  border-color: var(--accent-borde);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
 .btn.disabled,
 .btn[aria-disabled="true"] {
   background: #333;
@@ -194,7 +216,119 @@ header a:hover::after {
 .card .actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.5rem;
+}
+
+/* ---------- Proyectos destacados -------------------------------------
+   Tres proyectos elegidos a mano (BAST Finance, YERTV y Transcriptor).
+   Se repiten en inicio, portafolio y programación con la misma
+   estructura: captura, insignia, título, resumen, etiquetas y botones.
+   -------------------------------------------------------------------- */
+.destacados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.75rem;
+  width: 100%;
+  max-width: 1040px;
+  margin: 2.5rem auto 0;
+  text-align: left;
+}
+
+.card.destacado {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--accent-borde);
+  background: linear-gradient(165deg, rgba(67, 209, 122, 0.09), var(--surface) 45%);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+}
+
+.card.destacado:hover {
+  box-shadow: 0 22px 55px rgba(67, 209, 122, 0.22);
+}
+
+.destacado-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #0b0f0b;
+  border-bottom: 1px solid rgba(67, 209, 122, 0.18);
+}
+
+.destacado-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s ease;
+}
+
+.card.destacado:hover .destacado-media img {
+  transform: scale(1.045);
+}
+
+.destacado-media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(10, 14, 10, 0), rgba(10, 14, 10, 0.85));
+  pointer-events: none;
+}
+
+.insignia {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 1;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #06110a;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.destacado-cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.4rem 1.4rem 1.5rem;
+}
+
+.card.destacado h3 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+.destacado-cuerpo .actions {
+  margin-top: auto;
+}
+
+/* Encabezado de sección dentro de una página */
+.titulo-seccion {
+  margin-bottom: 0.6rem;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.titulo-seccion span {
+  color: var(--accent);
+}
+
+.subtitulo-seccion {
+  max-width: 60ch;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
 
 /* ---------- Footer ---------- */

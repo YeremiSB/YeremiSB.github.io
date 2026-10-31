@@ -93,7 +93,7 @@
       "@id": "https://yeremisb.com/programacion.html#webpage",
       "url": "https://yeremisb.com/programacion.html",
       "name": "Programación – Yeremi S. BΛSTIAN",
-      "description": "Proyectos de programación de Yeremi S. Bastian: juegos, sitios web y experimentos con IA.",
+      "description": "Proyectos de programación de Yeremi S. Bastian: BAST Finance, YERTV, el Transcriptor de Manuscritos, Cave 32 y Snake 95.",
       "isPartOf": {
         "@id": "https://yeremisb.com/#website"
       },
@@ -204,6 +204,34 @@
       "author": {
         "@id": "https://yeremisb.com/#person"
       }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://yeremisb.com/programacion.html#destacados",
+      "name": "Proyectos destacados de Yeremi S. Bastian",
+      "description": "Los tres proyectos que encabezan el portafolio de programacion: BAST Finance, YERTV y el Transcriptor de Manuscritos.",
+      "numberOfItems": 3,
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "BAST Finance",
+          "url": "https://yeremisb.com/bast-finance.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "YERTV",
+          "url": "https://yeremisb.com/yertv.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Transcriptor de Manuscritos",
+          "url": "https://yeremisb.com/transcriptor.html"
+        }
+      ]
     }
   ]
 }
@@ -266,16 +294,16 @@
       max-width: 1000px;
     }
 
-    /* Proyecto destacado: ocupa toda la fila y lleva borde de acento */
-    .card.destacado {
-      grid-column: 1 / -1;
-      border: 1px solid var(--accent-borde);
-      background: linear-gradient(140deg, rgba(67, 209, 122, 0.08), var(--surface) 55%);
-      padding: 2rem;
+    /* Secciones de la página */
+    .seccion-destacados,
+    .seccion-otros {
+      width: 100%;
+      max-width: 1040px;
+      margin-top: 3.5rem;
     }
 
-    .card.destacado h3 {
-      font-size: 1.45rem;
+    .seccion-otros .gallery {
+      margin-top: 1.75rem;
     }
 
     .card code {
@@ -325,41 +353,85 @@
       </p>
     </div>
 
-    <section class="gallery" aria-label="Proyectos de programación">
-      <article class="card destacado">
-        <h3>BAST Finance — finanzas personales offline-first</h3>
-        <p>
-          Gestor de finanzas personales que guarda todo en tu dispositivo: cuentas, movimientos,
-          presupuestos, metas de ahorro e informes. Sin cuentas de usuario, sin nube y sin anuncios;
-          funciona sin conexión después de la primera visita. Hecho con React, TypeScript e
-          IndexedDB, con 39 pruebas automatizadas y despliegue estático en GitHub Pages.
-        </p>
-        <div class="tags">
-          <span>React</span><span>TypeScript</span><span>PWA offline</span><span>IndexedDB</span><span>Tailwind</span>
-        </div>
-        <div class="actions">
-          <a class="btn" href="bast-finance.html">Ver caso de estudio</a>
-          <a class="btn-borde" href="https://bast.yeremisb.com/" target="_blank" rel="noopener noreferrer">Abrir BAST Finance ↗</a>
-        </div>
-      </article>
+    <section class="seccion-destacados" aria-labelledby="destacados-titulo">
+      <h2 class="titulo-seccion" id="destacados-titulo">Proyectos <span>destacados</span></h2>
+      <p class="subtitulo-seccion">
+        Los tres que mejor explican cómo trabajo: producto propio, en producción y con usuarios reales.
+      </p>
 
-      <article class="card">
-        <h3>YERTV — IPTV Player con Monetización</h3>
-        <p>
-          Reproductor IPTV en la nube con estética Frutiger Aero: pegas una lista
-          <code>.m3u / .m3u8</code> y ves el canal sin instalar nada. Lo construí como proyecto de
-          Educación para el Trabajo, lo desplegué en Cloudflare Workers y lo empaqueté también
-          como app para televisores webOS.
-        </p>
-        <div class="tags">
-          <span>HTML5</span><span>Tailwind</span><span>HLS.js</span><span>Cloudflare Workers</span><span>webOS TV</span>
-        </div>
-        <div class="actions">
-          <a class="btn" href="yertv.html">Ver caso de estudio</a>
-          <a class="btn-borde" href="https://yertv.yeremisb.com/" target="_blank" rel="noopener noreferrer">Ver en vivo ↗</a>
-        </div>
-      </article>
+      <div class="destacados">
+        <article class="card destacado">
+          <a class="destacado-media" href="bast-finance.html" aria-label="Ver el caso de estudio de BAST Finance">
+            <img src="Fotos/BAST_Dashboard.webp" alt="Panel de BAST Finance con saldo total, ingresos, gastos, presupuestos y gráficos del mes" width="1400" height="1573" loading="lazy" decoding="async">
+            <span class="insignia">Destacado</span>
+          </a>
+          <div class="destacado-cuerpo">
+            <h3>BAST Finance</h3>
+            <p>
+              Finanzas personales offline-first: cuentas, movimientos, presupuestos, metas e
+              informes que viven en tu dispositivo. Sin nube, sin cuentas de usuario y sin anuncios.
+              React, TypeScript e IndexedDB, con 39 pruebas automatizadas.
+            </p>
+            <div class="tags">
+              <span>React</span><span>TypeScript</span><span>PWA offline</span><span>IndexedDB</span>
+            </div>
+            <div class="actions">
+              <a class="btn" href="bast-finance.html">Ver caso de estudio</a>
+              <a class="btn-borde" href="https://bast.yeremisb.com/" target="_blank" rel="noopener noreferrer">Abrir app ↗</a>
+            </div>
+          </div>
+        </article>
 
+        <article class="card destacado">
+          <a class="destacado-media" href="yertv.html" aria-label="Ver el caso de estudio de YERTV">
+            <img src="Fotos/YERTV_Player.webp" alt="Interfaz de YERTV con el reproductor, el buscador y la lista de 52 canales de demostración" width="1366" height="800" loading="lazy" decoding="async">
+            <span class="insignia">Destacado</span>
+          </a>
+          <div class="destacado-cuerpo">
+            <h3>YERTV</h3>
+            <p>
+              Reproductor IPTV en la nube con estética Frutiger Aero: pegas una lista
+              <code>.m3u / .m3u8</code> y ves el canal sin instalar nada. Desplegado en Cloudflare
+              Workers y empaquetado también como app para televisores webOS.
+            </p>
+            <div class="tags">
+              <span>HTML5</span><span>HLS.js</span><span>Cloudflare Workers</span><span>webOS TV</span>
+            </div>
+            <div class="actions">
+              <a class="btn" href="yertv.html">Ver caso de estudio</a>
+              <a class="btn-borde" href="https://yertv.yeremisb.com/" target="_blank" rel="noopener noreferrer">Ver en vivo ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card destacado">
+          <a class="destacado-media" href="transcriptor.html" aria-label="Ver el Transcriptor de Manuscritos">
+            <img src="Fotos/transcriptor-de-manuscritos.webp" alt="Ventana del Transcriptor de Manuscritos con los campos de API key, origen y progreso" width="698" height="717" loading="lazy" decoding="async">
+            <span class="insignia">Destacado</span>
+          </a>
+          <div class="destacado-cuerpo">
+            <h3>Transcriptor de Manuscritos</h3>
+            <p>
+              App de escritorio en Python que convierte fotos de un manuscrito o un PDF escaneado
+              en un Word ordenado, página por página, con la IA de Gemini. Retoma donde se quedó
+              sin repetir lo ya hecho. Licencia desde S/ 250.
+            </p>
+            <div class="tags">
+              <span>Python</span><span>tkinter</span><span>Gemini API</span><span>python-docx</span>
+            </div>
+            <div class="actions">
+              <a class="btn" href="transcriptor.html">Ver precio y licencia</a>
+              <a class="btn-borde" href="transcriptor-de-manuscritos.html">Cómo funciona</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="seccion-otros" aria-labelledby="otros-titulo">
+      <h2 class="titulo-seccion" id="otros-titulo">Otros <span>proyectos</span></h2>
+
+      <div class="gallery">
       <article class="card">
         <h3>Snake 95</h3>
         <p>
@@ -422,24 +494,8 @@
         </div>
       </article>
 
-      <article class="card">
-        <h3>Transcriptor de Manuscritos</h3>
-        <p>
-          App de escritorio en Python que convierte fotos de un manuscrito o un PDF escaneado
-          en un Word ordenado, página por página, con la IA de Gemini. Guarda el avance después
-          de cada hoja y, si la vuelves a abrir, continúa donde se quedó sin repetir (ni pagar)
-          lo que ya estaba hecho. Nació de los cuadernos de obra que tenía que reescribir a mano.
-        </p>
-        <div class="tags">
-          <span>Python</span><span>tkinter</span><span>Gemini API</span><span>python-docx</span><span>Licencia desde S/ 250</span>
-        </div>
-        <div class="actions">
-          <a class="btn" href="transcriptor.html">Ver precio y licencia</a>
-          <a class="btn-borde" href="transcriptor-de-manuscritos.html">Cómo funciona</a>
-        </div>
-      </article>
-
       <!-- AÑADIR NUEVOS PROYECTOS AQUÍ con el mismo bloque <article class="card"> -->
+      </div>
     </section>
   </main>
 

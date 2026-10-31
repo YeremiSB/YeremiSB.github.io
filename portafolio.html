@@ -53,7 +53,7 @@
       ],
       "url": "https://yeremisb.com/",
       "image": "https://yeremisb.com/og.jpg",
-      "description": "Yeremi Shikene Sebastian Cusihuallpa, conocido en internet como Yeremi S. Bastian (YeremiSB), es desarrollador y creador audiovisual peruano desde Quillabamba, Cusco. Crea cortometrajes, fotografía y proyectos de programación como YERTV, Cave 32 y Snake 95.",
+      "description": "Yeremi Shikene Sebastian Cusihuallpa, conocido en internet como Yeremi S. Bastian (YeremiSB), es desarrollador y creador audiovisual peruano desde Quillabamba, Cusco. Crea BAST Finance, YERTV y el Transcriptor de Manuscritos, además de fotografía y cortometrajes.",
       "jobTitle": "Desarrollador y creador audiovisual",
       "knowsAbout": [
         "Programación",
@@ -208,6 +208,25 @@
       color: var(--accent);
     }
 
+    .destacados-bloque {
+      width: 100%;
+      max-width: 1040px;
+    }
+
+    .destacados-bloque .destacados {
+      margin-top: 1.75rem;
+    }
+
+    .bloque-areas {
+      margin-top: 4rem;
+      width: 100%;
+      max-width: 1040px;
+    }
+
+    .bloque-areas .portfolio-grid {
+      margin-top: 1.5rem;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -229,42 +248,112 @@
     <h1>PORTAFOLIO</h1>
     <p class="intro">Tres frentes, un mismo impulso: contar cosas. Código, imagen y mirada.</p>
 
-    <div class="portfolio-grid">
-      <a href="programacion.html" class="section-link">
-        <div class="section-card">
-          <h2>💻 Programación</h2>
-          <ul>
-            <li>BAST Finance: finanzas personales offline-first en React.</li>
-            <li>YERTV: reproductor IPTV en Cloudflare Workers.</li>
-            <li>Juegos: Cave 32 (Godot) y Snake 95 (web).</li>
-            <li>Transcriptor de Manuscritos: fotos o PDF a Word con IA.</li>
-            <li>HTML, CSS, JavaScript y webOS TV.</li>
-          </ul>
-        </div>
-      </a>
+    <section class="destacados-bloque" aria-labelledby="destacados-titulo">
+      <h2 class="titulo-seccion" id="destacados-titulo">Proyectos <span>destacados</span></h2>
+      <p class="subtitulo-seccion">
+        Lo más completo que he construido: dos apps en producción y una herramienta con clientes.
+      </p>
 
-      <a href="cortometrajes.html" class="section-link">
-        <div class="section-card">
-          <h2>🎬 Cortometrajes</h2>
-          <ul>
-            <li>Cortos documentales y narrativos.</li>
-            <li>Edición, guion y dirección propia.</li>
-            <li>Temas locales: café, familia, identidad.</li>
-          </ul>
-        </div>
-      </a>
+      <div class="destacados">
+        <article class="card destacado">
+          <a class="destacado-media" href="bast-finance.html" aria-label="Ver el caso de estudio de BAST Finance">
+            <img src="Fotos/BAST_Dashboard.webp" alt="Panel de BAST Finance con saldo total, ingresos, gastos, presupuestos y gráficos del mes" width="1400" height="1573" loading="lazy" decoding="async">
+            <span class="insignia">Destacado</span>
+          </a>
+          <div class="destacado-cuerpo">
+            <h3>BAST Finance</h3>
+            <p>
+              Gestor de finanzas personales offline-first: cuentas, movimientos, presupuestos,
+              metas e informes guardados en tu dispositivo. Sin nube y sin anuncios.
+            </p>
+            <div class="tags"><span>React</span><span>TypeScript</span><span>PWA</span></div>
+            <div class="actions">
+              <a class="btn" href="bast-finance.html">Ver caso de estudio</a>
+              <a class="btn-borde" href="https://bast.yeremisb.com/" target="_blank" rel="noopener noreferrer">Abrir app ↗</a>
+            </div>
+          </div>
+        </article>
 
-      <a href="fotografia.html" class="section-link">
-        <div class="section-card">
-          <h2>📸 Fotografía</h2>
-          <ul>
-            <li>Quillabamba y Cusco, de día y de noche.</li>
-            <li>Atardeceres, gatos callejeros y cultura local.</li>
-            <li>Captura y edición propias: 13 fotos.</li>
-          </ul>
-        </div>
-      </a>
-    </div>
+        <article class="card destacado">
+          <a class="destacado-media" href="yertv.html" aria-label="Ver el caso de estudio de YERTV">
+            <img src="Fotos/YERTV_Player.webp" alt="Interfaz de YERTV con el reproductor, el buscador y la lista de canales" width="1366" height="800" loading="lazy" decoding="async">
+            <span class="insignia">Destacado</span>
+          </a>
+          <div class="destacado-cuerpo">
+            <h3>YERTV</h3>
+            <p>
+              Reproductor IPTV en la nube: pegas una lista <code>.m3u</code> y ves el canal sin
+              instalar nada. Desplegado en Cloudflare Workers y empaquetado para webOS TV.
+            </p>
+            <div class="tags"><span>Cloudflare Workers</span><span>HLS.js</span><span>webOS TV</span></div>
+            <div class="actions">
+              <a class="btn" href="yertv.html">Ver caso de estudio</a>
+              <a class="btn-borde" href="https://yertv.yeremisb.com/" target="_blank" rel="noopener noreferrer">Ver en vivo ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card destacado">
+          <a class="destacado-media" href="transcriptor.html" aria-label="Ver el Transcriptor de Manuscritos">
+            <img src="Fotos/transcriptor-de-manuscritos.webp" alt="Ventana del Transcriptor de Manuscritos con los campos de API key, origen y progreso" width="698" height="717" loading="lazy" decoding="async">
+            <span class="insignia">Destacado</span>
+          </a>
+          <div class="destacado-cuerpo">
+            <h3>Transcriptor de Manuscritos</h3>
+            <p>
+              App de escritorio que convierte fotos de un manuscrito o un PDF escaneado en un Word
+              ordenado, página por página, con la IA de Gemini.
+            </p>
+            <div class="tags"><span>Python</span><span>Gemini API</span><span>python-docx</span></div>
+            <div class="actions">
+              <a class="btn" href="transcriptor.html">Ver precio y licencia</a>
+              <a class="btn-borde" href="transcriptor-de-manuscritos.html">Cómo funciona</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="bloque-areas" aria-labelledby="areas-titulo">
+      <h2 class="titulo-seccion" id="areas-titulo">Explora por <span>área</span></h2>
+
+      <div class="portfolio-grid">
+        <a href="programacion.html" class="section-link">
+          <div class="section-card">
+            <h2>💻 Programación</h2>
+            <ul>
+              <li>BAST Finance: finanzas personales offline-first en React.</li>
+              <li>YERTV: reproductor IPTV en Cloudflare Workers.</li>
+              <li>Transcriptor de Manuscritos: fotos o PDF a Word con IA.</li>
+              <li>Juegos: Cave 32 (Godot) y Snake 95 (web).</li>
+              <li>HTML, CSS, JavaScript y webOS TV.</li>
+            </ul>
+          </div>
+        </a>
+
+        <a href="cortometrajes.html" class="section-link">
+          <div class="section-card">
+            <h2>🎬 Cortometrajes</h2>
+            <ul>
+              <li>Cortos documentales y narrativos.</li>
+              <li>Edición, guion y dirección propia.</li>
+              <li>Temas locales: café, familia, identidad.</li>
+            </ul>
+          </div>
+        </a>
+
+        <a href="fotografia.html" class="section-link">
+          <div class="section-card">
+            <h2>📸 Fotografía</h2>
+            <ul>
+              <li>Quillabamba y Cusco, de día y de noche.</li>
+              <li>Atardeceres, gatos callejeros y cultura local.</li>
+              <li>Captura y edición propias: 13 fotos.</li>
+            </ul>
+          </div>
+        </a>
+      </div>
+    </section>
   </main>
 
   <footer>

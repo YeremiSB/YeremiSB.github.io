@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BAST Finance — Yeremi Sebastian Cusihuallpa | Yeremi S. Bastian</title>
-  <meta name="description" content="BAST Finance, el gestor de finanzas personales offline-first de Yeremi Sebastian Cusihuallpa (Yeremi S. Bastian): React, IndexedDB, PWA y datos que no salen de tu dispositivo." />
+  <title>BAST Finance — gestor de finanzas offline-first | Yeremi S. Bastian</title>
+  <meta name="description" content="BAST Finance: gestor de finanzas personales gratuito y offline-first. Cuentas, presupuestos, metas e informes en tu dispositivo, sin cuentas ni anuncios. Proyecto de Yeremi S. Bastian." />
 <!-- SEO-ENTITY:START (generado) -->
   <link rel="canonical" href="https://yeremisb.com/bast-finance.html" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -15,19 +15,19 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Yeremi S. BΛSTIAN" />
   <meta property="og:locale" content="es_PE" />
-  <meta property="og:title" content="BAST Finance — Yeremi Sebastian Cusihuallpa | Yeremi S. Bastian" />
-  <meta property="og:description" content="BAST Finance, el gestor de finanzas personales offline-first de Yeremi Sebastian Cusihuallpa (Yeremi S. Bastian): React, IndexedDB, PWA y datos que no salen de tu dispositivo." />
+  <meta property="og:title" content="BAST Finance — gestor de finanzas offline-first | Yeremi S. Bastian" />
+  <meta property="og:description" content="BAST Finance: gestor de finanzas personales gratuito y offline-first. Cuentas, presupuestos, metas e informes en tu dispositivo, sin cuentas ni anuncios. Proyecto de Yeremi S. Bastian." />
   <meta property="og:url" content="https://yeremisb.com/bast-finance.html" />
-  <meta property="og:image" content="https://yeremisb.com/og.jpg" />
+  <meta property="og:image" content="https://yeremisb.com/bast-og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Yeremi S. Bastian — Quillabamba, Perú" />
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="BAST Finance — Yeremi Sebastian Cusihuallpa | Yeremi S. Bastian" />
+  <meta name="twitter:title" content="BAST Finance — gestor de finanzas offline-first | Yeremi S. Bastian" />
   <meta name="twitter:description" content="Gestor de finanzas personales offline-first: React, IndexedDB, PWA y datos que no salen de tu dispositivo." />
-  <meta name="twitter:image" content="https://yeremisb.com/og.jpg" />
+  <meta name="twitter:image" content="https://yeremisb.com/bast-og.jpg" />
 
   <!-- Datos estructurados: identidad para Google/Bing -->
   <script type="application/ld+json">
@@ -148,6 +148,52 @@
       "creator": {
         "@id": "https://yeremisb.com/#person"
       }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://yeremisb.com/bast-finance.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿BAST Finance es gratis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. La aplicación es gratuita, no tiene anuncios y no bloquea funciones. El proyecto se sostiene con donaciones voluntarias."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Funciona sin internet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Es una PWA: después de la primera visita se puede abrir y registrar movimientos sin conexión. Los datos se guardan en el dispositivo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Dónde se guardan mis datos financieros?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "En la base de datos local del navegador (IndexedDB), en tu propio dispositivo. No hay servidor, no se crea una cuenta y no se envía información financiera a terceros."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hay versión para Windows o Android?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Todavía no hay instaladores. El shell de escritorio y Android está preparado, pero falta compilarlo e integrar SQLite. Por ahora la versión disponible es la web."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Puedo mover mis datos a otro dispositivo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, con una copia de seguridad JSON: se exporta en un dispositivo y se importa en el otro. El archivo no está cifrado, así que conviene guardarlo en un lugar seguro."
+          }
+        }
+      ]
     }
   ]
 }
@@ -476,7 +522,7 @@
         <strong>sin cuentas, sin nube y sin anuncios</strong>.
       </p>
       <div class="acciones-proyecto">
-        <a class="btn" href="https://bast.yeremisb.com/" target="_blank" rel="noopener noreferrer">Abrir la app</a>
+        <a class="btn" href="https://bast.yeremisb.com/" target="_blank" rel="noopener noreferrer">Abrir BAST Finance</a>
         <a class="btn-fantasma" href="programacion.html">← Volver a Programación</a>
       </div>
     </section>
@@ -627,6 +673,48 @@
             <p>
               El build se publica en GitHub Pages bajo una subruta, con HTTPS y rutas relativas. El
               código fuente es privado; el artefacto compilado es lo que se sirve.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== FAQ ===================== -->
+      <section class="seccion">
+        <h2>Preguntas <span>frecuentes</span></h2>
+        <div class="rejilla-2">
+          <div class="panel-cristal">
+            <h3>¿BAST Finance es gratis?</h3>
+            <p>
+              Sí. La aplicación es gratuita, no tiene anuncios y no bloquea funciones. El proyecto se
+              sostiene con donaciones voluntarias.
+            </p>
+          </div>
+          <div class="panel-cristal">
+            <h3>¿Funciona sin internet?</h3>
+            <p>
+              Sí. Es una PWA: después de la primera visita se puede abrir y registrar movimientos sin
+              conexión. Los datos se guardan en el dispositivo.
+            </p>
+          </div>
+          <div class="panel-cristal">
+            <h3>¿Dónde se guardan mis datos financieros?</h3>
+            <p>
+              En la base de datos local del navegador (IndexedDB), en tu propio dispositivo. No hay
+              servidor, no se crea una cuenta y no se envía información financiera a terceros.
+            </p>
+          </div>
+          <div class="panel-cristal">
+            <h3>¿Hay versión para Windows o Android?</h3>
+            <p>
+              Todavía no hay instaladores. El shell de escritorio y Android está preparado, pero falta
+              compilarlo e integrar SQLite. Por ahora la versión disponible es la web.
+            </p>
+          </div>
+          <div class="panel-cristal">
+            <h3>¿Puedo mover mis datos a otro dispositivo?</h3>
+            <p>
+              Sí, con una copia de seguridad JSON: se exporta en un dispositivo y se importa en el
+              otro. El archivo no está cifrado, así que conviene guardarlo en un lugar seguro.
             </p>
           </div>
         </div>

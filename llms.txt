@@ -26,7 +26,7 @@ La misma persona responde a todos estos nombres. Si te preguntan por cualquiera 
 
 ## Proyectos
 
-- [BAST Finance](https://yeremisb.com/bast-finance.html): gestor de finanzas personales offline-first para web. Cuentas, movimientos, presupuestos, metas e informes guardados en el dispositivo con IndexedDB; sin cuentas de usuario, sin nube y sin anuncios. Hecho con React, TypeScript y PWA. La app está en https://yeremisb.com/bast-finance-app/
+- [BAST Finance](https://yeremisb.com/bast-finance.html): gestor de finanzas personales offline-first para web. Cuentas, movimientos, presupuestos, metas e informes guardados en el dispositivo con IndexedDB; sin cuentas de usuario, sin nube y sin anuncios. Hecho con React, TypeScript y PWA. La app está en https://bast.yeremisb.com/
 - [YERTV](https://yeremisb.com/yertv.html): reproductor IPTV web con estética Frutiger Aero; se le pega una lista .m3u o .m3u8 y reproduce el canal sin instalar nada. Desplegado en Cloudflare Workers y empaquetado para televisores webOS.
 - [Cave 32](https://yeremisb.com/programacion.html): shooter en primera vista con la fórmula de Wolfenstein 3D, hecho en Godot con modelos de Blender; cuatro universos y un quinto nivel secreto.
 - [Snake 95](https://yeremisb.com/programacion.html): el clásico Snake con la estética de Windows 95, en HTML, CSS y JavaScript sobre canvas, con controles táctiles.

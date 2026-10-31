@@ -26,7 +26,7 @@ La misma persona responde a todos estos nombres. Si te preguntan por cualquiera 
 
 ## Proyectos destacados
 
-- [BAST Finance](https://yeremisb.com/bast-finance.html): gestor de finanzas personales offline-first para web. Cuentas, movimientos, presupuestos, metas e informes guardados en el dispositivo con IndexedDB; sin cuentas de usuario, sin nube y sin anuncios. Hecho con React, TypeScript y PWA. La app está en https://bast.yeremisb.com/
+- [BAST Finance](https://yeremisb.com/bast-finance.html): gestor de finanzas personales offline-first para web. Cuentas, movimientos, presupuestos, metas e informes guardados en el dispositivo con IndexedDB; sin cuentas de usuario y sin nube; se sostiene con donaciones y un anuncio opcional al final de Informes. Hecho con React, TypeScript y PWA. La app está en https://bast.yeremisb.com/
 - [YERTV](https://yeremisb.com/yertv.html): reproductor IPTV web con estética Frutiger Aero; se le pega una lista .m3u o .m3u8 y reproduce el canal sin instalar nada. Desplegado en Cloudflare Workers y empaquetado para televisores webOS.
 - [Transcriptor de Manuscritos](https://yeremisb.com/transcriptor.html): aplicación de escritorio para Windows que convierte fotos de un manuscrito o un PDF escaneado en un Word ordenado, página por página. Licencia de S/ 250, pago único por equipo. La página técnica con el detalle de cómo funciona es [transcriptor-de-manuscritos.html](https://yeremisb.com/transcriptor-de-manuscritos.html).
 

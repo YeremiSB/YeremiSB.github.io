@@ -144,11 +144,47 @@
       animation: fadeIn 0.8s ease-out;
     }
 
-    .intro {
-      color: var(--muted);
-      max-width: 620px;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
+    /* Banner de cabecera: mismo patrón que Fotografía y Programación */
+    .hero {
+      position: relative;
+      width: 100%;
+      max-width: 1040px;
+      padding: 5rem 2rem;
+      border-radius: 12px;
+      overflow: hidden;
+      background: url('Fotos/Calle.webp') center 58%/cover no-repeat;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 45%, rgba(10, 14, 10, 0.55), transparent 68%),
+        radial-gradient(ellipse at 50% 120%, rgba(67, 209, 122, 0.22), transparent 62%),
+        linear-gradient(180deg, rgba(10, 14, 10, 0.6), rgba(10, 14, 10, 0.88));
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 7vw, 4.2rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero p {
+      max-width: 56ch;
+      margin: 1.25rem auto 0;
+      font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+      line-height: 1.7;
+      color: #e6ece6;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.75);
     }
 
     .portfolio-grid {
@@ -209,6 +245,7 @@
     }
 
     .destacados-bloque {
+      margin-top: 3rem;
       width: 100%;
       max-width: 1040px;
     }
@@ -245,8 +282,13 @@
   </header>
 
   <main>
-    <h1>PORTAFOLIO</h1>
-    <p class="intro">Tres frentes, un mismo impulso: contar cosas. Código, imagen y mirada.</p>
+    <div class="hero">
+      <h1>Portafolio</h1>
+      <p>
+        Tres frentes, un mismo impulso: contar cosas. Código, imagen y mirada.
+        Lo que he construido, lo que he fotografiado y lo que he filmado.
+      </p>
+    </div>
 
     <section class="destacados-bloque" aria-labelledby="destacados-titulo">
       <h2 class="titulo-seccion" id="destacados-titulo">Proyectos <span>destacados</span></h2>
